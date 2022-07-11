@@ -1,3 +1,11 @@
+#! /usr/bin/env python3
+
+'''
+This node communicates with the arduino.
+It subcribes to the button states and publishes the displayed text and the LED states.
+It also contains a state machine for the different motion settings
+'''
+
 import rospy
 from std_msgs.msg import String
 
