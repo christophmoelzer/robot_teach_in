@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 from pydoc import cli
 from unicodedata import digit
 import rospy

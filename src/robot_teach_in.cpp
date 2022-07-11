@@ -1,3 +1,17 @@
+/*
+#################################################################
+author: Christoph Mölzer
+email: christoph.moelzer@technikum-wien.at
+github: 
+#################################################################
+
+
+This node communicates with the arduino.
+It subcribes to the button states and publishes the displayed text and the LED states.
+It also contains a state machine for the different motion settings
+
+*/
+
 #include <ros/ros.h>
 #include <abb_libegm/egm_controller_interface.h>
 #include <signal.h>
@@ -15,6 +29,195 @@ volatile sig_atomic_t stop;
 void inthand(int signum){
   stop = 1;
 }
+
+class TON{
+  public:
+  ros::Duration et;
+  ros::Duration pt;
+  ros::Time now;
+  ros::Time start;
+  bool in;
+  bool q;
+  bool aux;
+
+  void init(){
+    et = ros::Duration(0);
+    pt = ros::Duration(0);
+    now = ros::Time::now();
+    start = ros::Time::now();
+    in = false;
+    q = false;
+    aux = false;
+  }
+
+  void run(){
+    now = ros::Time::now();
+    if (in == true && aux == false){
+      aux = true;
+      start = ros::Time::now();
+
+    }
+    et = now-start;
+    if (in == true && et >= pt){
+      q = true;
+    }
+    if (in == false){
+      aux = false;
+      q = false;
+    }
+  }
+
+  private:
+};
+
+class TeachTool
+{
+  public:
+
+  void init(){
+    step = 0;
+    entry = true;
+    timer.in = false;
+    timer.pt = ros::Duration(1);
+    timer.run();
+  }
+
+  int state_machine(){
+
+    switch (step)
+    {
+    case 0:   // Init
+      // Entry
+      if (entry == true){
+        entry = false;
+        ROS_INFO_STREAM("entry " << step);
+      }
+      // Cyclic
+      timer.in = true;
+      timer.pt = ros::Duration(1);
+
+      // Exit
+      if (timer.q == true){
+        timer.in = false;
+        entry = true;
+        step = 10;
+      }
+      break;
+    
+    case 20:  // IDLE
+      // Entry
+      if (entry == true){
+        entry = false;
+        ROS_INFO_STREAM("entry " << step);
+
+      }
+      // Cyclic
+      timer.in = true;
+      timer.pt = ros::Duration(1);
+
+      // Exit
+      if (timer.q == true){
+        timer.in = false;
+        entry = true;
+        step = 0;
+      }
+      break;
+
+    case 100:  // Translation
+      // Entry
+      if (entry == true){
+        entry = false;
+        ROS_INFO_STREAM("entry " << step);
+
+      }
+      // Cyclic
+      timer.in = true;
+      timer.pt = ros::Duration(1);
+
+      // Exit
+      if (timer.q == true){
+        timer.in = false;
+        entry = true;
+        step = 0;
+      }
+      break;
+    
+    case 200:  // Rotation
+      // Entry
+      if (entry == true){
+        entry = false;
+        ROS_INFO_STREAM("entry " << step);
+
+      }
+      // Cyclic
+      timer.in = true;
+      timer.pt = ros::Duration(1);
+
+      // Exit
+      if (timer.q == true){
+        timer.in = false;
+        entry = true;
+        step = 0;
+      }
+      break;
+    
+    case 300:  // Lead Through
+      // Entry
+      if (entry == true){
+        entry = false;
+        ROS_INFO_STREAM("entry " << step);
+
+      }
+      // Cyclic
+      timer.in = true;
+      timer.pt = ros::Duration(1);
+
+      // Exit
+      if (timer.q == true){
+        timer.in = false;
+        entry = true;
+        step = 0;
+      }
+      break;
+    
+    case 400:  // 
+      // Entry
+      if (entry == true){
+        entry = false;
+        ROS_INFO_STREAM("entry " << step);
+
+      }
+      // Cyclic
+      timer.in = true;
+      timer.pt = ros::Duration(1);
+
+      // Exit
+      if (timer.q == true){
+        timer.in = false;
+        entry = true;
+        step = 0;
+      }
+      break;
+    
+    
+
+    default:
+      break;
+    }
+
+    timer.run();
+
+    return step;
+  }
+
+
+  private:
+  int step;
+  bool entry;
+  TON timer;
+
+};
+
 class Debug_Info
 {
   public:
@@ -238,8 +441,12 @@ int main(int argc, char** argv)
   
 
   // Boost components for managing asynchronous UDP socket(s).
-  
-  
+  TeachTool tool;
+  tool.init();
+  while (!stop){
+    tool.state_machine();
+  }
+  return 0;
 
 ROS_INFO_STREAM(egm_interface.getStatus().rapid_execution_state());
   if(!egm_interface.isInitialized())
