@@ -18,6 +18,8 @@ It also contains a state machine for the different motion settings
 #include <stdio.h>
 #include <sensor_msgs/JointState.h>
 #include <geometry_msgs/Pose.h>
+#include <std_msgs/Bool.h>
+#include <std_msgs/Int16.h>
 
 
 boost::asio::io_service io_service;
@@ -100,7 +102,7 @@ class TeachTool
       if (timer.q == true){
         timer.in = false;
         entry = true;
-        step = 10;
+        step = 20;
       }
       break;
     
@@ -421,6 +423,10 @@ class EGM_Motion
 };
 
 
+void callback(const std_msgs::Int16::ConstPtr& msg){
+  ROS_INFO_STREAM("int: " << msg->data);
+}
+
 int main(int argc, char** argv)
 {
   //----------------------------------------------------------
@@ -429,6 +435,7 @@ int main(int argc, char** argv)
   // Initialize the node.
   ros::init(argc, argv, "pose_controller_node");
   ros::NodeHandle node_handle;
+  ros::Subscriber sub = node_handle.subscribe("myInt", 1000, callback);
 
   EGM_Motion robot;
   signal(SIGINT, inthand);
@@ -445,10 +452,10 @@ int main(int argc, char** argv)
   tool.init();
   while (!stop){
     tool.state_machine();
+    ros::spin();
   }
   return 0;
 
-ROS_INFO_STREAM(egm_interface.getStatus().rapid_execution_state());
   if(!egm_interface.isInitialized())
   {
     ROS_ERROR("EGM interface failed to initialize (e.g. due to port already bound)");
@@ -457,19 +464,7 @@ ROS_INFO_STREAM(egm_interface.getStatus().rapid_execution_state());
 
   // Spin up a thread to run the io_service.
   thread_group.create_thread(boost::bind(&boost::asio::io_service::run, &io_service));
-
-  
-
-  //----------------------------------------------------------
-  // Execute a pose controller loop.
-  //
-  // Note: The EGM communication session is started by the
-  //       EGMRunPose RAPID instruction.
-  //----------------------------------------------------------
-  ROS_INFO("========== Pose controller loop (open-loop) sample ==========");
   bool wait = true;
-  
-
   ROS_INFO("1: Wait for an EGM communication session to start...");
   while(ros::ok() && wait)
   {
@@ -487,7 +482,6 @@ ROS_INFO_STREAM(egm_interface.getStatus().rapid_execution_state());
 
     ros::Duration(0.5).sleep();
   }
-  ROS_INFO_STREAM(egm_interface.getStatus().rapid_execution_state());
 
   robot.init();
   wait = true;
@@ -509,14 +503,10 @@ ROS_INFO_STREAM(egm_interface.getStatus().rapid_execution_state());
       robot.step_ry(-45.0);
       ros::Duration(15).sleep();
     }
-
-    
     states_pub.publish(msg);
     //ros::Duration(0.5).sleep();
-    rate.sleep();
-    
+    rate.sleep();  
   } 
-  ROS_INFO_STREAM(egm_interface.getStatus().rapid_execution_state());
   // Perform a clean shutdown.
   io_service.stop();
   thread_group.join_all();

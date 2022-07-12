@@ -33,3 +33,6 @@ target_link_libraries(${PROJECT_NAME}_node abb_libegm::abb_libegm ${catkin_LIBRA
 
 add_executable(pose_controller_node src/pose_controller.cpp)
 target_link_libraries(pose_controller_node abb_libegm::abb_libegm ${catkin_LIBRARIES})
+
+add_executable(test_node src/test_node.cpp)
+target_link_libraries(test_node abb_libegm::abb_libegm ${catkin_LIBRARIES})
