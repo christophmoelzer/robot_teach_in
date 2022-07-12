@@ -19,7 +19,8 @@ It also contains a state machine for the different motion settings
 #include <sensor_msgs/JointState.h>
 #include <geometry_msgs/Pose.h>
 #include <std_msgs/Bool.h>
-#include <std_msgs/Int16.h>
+#include <std_msgs/String.h>
+#include <std_msgs/UInt32.h>
 
 
 boost::asio::io_service io_service;
@@ -423,7 +424,83 @@ class EGM_Motion
 };
 
 
-void callback(const std_msgs::Int16::ConstPtr& msg){
+class Display{
+  public:
+  ros::NodeHandle n;
+  std::string str_line_1;
+  std::string str_line_2;
+  std::string str_button_1;
+  std::string str_button_2;
+
+  ros::Publisher pub_line_1;
+  std_msgs::String line_1;
+
+  Display(ros::NodeHandle& _n){
+    n = _n;
+    pub_line_1 = n.advertise<std_msgs::String>("/display_line_1", 1);
+  }
+
+  void publish(){
+    line_1.data = "foo";
+    pub_line_1.publish(line_1);
+  }
+  
+};
+
+class Buttons{
+  public:
+  ros::NodeHandle n;
+  ros::Subscriber sub_buttons;
+  
+  Buttons(ros::NodeHandle& _n){
+    n=_n;
+  }
+
+  void converter(){
+    bool buttons[32] = {true,false,false,false,false, // group 1
+                        false,false,false,false,false, // group 2
+                        false,false,false,false,false, // group 3
+                        false,false,false,false,false, // group 4
+                        false,false,false,false,false,
+                        false,false,false,false,false,
+                        false, false};
+    int i=0;
+    uint32_t n=13;
+    int a[32];
+    uint32_t result=0;
+
+    for (i=0; i<sizeof(buttons); i++){
+        ROS_INFO_STREAM(buttons[31-i]);
+        if (buttons[31-i] == true){
+            result+=pow(2,i);
+        }
+    }
+
+    ROS_INFO_STREAM("result = " << result);
+    n=result;
+    for(i=0; n>0; i++)    
+    {    
+        a[i]=n%2;    
+        n= n/2;  
+    }    
+    ROS_INFO_STREAM("Binary of the given number= ");    
+    for(i=i-1 ;i>=0 ;i--)    
+    {    
+        ROS_INFO_STREAM(a[i]);    
+    }   
+}
+
+  void callback(const std_msgs::UInt32::ConstPtr& msg){
+    ;
+  }
+
+  void sub(){
+    sub_buttons = n.subscribe("/topic", 100, callback);
+  }
+
+};
+
+void callback(const std_msgs::UInt32::ConstPtr& msg){
   ROS_INFO_STREAM("int: " << msg->data);
 }
 
@@ -441,7 +518,13 @@ int main(int argc, char** argv)
   signal(SIGINT, inthand);
 
 
-  ros::Publisher states_pub = node_handle.advertise<geometry_msgs::Pose>("/pose_state", 1);
+  /*ros::Publisher states_pub = node_handle.advertise<geometry_msgs::Pose>("/pose_state", 1);
+  ros::Publisher led_color_pub = node_handle.advertise<std_msgs::String>("/led_color", 1);
+  ros::Publisher display_line_1_pub = node_handle.advertise<std_msgs::String>("/display_line_1", 1);
+  ros::Publisher display_line_2_pub = node_handle.advertise<std_msgs::String>("/display_line_2", 1);
+  ros::Publisher display_button_1_pub = node_handle.advertise<std_msgs::String>("/display_button_1", 1);
+  ros::Publisher display_button_2_pub = node_handle.advertise<std_msgs::String>("/display_button_2", 1);
+  */
   ros::Rate rate(250);
   //sensor_msgs::JointState msg;
   geometry_msgs::Pose msg;
@@ -449,10 +532,12 @@ int main(int argc, char** argv)
 
   // Boost components for managing asynchronous UDP socket(s).
   TeachTool tool;
+  Display disp(node_handle);
   tool.init();
   while (!stop){
     tool.state_machine();
-    ros::spin();
+    disp.publish();
+    rate.sleep();
   }
   return 0;
 
@@ -503,7 +588,7 @@ int main(int argc, char** argv)
       robot.step_ry(-45.0);
       ros::Duration(15).sleep();
     }
-    states_pub.publish(msg);
+    //states_pub.publish(msg);
     //ros::Duration(0.5).sleep();
     rate.sleep();  
   } 

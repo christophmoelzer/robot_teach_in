@@ -1,7 +1,6 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
-#include "std_msgs/Int16.h"
-#include "std_msgs/Int16MultiArray.h"
+#include "std_msgs/Int32.h"
 #include <cmath>
 #include <sstream>
 
@@ -10,16 +9,25 @@
  */
 
 
+// Button structure
+// front, left, right, top, bottom
+
 void converter(){
-    bool buttons[16] = {true,false,false,false,false,false,false,false,false,false,false,false,1,false,false,false,};
+    bool buttons[32] = {true,false,false,false,false, // group 1
+                        false,false,false,false,false, // group 2
+                        false,false,false,false,false, // group 3
+                        false,false,false,false,false, // group 4
+                        false,false,false,false,false,
+                        false,false,false,false,false,
+                        false, false};
     int i=0;
-    uint16_t n=13;
-    int a[16];
-    uint16_t result=0;
+    uint32_t n=13;
+    int a[32];
+    uint32_t result=0;
 
     for (i=0; i<sizeof(buttons); i++){
-        ROS_INFO_STREAM(buttons[15-i]);
-        if (buttons[15-i] == true){
+        ROS_INFO_STREAM(buttons[31-i]);
+        if (buttons[31-i] == true){
             result+=pow(2,i);
         }
     }
@@ -38,6 +46,13 @@ void converter(){
     }   
 }
 
+void callback_display(const std_msgs::String::ConstPtr& msg){
+  ROS_INFO_STREAM("int: " << msg->data.c_str());
+}
+
+// 20 Buttons -> publish
+// 4 RGB Leds -> subscribe
+// 1 Display -> subscribe
 
 int main(int argc, char **argv)
 {
@@ -45,7 +60,8 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "talker");
   ros::NodeHandle n;
 
-  ros::Publisher chatter_pub = n.advertise<std_msgs::Int16>("myInt", 1000);
+  ros::Publisher chatter_pub = n.advertise<std_msgs::Int32>("myInt", 1000);
+  ros::Subscriber sub = n.subscribe<std_msgs::String>("myDisplay",1000,callback_display);
 
   ros::Rate loop_rate(1);
 
@@ -58,8 +74,8 @@ int main(int argc, char **argv)
      * This is a message object. You stuff it with data, and then publish it.
      */
     
-    std::vector<int16_t> vec1 = {1, 2, 3};
-    std_msgs::Int16 msg;
+    std::vector<int32_t> vec1 = {1, 2, 3};
+    std_msgs::Int32 msg;
     
 
     std::stringstream ss;
