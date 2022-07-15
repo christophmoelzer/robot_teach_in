@@ -453,7 +453,8 @@ class Buttons{
   ros::Subscriber sub_buttons;
   
   Buttons(ros::NodeHandle& _n){
-    n=_n;
+    n = _n;
+    //sub_buttons = n.subscribe("/topic", 100, callback);
   }
 
   void converter(){
@@ -495,7 +496,7 @@ class Buttons{
   }
 
   void sub(){
-    sub_buttons = n.subscribe("/topic", 100, callback);
+    ;//sub_buttons = n.subscribe("/topic", 100, callback);
   }
 
 };
