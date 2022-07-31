@@ -1,8 +1,14 @@
+/*
+Author: Christoph Moelzer
+Mail: christoph.moelzer@outlook.com
+*/
+
 #include <SPI.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <ButtonDebounce.h>
+
 
 #define nav_left 7
 #define nav_right 6
@@ -42,112 +48,140 @@ public:
       aux = false;
       q = false;
     }
-  }
-  
+  }  
+private:
+};
+
+class Button{
+public:
+ButtonDebounce db;
+bool pressed;
+int debounce_time;
+Button(){
+  ;
+}
+Button(int pin){
+  debounce_time = 50;
+  pressed = false;
+  db = ButtonDebounce(pin, debounce_time);
+}
+
 private:
 };
 
 
-
-
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
-
-int col_width = 42;
-int cursor_position = 0;
-float increment = 0.1;
-int velocity = 50;
-bool mode_lin = true;
-bool mode_rot = false;
-
-Timer ton;
-int state=0;
-bool entry = true;
-
-bool nav_left_pressed = false;
-bool nav_right_pressed = false;
-bool nav_up_pressed = false;
-bool nav_down_pressed = false;
-bool nav_center_pressed = false;
-bool nav_abort_pressed = false;
-bool nav_enter_pressed = false;
-
-int debounce_time = 50;
-ButtonDebounce btn_nav_left(nav_left, debounce_time);
-ButtonDebounce btn_nav_right(nav_right, debounce_time);
-ButtonDebounce btn_nav_up(nav_up, debounce_time);
-ButtonDebounce btn_nav_down(nav_down, debounce_time);
-ButtonDebounce btn_nav_center(nav_center, debounce_time);
-ButtonDebounce btn_nav_abort(nav_abort, debounce_time);
-ButtonDebounce btn_nav_enter(nav_enter, debounce_time);
-  
-
-
-void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(9600);
-  pinMode(led_onboard, OUTPUT);
-  
-  Serial.println("INIT");
-
-  if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
-    Serial.println(F("SSD1306 allocation failed"));
-    for(;;); // Don't proceed, loop forever
+class LED{
+  public:
+  int _pin_r;
+  int _pin_g;
+  int _pin_b;
+  LED(){
+    ;
   }
+  LED(int pin_r, int pin_g, int pin_b){
+    _pin_r = pin_r;
+    _pin_g = pin_g;
+    _pin_b = pin_b;
+    pinMode(_pin_r, OUTPUT);
+    pinMode(_pin_g, OUTPUT);
+    pinMode(_pin_b, OUTPUT);
+  }
+
+  void red(){
+    digitalWrite(_pin_r, HIGH);
+    digitalWrite(_pin_g, LOW);
+    digitalWrite(_pin_b, LOW);
+  }
+
+  void green(){
+    digitalWrite(_pin_r, LOW);
+    digitalWrite(_pin_g, HIGH);
+    digitalWrite(_pin_b, LOW);
+  }
+
+  void blue(){
+    digitalWrite(_pin_r, LOW);
+    digitalWrite(_pin_g, LOW);
+    digitalWrite(_pin_b, HIGH);
+  }
+
+  void white(){
+    digitalWrite(_pin_r, HIGH);
+    digitalWrite(_pin_g, HIGH);
+    digitalWrite(_pin_b, HIGH);
+  }
+
   
-  display.display();
-  display.clearDisplay();
-  update_display(1);
+
+  private:
+};
+
+class AnalogLED{
+  public:
+  void set(int val){
+    analogWrite(26, 50);
+  }
+  private:
+
+};
+
+class GUI{
+public:
+Adafruit_SSD1306 display;
+Button btn_nav_left;
+Button btn_nav_right;
+Button btn_nav_up;
+Button btn_nav_down;
+Button btn_nav_center;
+Button btn_nav_abort;
+Button btn_nav_enter;
+LED led_1, led_2, led_3, led_4;
+AnalogLED led;
+int cursor_position;
+int col_width;
+float increment;
+int velocity ;
+bool mode_lin;
+bool mode_rot;
+
+GUI(){
+  display = Adafruit_SSD1306(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+  btn_nav_left = Button(nav_left);
+  btn_nav_right = Button(nav_right);
+  btn_nav_up = Button(nav_up);
+  btn_nav_down = Button(nav_down);
+  btn_nav_center = Button(nav_center);
+  btn_nav_abort = Button(nav_abort);
+  btn_nav_enter = Button(nav_enter);
+  led_1 = LED(22, 24, 26);
+  led_2 = LED(28, 30, 32);
+  led_3 = LED(34, 36, 38);
+  led_4 = LED(40, 42, 44);
+  /*led_1.green();
+  led_2.red();
+  led_3.red();
+  led_4.blue();*/
+  cursor_position = 0;
+  col_width = 42;
+  increment = 0.1;
+  velocity = 50;
+  mode_lin = true;
+  mode_rot = false;
   
 }
 
-void loop() {
-  btn_nav_left.update();
-  btn_nav_right.update();
-  btn_nav_up.update();
-  btn_nav_down.update();
-  btn_nav_center.update();
-  btn_nav_abort.update();
-  btn_nav_enter.update();
-  
+void update_buttons(){
+  btn_nav_left.db.update();
+  btn_nav_right.db.update();
+  btn_nav_up.db.update();
+  btn_nav_down.db.update();
+  btn_nav_center.db.update();
+  btn_nav_abort.db.update();
+  btn_nav_enter.db.update();
 
-  switch (state){
-    case 0:
-    if (entry == true){
-      entry = false; 
-      draw_info_line(true);
-    }
-    ton.in = true;
-    ton.pt = 400;
-    
-    
-    if (ton.q == true){
-      ton.in = false;
-      state = 1;
-      entry = true;
-    }
-    break;
 
-    case 1:
-    if (entry == true){
-      entry = false;
-      draw_info_line(false);
-    }
-    ton.in = true;
-    ton.pt = 120;
-
-    if (ton.q == true){
-      ton.in = false;
-      state = 0;
-      entry = true;
-    }
-    break;
-  }
-  ton.run();
-  
-  
-  // put your main code here, to run repeatedly:
-  if ((btn_nav_left.state() == HIGH) and (nav_left_pressed == false)){
-    nav_left_pressed = true;
+    if ((btn_nav_left.db.state() == HIGH) and (btn_nav_left.pressed == false)){
+    btn_nav_left.pressed = true;
     display.clearDisplay();
     switch (cursor_position){
       case 0:
@@ -179,11 +213,11 @@ void loop() {
     }
     
   }
-  else if (btn_nav_left.state() == LOW){
-    nav_left_pressed = false;
+  else if (btn_nav_left.db.state() == LOW){
+    btn_nav_left.pressed = false;
   }
-  if ((btn_nav_right.state() == HIGH) and (nav_right_pressed == false)){
-    nav_right_pressed = true;
+  if ((btn_nav_right.db.state() == HIGH) and (btn_nav_right.pressed == false)){
+    btn_nav_right.pressed = true;
     display.clearDisplay();
     switch (cursor_position){
       case 0:
@@ -214,11 +248,11 @@ void loop() {
       break;
     }
   }
-  else if (btn_nav_right.state() == LOW){
-    nav_right_pressed = false;
+  else if (btn_nav_right.db.state() == LOW){
+    btn_nav_right.pressed = false;
   }
-  if ((btn_nav_up.state() == HIGH) and (nav_up_pressed == false)){
-    nav_up_pressed = true;
+  if ((btn_nav_up.db.state() == HIGH) and (btn_nav_up.pressed == false)){
+    btn_nav_up.pressed = true;
     Serial.println("up");
     if (cursor_position > 0){
       cursor_position--;
@@ -227,11 +261,11 @@ void loop() {
       cursor_position=0;
     }
   }
-  else if (btn_nav_up.state() == LOW){
-    nav_up_pressed = false;
+  else if (btn_nav_up.db.state() == LOW){
+    btn_nav_up.pressed = false;
   }
-  if ((btn_nav_down.state() == HIGH) and (nav_down_pressed == false)){
-    nav_down_pressed = true;
+  if ((btn_nav_down.db.state() == HIGH) and (btn_nav_down.pressed == false)){
+    btn_nav_down.pressed = true;
     Serial.println("down");
     if (cursor_position < 2){
       cursor_position++;
@@ -240,31 +274,30 @@ void loop() {
       cursor_position=2;
     }
   }
-  else if (btn_nav_down.state() == LOW){
-    nav_down_pressed = false;
+  else if (btn_nav_down.db.state() == LOW){
+    btn_nav_down.pressed = false;
   }
-  if ((btn_nav_center.state() == HIGH) and (nav_center_pressed == false)){
-    nav_center_pressed = true;
+  if ((btn_nav_center.db.state() == HIGH) and (btn_nav_center.pressed == false)){
+    btn_nav_center.pressed = true;
     ;
   }
-  else if (btn_nav_center.state() == LOW){
-    nav_center_pressed = false;
+  else if (btn_nav_center.db.state() == LOW){
+    btn_nav_center.pressed = false;
   }
-  if ((btn_nav_abort.state() == HIGH) and (nav_abort_pressed == false)){
-    nav_abort_pressed = true;
+  if ((btn_nav_abort.db.state() == HIGH) and (btn_nav_abort.pressed == false)){
+    btn_nav_abort.pressed = true;
     ;
   }
-  else if (btn_nav_abort.state() == LOW){
-    nav_abort_pressed = false;
+  else if (btn_nav_abort.db.state() == LOW){
+    btn_nav_abort.pressed = false;
   }
-  if ((btn_nav_enter.state() == HIGH) and (nav_enter_pressed == false)){
-    nav_enter_pressed = true;
+  if ((btn_nav_enter.db.state() == HIGH) and (btn_nav_enter.pressed == false)){
+    btn_nav_enter.pressed = true;
     ;
   }
-  else if (btn_nav_enter.state() == LOW){
-    nav_enter_pressed = false;
+  else if (btn_nav_enter.db.state() == LOW){
+    btn_nav_enter.pressed = false;
   }
-  
 }
 
 void draw_lines(void){
@@ -279,81 +312,153 @@ void draw_lines(void){
   
 }
 
-void draw_background(bool invert){
-  int gap = display.height()/3;
-  static bool bg_black[3] = {false, false, false};
-  if (invert == true){
-    display.fillRect(2, (cursor_position*gap)+2, col_width-3, gap-3, SSD1306_WHITE);
-    display.fillRect(col_width+2, (cursor_position*gap)+2, display.width()-col_width-4, gap-3, SSD1306_WHITE);
-    bg_black[cursor_position] = false;
+  void draw_background(bool invert){
+    int gap = display.height()/3;
+    static bool bg_black[3] = {false, false, false};
+    if (invert == true){
+      display.fillRect(2, (cursor_position*gap)+2, col_width-3, gap-3, SSD1306_WHITE);
+      display.fillRect(col_width+2, (cursor_position*gap)+2, display.width()-col_width-4, gap-3, SSD1306_WHITE);
+      bg_black[cursor_position] = false;
+    }
+    else{
+      if (bg_black[0] == false){
+        bg_black[0] = true;
+        display.fillRect(2, (0*gap)+2, col_width-3, gap-3, SSD1306_BLACK);
+        display.fillRect(col_width+2, (0*gap)+2, display.width()-col_width-4, gap-3, SSD1306_BLACK);
+      }
+      if (bg_black[1] == false){
+        bg_black[1] = true;
+        display.fillRect(2, (1*gap)+2, col_width-3, gap-3, SSD1306_BLACK);
+        display.fillRect(col_width+2, (1*gap)+2, display.width()-col_width-4, gap-3, SSD1306_BLACK);
+      }
+      if (bg_black[2] == false){
+        bg_black[2] = true;
+        display.fillRect(2, (2*gap)+2, col_width-3, gap-3, SSD1306_BLACK);
+        display.fillRect(col_width+2, (2*gap)+2, display.width()-col_width-4, gap-3, SSD1306_BLACK);
+      }
+    }
+    //display.display();
   }
-  else{
-    if (bg_black[0] == false){
-      bg_black[0] = true;
-      display.fillRect(2, (0*gap)+2, col_width-3, gap-3, SSD1306_BLACK);
-      display.fillRect(col_width+2, (0*gap)+2, display.width()-col_width-4, gap-3, SSD1306_BLACK);
-    }
-    if (bg_black[1] == false){
-      bg_black[1] = true;
-      display.fillRect(2, (1*gap)+2, col_width-3, gap-3, SSD1306_BLACK);
-      display.fillRect(col_width+2, (1*gap)+2, display.width()-col_width-4, gap-3, SSD1306_BLACK);
-    }
-    if (bg_black[2] == false){
-      bg_black[2] = true;
-      display.fillRect(2, (2*gap)+2, col_width-3, gap-3, SSD1306_BLACK);
-      display.fillRect(col_width+2, (2*gap)+2, display.width()-col_width-4, gap-3, SSD1306_BLACK);
-    }
-  }
-  //display.display();
-}
 
-void draw_info_line(bool invert){
-  String label[3] = {"MOD", "VEL", "INC"};
-  String values[3] = {"LIN", "50mm/s", "0.5mm"};
-  if ((mode_lin == true) and (mode_rot == false)){
-    values[0] = "LIN";
-  }
-  else if ((mode_lin == false) and (mode_rot == true)){
-    values[0] = "ROT";
-  }
-  values[1] = String(velocity);
-  values[2] = String(increment);
-  int gap = display.height()/3;
-  display.setTextSize(2);             // Normal 1:1 pixel scale
-  
-  draw_background(invert);
-  draw_lines();
-  
-  for (int i=0; i<3; i++){
-    if (i == cursor_position){
-      if (invert == true){
-        display.setTextColor(SSD1306_BLACK);
+  void draw_info_line(bool invert){
+    String label[3] = {"MOD", "VEL", "INC"};
+    String values[3] = {"LIN", "50mm/s", "0.5mm"};
+    if ((mode_lin == true) and (mode_rot == false)){
+      values[0] = "LIN";
+      led_1.white();
+    }
+    else if ((mode_lin == false) and (mode_rot == true)){
+      values[0] = "ROT";
+      led_1.blue();
+    }
+    values[1] = String(velocity);
+    values[2] = String(increment);
+    int gap = display.height()/3;
+    display.setTextSize(2);             // Normal 1:1 pixel scale
+    
+    draw_background(invert);
+    draw_lines();
+    
+    for (int i=0; i<3; i++){
+      if (i == cursor_position){
+        if (invert == true){
+          display.setTextColor(SSD1306_BLACK);
+        }
+        else{
+          display.setTextColor(SSD1306_WHITE);
+        }
       }
       else{
         display.setTextColor(SSD1306_WHITE);
       }
+      display.setCursor(4,gap*i+4);
+      display.println(label[i]);
+      display.setCursor(5+col_width,gap*i+4);
+      display.println(values[i]);
+      display.display();
     }
-    else{
-      display.setTextColor(SSD1306_WHITE);
-    }
-    display.setCursor(4,gap*i+4);
-    display.println(label[i]);
-    display.setCursor(5+col_width,gap*i+4);
-    display.println(values[i]);
+    
+    
+  }
+
+  void draw_menu(void) {
+    int gap = display.height()/3;
+    display.clearDisplay();
+    draw_lines();
+    draw_info_line(true);
     display.display();
   }
+
+  void update_display(int x){
+    draw_menu();
+  }
+
+
+private:
+};
+
+GUI gui;
+Timer ton;
+
+int state=0;
+bool entry = true;
+
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  pinMode(led_onboard, OUTPUT);
   
-   
+  
+  Serial.println("INIT");
+  
+  if(!gui.display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
+    Serial.println(F("SSD1306 allocation failed"));
+    for(;;); // Don't proceed, loop forever
+  }
+  
+  gui.display.display();
+  gui.display.clearDisplay();
+  gui.update_display(1);
+  
 }
 
-void draw_menu(void) {
-  int gap = display.height()/3;
-  display.clearDisplay();
-  draw_lines();
-  draw_info_line(true);
-  display.display();
+void loop() {
+  gui.update_buttons();
+  
+  switch (state){
+    case 0:
+    if (entry == true){
+      entry = false; 
+      gui.draw_info_line(true);
+    }
+    ton.in = true;
+    ton.pt = 400;
+    
+    
+    if (ton.q == true){
+      ton.in = false;
+      state = 1;
+      entry = true;
+    }
+    break;
+
+    case 1:
+    if (entry == true){
+      entry = false;
+      gui.draw_info_line(false);
+    }
+    ton.in = true;
+    ton.pt = 120;
+
+    if (ton.q == true){
+      ton.in = false;
+      state = 0;
+      entry = true;
+    }
+    break;
+  }
+  ton.run();
+  
 }
 
-void update_display(int x){
-  draw_menu();
-}
