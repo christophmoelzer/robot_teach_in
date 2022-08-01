@@ -313,10 +313,23 @@ void upt_encoder(){
     display.setTextSize(2);
     display.setTextColor(SSD1306_WHITE);
     display.setCursor(0, 0);
-    display.println(new_value);
+    display.println((new_value*360)/624);
+    calc_arrow(new_value*2*PI/624);
     display.display();
     pos_encoder = new_value;
   }
+  
+}
+
+void calc_arrow(float angle){
+  int length = 31;
+
+  Point start(128/2, 64/2);
+  Point vector(length*cos(-angle), length*sin(-angle));
+  Point end(start.x+vector.x, start.y+vector.y);
+  Line line(start,end);  
+  display.drawLine(line.start.x, line.start.y, line.end.x, line.end.y, SSD1306_WHITE);
+  display.drawLine(line.start.x, line.start.y-1, line.end.x, line.end.y-1, SSD1306_WHITE);
   
 }
 
