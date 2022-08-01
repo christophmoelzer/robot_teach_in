@@ -5,10 +5,9 @@ Mail: christoph.moelzer@outlook.com
 
 #include <SPI.h>
 #include <Wire.h>
-#include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <ButtonDebounce.h>
-
+#include <Encoder.h>
 
 #define nav_left 7
 #define nav_right 6
@@ -23,6 +22,9 @@ Mail: christoph.moelzer@outlook.com
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
 #define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
 #define SCREEN_ADDRESS 0x3C ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
+
+
+Encoder encoder(2,3);
 
 class Timer{
 public:
@@ -50,6 +52,17 @@ public:
     }
   }  
 private:
+};
+
+class WaitMs{
+  public:
+
+  void ms(int ms){
+    for (int i=0; i < ms; i++){
+      delayMicroseconds(1000);
+    }
+  }
+  private:
 };
 
 class Button{
@@ -221,6 +234,9 @@ float increment;
 int velocity ;
 bool mode_lin;
 bool mode_rot;
+WaitMs wait;
+
+long pos_encoder;
 
 GUI(){
    
@@ -235,14 +251,41 @@ GUI(){
   led_2 = LED(28, 30, 32);
   led_3 = LED(34, 36, 38);
   led_4 = LED(40, 42, 44);
+  led_1.red();
+  led_2.red();
+  led_3.red();
+  led_4.red();
+  wait.ms(100);
+  led_1.green();
+  led_2.green();
+  led_3.green();
+  led_4.green();
+  wait.ms(100);
+  led_1.blue();
+  led_2.blue();
+  led_3.blue();
+  led_4.blue();
+  wait.ms(100);
+  led_1.white();
+  led_2.white();
+  led_3.white();
+  led_4.white();
+  wait.ms(100);
+  led_1.black();
+  led_2.black();
+  led_3.black();
+  led_4.black();
 
+}
+
+void init(){
   display = Adafruit_SSD1306(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
   if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
     led_1.red();
     for(;;); // Don't proceed, loop forever
   }
-  led_1.green();
+  led_1.black();
 
   display.clearDisplay();
   display.setTextSize(2);
@@ -257,8 +300,26 @@ GUI(){
   velocity = 50;
   mode_lin = true;
   mode_rot = false;
+  pos_encoder = -999;
   
 }
+
+void upt_encoder(){
+  long new_value;
+  new_value = encoder.read();
+  if (new_value != pos_encoder){
+    Serial.println(new_value);
+    display.clearDisplay();
+    display.setTextSize(2);
+    display.setTextColor(SSD1306_WHITE);
+    display.setCursor(0, 0);
+    display.println(new_value);
+    display.display();
+    pos_encoder = new_value;
+  }
+  
+}
+
 
 void update_buttons(){
   btn_nav_left.db.update();
@@ -271,6 +332,7 @@ void update_buttons(){
 
   if ((btn_nav_left.db.state() == LOW) and (btn_nav_left.pressed == false)){
     btn_nav_left.pressed = true;
+    led_3.white();
     switch (cursor_position){
       case 0:
         if (mode_lin == false){
@@ -302,11 +364,13 @@ void update_buttons(){
   }
   else if (btn_nav_left.db.state() == HIGH){
     btn_nav_left.pressed = false;
+    led_3.black();
   }
 
 
   if ((btn_nav_right.db.state() == LOW) and (btn_nav_right.pressed == false)){
     btn_nav_right.pressed = true;
+    led_2.white();
     switch (cursor_position){
       case 0:
         if (mode_lin == false){
@@ -338,11 +402,13 @@ void update_buttons(){
   }
   else if (btn_nav_right.db.state() == HIGH){
     btn_nav_right.pressed = false;
+    led_2.black();
   }
 
 
   if ((btn_nav_up.db.state() == LOW) and (btn_nav_up.pressed == false)){
     btn_nav_up.pressed = true;
+    led_4.white();
     if (cursor_position > 0){
       cursor_position--;
     }
@@ -352,11 +418,13 @@ void update_buttons(){
   }
   else if (btn_nav_up.db.state() == HIGH){
     btn_nav_up.pressed = false;
+    led_4.black();
   }
 
 
   if ((btn_nav_down.db.state() == LOW) and (btn_nav_down.pressed == false)){
     btn_nav_down.pressed = true;
+    led_1.white();
     if (cursor_position < 2){
       cursor_position++;
     }
@@ -366,6 +434,7 @@ void update_buttons(){
   }
   else if (btn_nav_down.db.state() == HIGH){
     btn_nav_down.pressed = false;
+    led_1.black();
   }
 
 
@@ -486,11 +555,12 @@ private:
 GUI gui;
 
 void setup() {
-  ;
+  Serial.begin(9600);
+  gui.init();
 }
 
 void loop() {
- ;//gui.update_buttons();
+  gui.upt_encoder();
+ gui.update_buttons();
   //gui.show_content();  
 }
-
