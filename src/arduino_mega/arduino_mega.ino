@@ -8,6 +8,8 @@ Mail: christoph.moelzer@outlook.com
 #include <Adafruit_SSD1306.h>
 #include <ButtonDebounce.h>
 #include <Encoder.h>
+#include <ros.h>
+#include <std_msgs/Bool.h>
 
 #define nav_left 7
 #define nav_right 6
@@ -70,6 +72,7 @@ public:
 ButtonDebounce db;
 bool pressed;
 int debounce_time;
+String label;
 Button(){
   ;
 }
@@ -77,6 +80,27 @@ Button(int pin){
   debounce_time = 50;
   pressed = false;
   db = ButtonDebounce(pin, debounce_time);
+}
+
+Button(int pin, int dbt, String lb){
+  label = lb;
+  debounce_time = dbt;
+  pressed = false;
+  db = ButtonDebounce(pin, debounce_time);
+}
+
+
+bool update(){
+  db.update();
+  return state();
+}
+
+bool state(){
+  bool state = db.state();
+  if (state == LOW){
+    Serial.println(label);
+  }
+  return state;
 }
 
 private:
@@ -216,6 +240,107 @@ private:
 
 };
 
+class Motion{
+  public:
+  Button btn_grp_1_y_negative;
+  Button btn_grp_1_z_negative;
+  Button btn_grp_1_z_positive;
+  Button btn_grp_1_x_negative;
+  Button btn_grp_1_x_positive;
+  
+  Button btn_grp_2_x_positive;
+  Button btn_grp_2_z_negative;
+  Button btn_grp_2_z_positive;
+  Button btn_grp_2_y_negative;
+  Button btn_grp_2_y_positive;
+  
+  Button btn_grp_3_y_positive;
+  Button btn_grp_3_z_negative;
+  Button btn_grp_3_z_positive;
+  Button btn_grp_3_x_negative;
+  Button btn_grp_3_y_negative;
+  
+  Button btn_grp_4_x_positive;
+  Button btn_grp_4_z_negative;
+  Button btn_grp_4_z_positive;
+  Button btn_grp_4_x_negative;
+  Button btn_grp_4_y_positive;
+
+  Motion(){
+    btn_grp_1_x_negative = Button(52);
+    btn_grp_1_x_positive = Button(48);
+    btn_grp_1_y_negative = Button(46);
+    btn_grp_1_z_negative = Button(53);
+    btn_grp_1_z_positive = Button(50);
+
+    btn_grp_2_x_positive = Button(51);
+    btn_grp_2_y_negative = Button(45);
+    btn_grp_2_y_positive = Button(49);
+    btn_grp_2_z_negative = Button(43);
+    btn_grp_2_z_positive = Button(47);
+
+    btn_grp_3_x_negative = Button(41);
+    btn_grp_3_y_negative = Button(39);
+    btn_grp_3_y_positive = Button(35);
+    btn_grp_3_z_negative = Button(33);
+    btn_grp_3_z_positive = Button(37);
+
+    btn_grp_4_x_positive = Button(25);
+    btn_grp_4_x_negative = Button(29);
+    btn_grp_4_y_positive = Button(31);
+    btn_grp_4_z_negative = Button(23);
+    btn_grp_4_z_positive = Button(27);
+
+  }
+
+  void update_buttons(){
+    btn_grp_4_x_negative.db.update();
+    if (btn_grp_4_x_negative.db.state() == LOW){
+      Serial.println("g4xn pressed");
+    }
+    else{
+      Serial.println("g4xn released");
+    }
+
+    btn_grp_4_x_positive.db.update();
+    if (btn_grp_4_x_positive.db.state() == LOW){
+      Serial.println("g4xp pressed");
+    }
+    else{
+      Serial.println("g4xp released");
+    }
+
+    btn_grp_4_y_positive.db.update();
+    if (btn_grp_4_y_positive.db.state() == LOW){
+      Serial.println("g4yp pressed");
+    }
+    else{
+      Serial.println("g4yp released");
+    }
+
+    btn_grp_4_z_negative.db.update();
+    if (btn_grp_4_z_negative.db.state() == LOW){
+      Serial.println("g4zn pressed");
+    }
+    else{
+      Serial.println("g4zn released");
+    }
+
+    btn_grp_4_z_positive.db.update();
+    if (btn_grp_4_z_positive.db.state() == LOW){
+      Serial.println("g4zp pressed");
+    }
+    else{
+      Serial.println("g4zp released");
+    }
+
+    
+  }
+  
+
+  private:
+};
+
 class GUI{
 public:
 Adafruit_SSD1306 display;
@@ -325,7 +450,7 @@ void calc_arrow(float angle){
   int length = 31;
 
   Point start(128/2, 64/2);
-  Point vector(length*cos(-angle), length*sin(-angle));
+  Point vector(length*cos(angle), length*sin(angle));
   Point end(start.x+vector.x, start.y+vector.y);
   Line line(start,end);  
   display.drawLine(line.start.x, line.start.y, line.end.x, line.end.y, SSD1306_WHITE);
@@ -566,14 +691,65 @@ private:
 };
 
 GUI gui;
+//Motion mbtns;
+
+  Button btn1(23, 500, "btn1 - 23");
+  Button btn2(25, 500, "btn2 - 25");
+  Button btn3(27, 500, "btn3 - 27");
+  Button btn4(29, 500, "btn4 - 29");
+  Button btn5(31, 500, "btn5 - 31");
+
+
+//ros::NodeHandle nh;
+//std_msgs::Bool pushed_msg;
+//ros::Publisher pub_button("pushed", &pushed_msg);
+
+bool last_reading;
+long last_debounce_time=0;
+long debounce_delay=50;
+bool published = true;
 
 void setup() {
   Serial.begin(9600);
-  gui.init();
+  gui.init();  
+  //nh.initNode();
+  //nh.advertise(pub_button);
+
+  //last_reading =! btn5.update();
+
 }
 
+
+
+
+
 void loop() {
+  //mbtns.update_buttons();
   gui.upt_encoder();
- gui.update_buttons();
+ //gui.update_buttons();
   //gui.show_content();  
+
+  btn1.update();
+  btn2.update();
+  btn3.update();
+  btn4.update();
+  btn5.update();
+
+  /*bool reading =! btn5.update();
+
+  if(last_reading != reading){
+    last_debounce_time = millis();
+    published = false;
+  }
+
+  if (!published && (millis() - last_debounce_time) > debounce_delay){
+    pushed_msg.data = reading;
+    pub_button.publish(&pushed_msg);
+    published = true;
+  }
+
+  last_reading = reading;
+
+  nh.spinOnce();
+*/
 }
