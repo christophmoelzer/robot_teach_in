@@ -3,6 +3,10 @@ Author: Christoph Moelzer
 Mail: christoph.moelzer@outlook.com
 */
 
+// rosrun rosserial_arduino serial_node.py /dev/ttyACM1 oder ttyACM0
+
+
+
 #include <SPI.h>
 #include <Wire.h>
 #include <Adafruit_SSD1306.h>
@@ -98,7 +102,7 @@ bool update(){
 bool state(){
   bool state = db.state();
   if (state == LOW){
-    Serial.println(label);
+    ;//Serial.println(label);
   }
   return state;
 }
@@ -433,7 +437,7 @@ void upt_encoder(){
   long new_value;
   new_value = encoder.read();
   if (new_value != pos_encoder){
-    Serial.println(new_value);
+    //Serial.println(new_value);
     display.clearDisplay();
     display.setTextSize(2);
     display.setTextColor(SSD1306_WHITE);
@@ -700,9 +704,9 @@ GUI gui;
   Button btn5(31, 500, "btn5 - 31");
 
 
-//ros::NodeHandle nh;
-//std_msgs::Bool pushed_msg;
-//ros::Publisher pub_button("pushed", &pushed_msg);
+ros::NodeHandle nh;
+std_msgs::Bool pushed_msg;
+ros::Publisher pub_button("pushed", &pushed_msg);
 
 bool last_reading;
 long last_debounce_time=0;
@@ -710,12 +714,11 @@ long debounce_delay=50;
 bool published = true;
 
 void setup() {
-  Serial.begin(9600);
+  //Serial.begin(9600);
   gui.init();  
-  //nh.initNode();
-  //nh.advertise(pub_button);
-
-  //last_reading =! btn5.update();
+  nh.initNode();
+  nh.advertise(pub_button);
+  last_reading =! btn5.update();
 
 }
 
@@ -729,13 +732,13 @@ void loop() {
  //gui.update_buttons();
   //gui.show_content();  
 
-  btn1.update();
-  btn2.update();
-  btn3.update();
-  btn4.update();
-  btn5.update();
+  //btn1.update();
+  //btn2.update();
+  //btn3.update();
+  //btn4.update();
+  //btn5.update();
 
-  /*bool reading =! btn5.update();
+  bool reading =! btn5.update();
 
   if(last_reading != reading){
     last_debounce_time = millis();
@@ -751,5 +754,7 @@ void loop() {
   last_reading = reading;
 
   nh.spinOnce();
-*/
+
 }
+
+
