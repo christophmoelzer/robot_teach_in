@@ -21,11 +21,20 @@ It also contains a state machine for the different motion settings
 #include <std_msgs/Bool.h>
 #include <std_msgs/String.h>
 #include <std_msgs/UInt32.h>
+#include <std_msgs/UInt16.h>
+#include <std_msgs/Float32.h>
 
 
 boost::asio::io_service io_service;
 boost::thread_group thread_group;
 abb::egm::EGMControllerInterface egm_interface(io_service, 6515);
+
+bool button_x_n = false;
+bool button_x_p = false;
+bool button_y_n = false;
+bool button_y_p = false;
+bool button_z_n = false;
+bool button_z_p = false;
 
 volatile sig_atomic_t stop;
 
@@ -295,14 +304,14 @@ class EGM_Motion
         current_pose.CopyFrom(input.feedback().robot().cartesian().pose());
         output.mutable_robot()->mutable_cartesian()->mutable_pose()->CopyFrom(current_pose);
         
-        std::system("clear");
+        /*std::system("clear");
         ROS_INFO_STREAM("x: " << current_pose.position().x());
         ROS_INFO_STREAM("y: " << current_pose.position().y());
         ROS_INFO_STREAM("z: " << current_pose.position().z());
         ROS_INFO_STREAM("rx: " << current_pose.euler().x());
         ROS_INFO_STREAM("ry: " << current_pose.euler().y());
         ROS_INFO_STREAM("rz: " << current_pose.euler().z());
-        std::cout << std::endl;
+        std::cout << std::endl;*/
     }
 
     void get_destination_pose(){
@@ -447,6 +456,193 @@ class Display{
   
 };
 
+class Communication{
+    public:
+    ros::NodeHandle n;
+    ros::Publisher pub_1, pub_2, pub_3, pub_4, pub_5, pub_6 ;
+    ros::Subscriber sub_1, sub_2, sub_3, sub_4, sub_5, sub_6;
+    std_msgs::String msg_1, msg_2, msg_3, msg_4, msg_5;
+    std_msgs::Bool msg_6;
+    std::vector<std::string> button_names_translation,  button_names_rotation;
+    std::vector<bool> button_values;
+
+    Communication(){
+        ROS_INFO_STREAM("Init communication");
+        pub_1 = n.advertise<std_msgs::String>("/text_line_1", 1);
+        pub_2 = n.advertise<std_msgs::String>("/text_line_2", 1);
+        pub_3 = n.advertise<std_msgs::String>("/text_button_left", 1);
+        pub_4 = n.advertise<std_msgs::String>("/text_button_right", 1);
+        pub_5 = n.advertise<std_msgs::String>("/text_button_center", 1);
+        pub_6 = n.advertise<std_msgs::Bool>("/life_sign_to_mcu", 1);
+
+        sub_1 = n.subscribe("/pushed", 100, &Communication::callback_1, this);
+        sub_2 = n.subscribe("theta", 100, &Communication::callback_2, this);
+        sub_3 = n.subscribe("speed", 100, &Communication::callback_3, this);
+        sub_4 = n.subscribe("life_sign_from_mcu", 100, &Communication::callback_4, this);
+    }
+
+    void init_buttons(){
+
+      // Translation
+      button_names_translation.clear();
+      // x-axis +
+      button_names_translation.push_back("z-");
+      button_names_translation.push_back("z+");
+      button_names_translation.push_back("y+");
+      button_names_translation.push_back("y-");
+      button_names_translation.push_back("x-");
+
+      // x-axis -
+      button_names_translation.push_back("z-");
+      button_names_translation.push_back("z+");
+      button_names_translation.push_back("y-");
+      button_names_translation.push_back("y+");
+      button_names_translation.push_back("x+");
+
+      // y-axis +
+      button_names_translation.push_back("z-");
+      button_names_translation.push_back("z+");
+      button_names_translation.push_back("x-");
+      button_names_translation.push_back("x+");
+      button_names_translation.push_back("y-");
+
+      // y-axis -
+      button_names_translation.push_back("z-");
+      button_names_translation.push_back("z+");
+      button_names_translation.push_back("x+");
+      button_names_translation.push_back("x-");
+      button_names_translation.push_back("y+");
+
+      // Rotation
+      button_names_rotation.clear();
+      // x-axis +
+      button_names_rotation.push_back("ry+");
+      button_names_rotation.push_back("ry-");
+      button_names_rotation.push_back("rz+");
+      button_names_rotation.push_back("rz-");
+      button_names_rotation.push_back("n.d.");
+
+      // x-axis -
+      button_names_rotation.push_back("ry-");
+      button_names_rotation.push_back("ry+");
+      button_names_rotation.push_back("rz+");
+      button_names_rotation.push_back("rz-");
+      button_names_rotation.push_back("n.d.");
+
+      // y-axis +
+      button_names_rotation.push_back("rx-");
+      button_names_rotation.push_back("rx+");
+      button_names_rotation.push_back("rz+");
+      button_names_rotation.push_back("rz-");
+      button_names_rotation.push_back("n.d.");
+
+      // y-axis -
+      button_names_rotation.push_back("rx+");
+      button_names_rotation.push_back("rx-");
+      button_names_rotation.push_back("rz+");
+      button_names_rotation.push_back("rz-");
+      button_names_rotation.push_back("n.d.");
+
+
+
+    }
+
+    void callback_1(const std_msgs::UInt32& msg){
+        //ROS_INFO_STREAM("callback_buttons" << msg.data);
+        converter(msg.data);
+    }
+
+    void callback_2(const std_msgs::Float32& msg){
+        ROS_INFO_STREAM("callback_theta");
+    }
+
+    void callback_3(const std_msgs::UInt16& msg){
+        ROS_INFO_STREAM("callback_speed");
+    }
+
+    void callback_4(const std_msgs::Bool& msg){
+        ROS_INFO_STREAM("callback_life_sign_from_mcu");
+    }
+
+    void converter(uint32_t number){
+        int a[32];
+        int i=0;
+        if((number == 1) or (number == 4096) or (number == 262144)){
+          button_x_n = true;
+        }
+        else{
+          button_x_n = false;
+        }
+        if((number == 2) or (number == 128) or (number == 524288)){
+          button_x_p = true;
+        }
+        else{
+          button_x_p = false;
+        }
+        if((number == 4) or (number == 256) or (number == 16384)){
+          button_y_n = true;
+        }
+        else{
+          button_y_n= false;
+        }
+        if((number == 512) or (number == 32768) or (number == 2097152)){
+          button_y_p = true;
+        }
+        else{
+          button_y_p= false;
+        }
+        if((number == 16) or (number == 1024) or (number == 65536) or (number == 4194304)){
+          button_z_n = true;
+        }
+        else{
+          button_z_n= false;
+        }
+        if((number == 32) or (number == 2048) or (number == 131072) or (number == 8388608)){
+          button_z_p = true;
+        }
+        else{
+          button_z_p= false;
+        }
+        ROS_INFO_STREAM("number = " << number);
+        for(i=0; number>0; i++)    
+        {   //ROS_INFO_STREAM(number%2);
+            if (number%2) {
+              button_values.push_back(true);
+              //ROS_INFO_STREAM("true");
+            }
+            else{
+              button_values.push_back(false);
+              //ROS_INFO_STREAM("false");
+            }
+            a[i]=number%2;    
+            number= number/2;  
+        }    
+        //ROS_INFO_STREAM("Binary of the given number = ");    
+        for(i=i-1 ;i>=0 ;i--)    
+        {    
+            ;//ROS_INFO_STREAM(a[i]);    
+        }   
+        //ROS_INFO_STREAM(button_values);
+    }
+
+
+    void publish(){
+        msg_1.data = "l1";
+        msg_2.data = "l2";
+        msg_3.data = "btn_l";
+        msg_4.data = "btn_r";
+        msg_5.data = "btn_c";
+        msg_6.data = true;
+        pub_1.publish(msg_1);
+        pub_2.publish(msg_2);
+        pub_3.publish(msg_3);
+        pub_4.publish(msg_4);
+        pub_5.publish(msg_5);
+        pub_6.publish(msg_6);
+    }
+  
+};
+
 class Buttons{
   public:
   ros::NodeHandle n;
@@ -512,27 +708,19 @@ int main(int argc, char** argv)
   //----------------------------------------------------------
   // Initialize the node.
   ros::init(argc, argv, "pose_controller_node");
-  ros::NodeHandle node_handle;
-  ros::Subscriber sub = node_handle.subscribe("myInt", 1000, callback);
-
+  Communication com;
   EGM_Motion robot;
   signal(SIGINT, inthand);
+  ROS_INFO_STREAM("NODE STARTED");
 
 
-  /*ros::Publisher states_pub = node_handle.advertise<geometry_msgs::Pose>("/pose_state", 1);
-  ros::Publisher led_color_pub = node_handle.advertise<std_msgs::String>("/led_color", 1);
-  ros::Publisher display_line_1_pub = node_handle.advertise<std_msgs::String>("/display_line_1", 1);
-  ros::Publisher display_line_2_pub = node_handle.advertise<std_msgs::String>("/display_line_2", 1);
-  ros::Publisher display_button_1_pub = node_handle.advertise<std_msgs::String>("/display_button_1", 1);
-  ros::Publisher display_button_2_pub = node_handle.advertise<std_msgs::String>("/display_button_2", 1);
-  */
   ros::Rate rate(250);
   //sensor_msgs::JointState msg;
   geometry_msgs::Pose msg;
   
 
   // Boost components for managing asynchronous UDP socket(s).
-  TeachTool tool;
+  /*TeachTool tool;
   Display disp(node_handle);
   tool.init();
   while (!stop){
@@ -541,6 +729,7 @@ int main(int argc, char** argv)
     rate.sleep();
   }
   return 0;
+  */
 
   if(!egm_interface.isInitialized())
   {
@@ -576,21 +765,44 @@ int main(int argc, char** argv)
     // Wait for a new EGM message from the EGM client (with a timeout of 500 ms).
     if(egm_interface.waitForMessage(10))
     {
+      ;
       //robot.step_x(50.0);
       //ros::Duration(5).sleep();
       //robot.step_y(10.0);
       //ros::Duration(5).sleep();
       //robot.step_z(10.0);
       //ros::Duration(5).sleep();
-      robot.step_ry(45.0);
-      ros::Duration(15).sleep();
-      robot.step_rz(90.0);
-      ros::Duration(15).sleep();
-      robot.step_ry(-45.0);
-      ros::Duration(15).sleep();
+      //robot.step_ry(45.0);
+      //ros::Duration(15).sleep();
+      //robot.step_rz(90.0);
+      //ros::Duration(15).sleep();
+      //robot.step_ry(-45.0);
+      //ros::Duration(15).sleep();
+
+      if(button_x_n){
+        robot.step_x(-10);
+      }
+      if(button_x_p){
+        robot.step_x(10);
+      }
+      if(button_y_n){
+        robot.step_y(-10);
+      }
+      if(button_y_p){
+        robot.step_y(10);
+      }
+      if(button_z_n){
+        robot.step_z(-10);
+      }
+      if(button_z_p){
+        robot.step_z(10);
+      }
+      
+
     }
     //states_pub.publish(msg);
     //ros::Duration(0.5).sleep();
+    ros::spinOnce();
     rate.sleep();  
   } 
   // Perform a clean shutdown.

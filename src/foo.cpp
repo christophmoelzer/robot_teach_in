@@ -35,7 +35,7 @@ class Communication{
         pub_5 = n.advertise<std_msgs::String>("/text_button_center", 1);
         pub_6 = n.advertise<std_msgs::Bool>("/life_sign_to_mcu", 1);
 
-        sub_1 = n.subscribe("buttons", 100, &Communication::callback_1, this);
+        sub_1 = n.subscribe("/pushed", 100, &Communication::callback_1, this);
         sub_2 = n.subscribe("theta", 100, &Communication::callback_2, this);
         sub_3 = n.subscribe("speed", 100, &Communication::callback_3, this);
         sub_4 = n.subscribe("life_sign_from_mcu", 100, &Communication::callback_4, this);
@@ -108,7 +108,7 @@ class Communication{
     }
 
     void callback_1(const std_msgs::UInt32& msg){
-        ROS_INFO_STREAM("callback_buttons" << msg.data);
+        //ROS_INFO_STREAM("callback_buttons" << msg.data);
         converter(msg.data);
     }
 
@@ -130,22 +130,22 @@ class Communication{
         
         ROS_INFO_STREAM("number = " << number);
         for(i=0; number>0; i++)    
-        {   ROS_INFO_STREAM(number%2);
+        {   //ROS_INFO_STREAM(number%2);
             if (number%2) {
               button_values.push_back(true);
-              ROS_INFO_STREAM("true");
+              //ROS_INFO_STREAM("true");
             }
             else{
               button_values.push_back(false);
-              ROS_INFO_STREAM("false");
+              //ROS_INFO_STREAM("false");
             }
             a[i]=number%2;    
             number= number/2;  
         }    
-        ROS_INFO_STREAM("Binary of the given number = ");    
+        //ROS_INFO_STREAM("Binary of the given number = ");    
         for(i=i-1 ;i>=0 ;i--)    
         {    
-            ROS_INFO_STREAM(a[i]);    
+            ;//ROS_INFO_STREAM(a[i]);    
         }   
         //ROS_INFO_STREAM(button_values);
     }
@@ -178,7 +178,7 @@ int main(int argc, char** argv)
     ROS_INFO_STREAM("NODE STARTED");
 
     while(!stop){
-        com.publish();
+        //com.publish();
         ros::spinOnce();
         rate.sleep();
     }

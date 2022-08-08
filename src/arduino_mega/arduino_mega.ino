@@ -5,6 +5,15 @@ Mail: christoph.moelzer@outlook.com
 
 // rosrun rosserial_arduino serial_node.py /dev/ttyACM1 oder ttyACM0
 
+/*
+* Color state:
+* red     -> error
+* yellow  -> hand guided
+* blue    -> linear motion
+* green   -> rotation motion
+* white   -> automatic
+*/
+
 
 
 #include <SPI.h>
@@ -14,6 +23,7 @@ Mail: christoph.moelzer@outlook.com
 #include <Encoder.h>
 #include <ros.h>
 #include <std_msgs/Bool.h>
+#include <std_msgs/UInt32.h>
 
 #define nav_left 7
 #define nav_right 6
@@ -69,45 +79,6 @@ class WaitMs{
     }
   }
   private:
-};
-
-class Button{
-public:
-ButtonDebounce db;
-bool pressed;
-int debounce_time;
-String label;
-Button(){
-  ;
-}
-Button(int pin){
-  debounce_time = 50;
-  pressed = false;
-  db = ButtonDebounce(pin, debounce_time);
-}
-
-Button(int pin, int dbt, String lb){
-  label = lb;
-  debounce_time = dbt;
-  pressed = false;
-  db = ButtonDebounce(pin, debounce_time);
-}
-
-
-bool update(){
-  db.update();
-  return state();
-}
-
-bool state(){
-  bool state = db.state();
-  if (state == LOW){
-    ;//Serial.println(label);
-  }
-  return state;
-}
-
-private:
 };
 
 class LED{
@@ -178,6 +149,69 @@ class LED{
   private:
 };
 
+
+class Button{
+public:
+
+//state
+bool input;
+bool last_input;
+bool output;
+uint8_t _pin;
+unsigned long t_last_change;
+int _t_debounce;
+bool published;
+bool debounced;
+String label;
+
+Button(){
+  ;
+}
+Button(uint8_t pin){
+  _pin = pin;
+  _t_debounce = 50;
+  output = false;
+  pinMode(_pin, INPUT_PULLUP);
+  last_input =! digitalRead(_pin);
+}
+
+Button(uint8_t pin, int t_debounce, String lb){
+  _pin = pin;
+  label = lb;
+  _t_debounce = t_debounce;
+  output = false;
+  pinMode(_pin, INPUT_PULLUP);
+  last_input =! digitalRead(_pin);
+  debounced = false;
+}
+
+
+bool update(){
+  // Statusänderung prüfen. Wenn Änderung dann Zeit zurücksetzen
+  // Wenn Zeit überschritten dann Ausgang setzen
+  input =! digitalRead(_pin);
+
+  if(last_input != input){
+    t_last_change = millis();
+    published = false;
+    debounced = false;
+  }
+
+  if(!published && (millis() - t_last_change) > _t_debounce){
+    output = input;
+    debounced = true;
+  }
+
+  last_input = input;
+  
+  return output;
+}
+
+
+private:
+};
+
+
 class Point{
   public:
   int x, y;
@@ -246,101 +280,342 @@ private:
 
 class Motion{
   public:
-  Button btn_grp_1_y_negative;
-  Button btn_grp_1_z_negative;
-  Button btn_grp_1_z_positive;
+  int debounce_time;
+  bool btn_pressed;
+  bool button_array[32];
+  bool published;
+  bool debounced;
+  uint32_t coded_motion_buttons;
+
   Button btn_grp_1_x_negative;
   Button btn_grp_1_x_positive;
+  Button btn_grp_1_y_negative;
+  //Button btn_grp_1_y_positive;
+  Button btn_grp_1_z_negative;
+  Button btn_grp_1_z_positive;
+  LED led_grp_1;
+  bool grp_1_active;
   
+  //Button btn_grp_2_x_negative;
   Button btn_grp_2_x_positive;
-  Button btn_grp_2_z_negative;
-  Button btn_grp_2_z_positive;
   Button btn_grp_2_y_negative;
   Button btn_grp_2_y_positive;
-  
+  Button btn_grp_2_z_negative;
+  Button btn_grp_2_z_positive;
+  LED led_grp_2;
+  bool grp_2_active;
+
+  Button btn_grp_3_x_negative;
+  //Button btn_grp_3_x_positive;
+  Button btn_grp_3_y_negative;
   Button btn_grp_3_y_positive;
   Button btn_grp_3_z_negative;
   Button btn_grp_3_z_positive;
-  Button btn_grp_3_x_negative;
-  Button btn_grp_3_y_negative;
+  LED led_grp_3;
+  bool grp_3_active;
   
+  Button btn_grp_4_x_negative;
   Button btn_grp_4_x_positive;
+  //Button btn_grp_4_y_negative;
+  Button btn_grp_4_y_positive;
   Button btn_grp_4_z_negative;
   Button btn_grp_4_z_positive;
-  Button btn_grp_4_x_negative;
-  Button btn_grp_4_y_positive;
+  LED led_grp_4;
+  bool grp_4_active;
+
 
   Motion(){
-    btn_grp_1_x_negative = Button(52);
-    btn_grp_1_x_positive = Button(48);
-    btn_grp_1_y_negative = Button(46);
-    btn_grp_1_z_negative = Button(53);
-    btn_grp_1_z_positive = Button(50);
-
-    btn_grp_2_x_positive = Button(51);
-    btn_grp_2_y_negative = Button(45);
-    btn_grp_2_y_positive = Button(49);
-    btn_grp_2_z_negative = Button(43);
-    btn_grp_2_z_positive = Button(47);
-
-    btn_grp_3_x_negative = Button(41);
-    btn_grp_3_y_negative = Button(39);
-    btn_grp_3_y_positive = Button(35);
-    btn_grp_3_z_negative = Button(33);
-    btn_grp_3_z_positive = Button(37);
-
-    btn_grp_4_x_positive = Button(25);
-    btn_grp_4_x_negative = Button(29);
-    btn_grp_4_y_positive = Button(31);
-    btn_grp_4_z_negative = Button(23);
-    btn_grp_4_z_positive = Button(27);
-
-  }
-
-  void update_buttons(){
-    btn_grp_4_x_negative.db.update();
-    if (btn_grp_4_x_negative.db.state() == LOW){
-      Serial.println("g4xn pressed");
-    }
-    else{
-      Serial.println("g4xn released");
-    }
-
-    btn_grp_4_x_positive.db.update();
-    if (btn_grp_4_x_positive.db.state() == LOW){
-      Serial.println("g4xp pressed");
-    }
-    else{
-      Serial.println("g4xp released");
-    }
-
-    btn_grp_4_y_positive.db.update();
-    if (btn_grp_4_y_positive.db.state() == LOW){
-      Serial.println("g4yp pressed");
-    }
-    else{
-      Serial.println("g4yp released");
-    }
-
-    btn_grp_4_z_negative.db.update();
-    if (btn_grp_4_z_negative.db.state() == LOW){
-      Serial.println("g4zn pressed");
-    }
-    else{
-      Serial.println("g4zn released");
-    }
-
-    btn_grp_4_z_positive.db.update();
-    if (btn_grp_4_z_positive.db.state() == LOW){
-      Serial.println("g4zp pressed");
-    }
-    else{
-      Serial.println("g4zp released");
-    }
-
+    btn_pressed = false;
+    debounce_time = 50;
+    coded_motion_buttons = 0;
+    published = false;
+    grp_1_active = false;
+    grp_2_active = false;
+    grp_3_active = false;
+    grp_4_active = false;
     
+    btn_grp_1_x_negative = Button(52, debounce_time, "1 - x neg");
+    btn_grp_1_x_positive = Button(48, debounce_time, "1 - x pos");
+    btn_grp_1_y_negative = Button(46, debounce_time, "1 - y neg");
+    btn_grp_1_z_negative = Button(53, debounce_time, "1 - z neg");
+    btn_grp_1_z_positive = Button(50, debounce_time, "1 - z pos");
+    led_grp_1 = LED(40, 42, 44);
+
+    btn_grp_2_x_positive = Button(51, debounce_time, "2 - x pos");
+    btn_grp_2_y_negative = Button(45, debounce_time, "2 - y neg");
+    btn_grp_2_y_positive = Button(49, debounce_time, "2 - y pos");
+    btn_grp_2_z_negative = Button(43, debounce_time, "2 - z neg");
+    btn_grp_2_z_positive = Button(47, debounce_time, "2 - z pos");
+    led_grp_2 = LED(34, 36, 38);
+
+    btn_grp_3_x_negative = Button(41, debounce_time, "3 - x neg");
+    btn_grp_3_y_negative = Button(39, debounce_time, "3 - y neg");
+    btn_grp_3_y_positive = Button(35, debounce_time, "3 - y pos");
+    btn_grp_3_z_negative = Button(33, debounce_time, "3 - z neg");
+    btn_grp_3_z_positive = Button(37, debounce_time, "3 - z pos");
+    led_grp_3 = LED(28, 30, 32);
+
+    btn_grp_4_x_positive = Button(25, debounce_time, "4 - x pos");
+    btn_grp_4_x_negative = Button(29, debounce_time, "4 - x neg");
+    btn_grp_4_y_positive = Button(31, debounce_time, "4 - y pos");
+    btn_grp_4_z_negative = Button(23, debounce_time, "4 - z neg");
+    btn_grp_4_z_positive = Button(27, debounce_time, "4 - z pos");
+    led_grp_4 = LED(22, 24, 26);
+  }  
+
+  void init_button_array(){
+    for (int i=0; i<sizeof(button_array); i++){
+      button_array[i] = false;
+    }
   }
-  
+
+  void update(){
+    btn_pressed = false;
+
+    btn_grp_1_x_negative.update();
+    btn_grp_1_x_positive.update();
+    btn_grp_1_y_negative.update();
+    //btn_grp_1_y_positive.update();
+    btn_grp_1_z_negative.update();
+    btn_grp_1_z_positive.update();
+    
+    //btn_grp_2_x_negative.update();
+    btn_grp_2_x_positive.update();
+    btn_grp_2_y_negative.update();
+    btn_grp_2_y_positive.update();
+    btn_grp_2_z_negative.update();
+    btn_grp_2_z_positive.update();
+    
+    btn_grp_3_x_negative.update();
+    //btn_grp_3_x_positive.update();
+    btn_grp_3_y_negative.update();
+    btn_grp_3_y_positive.update();
+    btn_grp_3_z_negative.update();
+    btn_grp_3_z_positive.update();
+    
+    btn_grp_4_x_negative.update();
+    btn_grp_4_x_positive.update();
+    //btn_grp_4_y_negative.update();
+    btn_grp_4_y_positive.update();
+    btn_grp_4_z_negative.update();
+    btn_grp_4_z_positive.update();
+    
+    if (btn_grp_1_x_negative.debounced && !btn_grp_1_x_negative.published){
+      btn_grp_1_x_negative.published = true;
+      published = false;
+      debounced = true;
+    }
+    if (btn_grp_1_x_positive.debounced && !btn_grp_1_x_positive.published) {
+      btn_grp_1_x_positive.published = true;
+      published = false;
+      debounced = true;
+    }
+    if (btn_grp_1_y_negative.debounced && !btn_grp_1_y_negative.published) {
+      btn_grp_1_y_negative.published = true;
+      published = false;
+      debounced = true;
+    }
+    //(btn_grp_1_y_positive.debounced && !btn_grp_1_y_positive.published) {
+          //btn_grp_1_y_positive.published = true;
+    if (btn_grp_1_z_negative.debounced && !btn_grp_1_z_negative.published) {
+      btn_grp_1_z_negative.published = true;
+      published = false;
+      debounced = true;
+    }
+    if (btn_grp_1_z_positive.debounced && !btn_grp_1_z_positive.published) {
+      btn_grp_1_z_positive.published = true;
+      published = false;
+      debounced = true;
+    }
+    //if (btn_grp_2_x_negative.debounced && !btn_grp_2_x_negative.published) {
+          //btn_grp_2_x_negative.published = true;
+    if (btn_grp_2_x_positive.debounced && !btn_grp_2_x_positive.published) {
+      btn_grp_2_x_positive.published = true;
+      published = false;
+      debounced = true;
+    }
+    if (btn_grp_2_y_negative.debounced && !btn_grp_2_y_negative.published) {
+      btn_grp_2_y_negative.published = true;
+      published = false;
+      debounced = true;
+    }
+    if (btn_grp_2_y_positive.debounced && !btn_grp_2_y_positive.published) {
+      btn_grp_2_y_positive.published = true;
+      published = false;
+      debounced = true;
+    }
+    if (btn_grp_2_z_negative.debounced && !btn_grp_2_z_negative.published) {
+      btn_grp_2_z_negative.published = true;
+      published = false;
+      debounced = true;
+    }
+    if (btn_grp_2_z_positive.debounced && !btn_grp_2_z_positive.published) {
+      btn_grp_2_z_positive.published = true;
+      published = false;
+      debounced = true;
+    }
+    if (btn_grp_3_x_negative.debounced && !btn_grp_3_x_negative.published) {
+      btn_grp_3_x_negative.published = true;
+      published = false;
+      debounced = true;
+    }
+    //if (btn_grp_3_x_positive.debounced && !btn_grp_3_x_positive.published) {
+          //btn_grp_3_x_positive.published = true;
+    if (btn_grp_3_y_negative.debounced && !btn_grp_3_y_negative.published) {
+      btn_grp_3_y_negative.published = true;
+      published = false;
+      debounced = true;
+    }
+    if (btn_grp_3_y_positive.debounced && !btn_grp_3_y_positive.published) {
+      btn_grp_3_y_positive.published = true;
+      published = false;
+      debounced = true;
+    }
+    if (btn_grp_3_z_negative.debounced && !btn_grp_3_z_negative.published) {
+      btn_grp_3_z_negative.published = true;
+      published = false;
+      debounced = true;
+    }
+    if (btn_grp_3_z_positive.debounced && !btn_grp_3_z_positive.published) {
+      btn_grp_3_z_positive.published = true;
+      published = false;
+      debounced = true;
+    }
+    if (btn_grp_4_x_negative.debounced && !btn_grp_4_x_negative.published) {
+      btn_grp_4_x_negative.published = true;
+      published = false;
+      debounced = true;
+    }
+    if (btn_grp_4_x_positive.debounced && !btn_grp_4_x_positive.published) {
+      btn_grp_4_x_positive.published = true;
+      published = false;
+      debounced = true;
+    }
+    //if (btn_grp_4_y_negative.debounced && !btn_grp_4_y_negative.published) {
+          //btn_grp_4_y_negative.published = true;
+    if (btn_grp_4_y_positive.debounced && !btn_grp_4_y_positive.published) {
+      btn_grp_4_y_positive.published = true;
+      published = false;
+      debounced = true;
+    }
+    if (btn_grp_4_z_negative.debounced && !btn_grp_4_z_negative.published) {
+      btn_grp_4_z_negative.published = true;
+      published = false;
+      debounced = true;
+    }
+    if (btn_grp_4_z_positive.debounced && !btn_grp_4_z_positive.published) {
+      btn_grp_4_z_positive.published = true;
+      published = false;
+      debounced = true;
+    }
+
+    if(btn_grp_1_x_negative.output or 
+       btn_grp_1_x_positive.output or 
+       btn_grp_1_y_negative.output or 
+       //btn_grp_1_y_positive.output or 
+       btn_grp_1_z_negative.output or 
+       btn_grp_1_z_positive.output or 
+       //btn_grp_2_x_negative.output or 
+       btn_grp_2_x_positive.output or 
+       btn_grp_2_y_negative.output or 
+       btn_grp_2_y_positive.output or 
+       btn_grp_2_z_negative.output or 
+       btn_grp_2_z_positive.output or 
+       btn_grp_3_x_negative.output or 
+       //btn_grp_3_x_positive.output or 
+       btn_grp_3_y_negative.output or 
+       btn_grp_3_y_positive.output or 
+       btn_grp_3_z_negative.output or 
+       btn_grp_3_z_positive.output or 
+       btn_grp_4_x_negative.output or 
+       btn_grp_4_x_positive.output or 
+       //btn_grp_4_y_negative.output or 
+       btn_grp_4_y_positive.output or 
+       btn_grp_4_z_negative.output or 
+       btn_grp_4_z_positive.output){
+        btn_pressed = true;
+       }
+        
+
+    coded_motion_buttons = 0;
+    init_button_array();
+
+    button_array[0] = btn_grp_1_x_negative.output; // 2^0
+    button_array[1] = btn_grp_1_x_positive.output; // 2^1
+    button_array[2] = btn_grp_1_y_negative.output; // 2^2
+    button_array[3] = false;//btn_grp_1_y_positive.output; // 2^3
+    button_array[4] = btn_grp_1_z_negative.output; // 2^4
+    button_array[5] = btn_grp_1_z_positive.output; // 2^5
+    
+    button_array[6] = false;//btn_grp_2_x_negative.output; // 2^6
+    button_array[7] = btn_grp_2_x_positive.output; // 2^7
+    button_array[8] = btn_grp_2_y_negative.output; // 2^8
+    button_array[9] = btn_grp_2_y_positive.output; // 2^9
+    button_array[10] = btn_grp_2_z_negative.output; // 2^10
+    button_array[11] = btn_grp_2_z_positive.output; // 2^11
+    
+    button_array[12] = btn_grp_3_x_negative.output; // 2^12
+    button_array[13] = false;//btn_grp_3_x_positive.output; // 2^13
+    button_array[14] = btn_grp_3_y_negative.output; // 2^14
+    button_array[15] = btn_grp_3_y_positive.output; // 2^15
+    button_array[16] = btn_grp_3_z_negative.output; // 2^16
+    button_array[17] = btn_grp_3_z_positive.output; // 2^17
+    
+    button_array[18] = btn_grp_4_x_negative.output; // 2^18
+    button_array[19] = btn_grp_4_x_positive.output; // 2^19
+    button_array[20] = false;//btn_grp_4_y_negative.output; // 2^20
+    button_array[21] = btn_grp_4_y_positive.output; // 2^21
+    button_array[22] = btn_grp_4_z_negative.output; // 2^22
+    button_array[23] = btn_grp_4_z_positive.output; // 2^23
+
+
+    grp_1_active = false;
+    grp_2_active = false;
+    grp_3_active = false;
+    grp_4_active = false;
+    for(int i=0; i<sizeof(button_array); i++){
+      if (button_array[i] == true){
+          coded_motion_buttons+=bit(i);      
+      }
+    }
+
+    for(int i=0; i<6; i++){
+      if(button_array[i]){
+        grp_1_active = true;  
+      }
+      if(button_array[i+6]){
+        grp_2_active = true;  
+      }
+      if(button_array[i+12]){
+        grp_3_active = true;  
+      }
+      if(button_array[i+18]){
+        grp_4_active = true;  
+      }
+    }
+      
+    if (grp_1_active){
+      led_grp_1.blue();
+    }else{
+      led_grp_1.white();
+    }
+    if (grp_2_active){
+      led_grp_2.blue();
+    }else{
+      led_grp_2.white();
+    }
+    if (grp_3_active){
+      led_grp_3.blue();
+    }else{
+      led_grp_3.white();
+    }
+    if (grp_4_active){
+      led_grp_4.blue();
+    }else{
+      led_grp_4.white();
+    }
+     
+  }
 
   private:
 };
@@ -464,15 +739,16 @@ void calc_arrow(float angle){
 
 
 void update_buttons(){
-  btn_nav_left.db.update();
-  btn_nav_right.db.update();
-  btn_nav_up.db.update();
-  btn_nav_down.db.update();
-  btn_nav_center.db.update();
-  btn_nav_abort.db.update();
-  btn_nav_enter.db.update();
+  btn_nav_left.update();
+  btn_nav_right.update();
+  btn_nav_up.update();
+  btn_nav_down.update();
+  btn_nav_center.update();
+  btn_nav_abort.update();
+  btn_nav_enter.update();
 
-  if ((btn_nav_left.db.state() == LOW) and (btn_nav_left.pressed == false)){
+/*
+  if ((btn_nav_left.update() == LOW) and (btn_nav_left.pressed == false)){
     btn_nav_left.pressed = true;
     led_3.white();
     switch (cursor_position){
@@ -504,13 +780,13 @@ void update_buttons(){
       break;
     }
   }
-  else if (btn_nav_left.db.state() == HIGH){
+  else if (btn_nav_left.update() == HIGH){
     btn_nav_left.pressed = false;
     led_3.black();
   }
 
 
-  if ((btn_nav_right.db.state() == LOW) and (btn_nav_right.pressed == false)){
+  if ((btn_nav_right.update() == LOW) and (btn_nav_right.pressed == false)){
     btn_nav_right.pressed = true;
     led_2.white();
     switch (cursor_position){
@@ -542,13 +818,13 @@ void update_buttons(){
       break;
     }
   }
-  else if (btn_nav_right.db.state() == HIGH){
+  else if (btn_nav_right.update() == HIGH){
     btn_nav_right.pressed = false;
     led_2.black();
   }
 
 
-  if ((btn_nav_up.db.state() == LOW) and (btn_nav_up.pressed == false)){
+  if ((btn_nav_up.update() == LOW) and (btn_nav_up.pressed == false)){
     btn_nav_up.pressed = true;
     led_4.white();
     if (cursor_position > 0){
@@ -558,13 +834,13 @@ void update_buttons(){
       cursor_position=0;
     }
   }
-  else if (btn_nav_up.db.state() == HIGH){
+  else if (btn_nav_up.update() == HIGH){
     btn_nav_up.pressed = false;
     led_4.black();
   }
 
 
-  if ((btn_nav_down.db.state() == LOW) and (btn_nav_down.pressed == false)){
+  if ((btn_nav_down.update() == LOW) and (btn_nav_down.pressed == false)){
     btn_nav_down.pressed = true;
     led_1.white();
     if (cursor_position < 2){
@@ -574,32 +850,32 @@ void update_buttons(){
       cursor_position=2;
     }
   }
-  else if (btn_nav_down.db.state() == HIGH){
+  else if (btn_nav_down.update() == HIGH){
     btn_nav_down.pressed = false;
     led_1.black();
   }
 
 
-  if ((btn_nav_center.db.state() == LOW) and (btn_nav_center.pressed == false)){
+  if ((btn_nav_center.update() == LOW) and (btn_nav_center.pressed == false)){
     btn_nav_center.pressed = true;
   }
-  else if (btn_nav_center.db.state() == HIGH){
+  else if (btn_nav_center.update() == HIGH){
     btn_nav_center.pressed = false;
   }
 
 
-  if ((btn_nav_abort.db.state() == LOW) and (btn_nav_abort.pressed == false)){
+  if ((btn_nav_abort.update() == LOW) and (btn_nav_abort.pressed == false)){
     btn_nav_abort.pressed = true;
   }
-  else if (btn_nav_abort.db.state() == HIGH){
+  else if (btn_nav_abort.update() == HIGH){
     btn_nav_abort.pressed = false;
   }
 
 
-  if ((btn_nav_enter.db.state() == LOW) and (btn_nav_enter.pressed == false)){
+  if ((btn_nav_enter.update() == LOW) and (btn_nav_enter.pressed == false)){
     btn_nav_enter.pressed = true;
   }
-  else if (btn_nav_enter.db.state() == HIGH){
+  else if (btn_nav_enter.update() == HIGH){
     btn_nav_enter.pressed = false;
   }
 
@@ -608,7 +884,7 @@ void update_buttons(){
   }
   else{
     ;
-  }
+  }*/
 }
 
 void draw_lines(void){
@@ -694,64 +970,31 @@ void draw_lines(void){
 private:
 };
 
-GUI gui;
-//Motion mbtns;
-
-  Button btn1(23, 500, "btn1 - 23");
-  Button btn2(25, 500, "btn2 - 25");
-  Button btn3(27, 500, "btn3 - 27");
-  Button btn4(29, 500, "btn4 - 29");
-  Button btn5(31, 500, "btn5 - 31");
-
-
+//GUI gui;
+Motion motion;
 ros::NodeHandle nh;
-std_msgs::Bool pushed_msg;
+std_msgs::UInt32 pushed_msg;
 ros::Publisher pub_button("pushed", &pushed_msg);
-
-bool last_reading;
-long last_debounce_time=0;
-long debounce_delay=50;
-bool published = true;
 
 void setup() {
   //Serial.begin(9600);
-  gui.init();  
+  //gui.init();  
   nh.initNode();
   nh.advertise(pub_button);
-  last_reading =! btn5.update();
-
 }
 
-
-
-
-
 void loop() {
-  //mbtns.update_buttons();
-  gui.upt_encoder();
- //gui.update_buttons();
+  //gui.upt_encoder();
+  //gui.update_buttons();
   //gui.show_content();  
 
-  //btn1.update();
-  //btn2.update();
-  //btn3.update();
-  //btn4.update();
-  //btn5.update();
-
-  bool reading =! btn5.update();
-
-  if(last_reading != reading){
-    last_debounce_time = millis();
-    published = false;
-  }
-
-  if (!published && (millis() - last_debounce_time) > debounce_delay){
-    pushed_msg.data = reading;
+  motion.update();
+  if(motion.debounced && !motion.published){
+    pushed_msg.data = motion.coded_motion_buttons;
     pub_button.publish(&pushed_msg);
-    published = true;
+    motion.published = true;
   }
 
-  last_reading = reading;
 
   nh.spinOnce();
 
