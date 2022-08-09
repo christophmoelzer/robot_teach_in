@@ -22,6 +22,7 @@ It also contains a state machine for the different motion settings
 #include <std_msgs/String.h>
 #include <std_msgs/UInt32.h>
 #include <std_msgs/UInt16.h>
+#include <std_msgs/Int16.h>
 #include <std_msgs/Float32.h>
 
 
@@ -35,6 +36,16 @@ bool button_y_n = false;
 bool button_y_p = false;
 bool button_z_n = false;
 bool button_z_p = false;
+
+bool button_rx_n = false;
+bool button_rx_p = false;
+bool button_ry_n = false;
+bool button_ry_p = false;
+bool button_rz_n = false;
+bool button_rz_p = false;
+
+float angle = 0;
+
 
 volatile sig_atomic_t stop;
 
@@ -287,10 +298,16 @@ class EGM_Motion
 
     public:
     Debug_Info debug_info;
-    
+    double x, y, z, rx, ry, rz;
 
 
     void init(){
+      x=0;
+      y=0;
+      z=0;
+      rx=0;
+      ry=0;
+      rz=0;
       t_prev = ros::Time::now();
         output.Clear();
         egm_interface.read(&input);
@@ -318,7 +335,8 @@ class EGM_Motion
       destination_pose.CopyFrom(output.robot().cartesian().pose());
     }
 
-    void step(double x=0, double y=0, double z=0, double rx=0, double ry=0, double rz=0){
+    //void step(double x=0, double y=0, double z=0, double rx=0, double ry=0, double rz=0){
+    void step(){
       get_current_pose();
       double x_new, y_new, z_new, rx_new, ry_new, rz_new;
 
@@ -346,40 +364,45 @@ class EGM_Motion
 
     void step_x(double value){
       ROS_INFO_STREAM("move x: " << value << " mm");
-      step(value, 0, 0, 0, 0, 0);
+      x = value*cos(angle);
+      y = value*sin(angle);
+      //step(value*cos(angle), value*sin(angle), 0, 0, 0, 0);
     }
 
     void step_y(double value){
       ROS_INFO_STREAM("move y: " << value << " mm");
-      step(0, value, 0, 0, 0, 0);
+      x = value*sin(-angle);
+      y = value*cos(-angle);
+      //step(value*sin(-angle), value*cos(-angle), 0, 0, 0, 0);
     }
 
     void step_z(double value){
       ROS_INFO_STREAM("move z: " << value << " mm");
-      step(0, 0, value, 0, 0, 0);
+      z = value;
+      //step(0, 0, value, 0, 0, 0);
     }
 
     void step_rx(double value){
       ROS_INFO_STREAM("move rx: " << value << " °");
-      step(0, 0, 0, value, 0, 0);
+      //step(0, 0, 0, value, 0, 0);
     }
 
     void step_ry(double value){
       ROS_INFO_STREAM("move ry: " << value << " °");
-      step(0, 0, 0, 0, value, 0);
+      //step(0, 0, 0, 0, value, 0);
     }
 
     void step_rz(double value){
       ROS_INFO_STREAM("move rz: " << value << " °");
-      step(0, 0, 0, 0, 0, value);
+      //step(0, 0, 0, 0, 0, value);
     }
 
     void step_up(double value){
-        step(value);
+        ;//step(value);
     }
 
     void step_down(double value){
-      step(-value);
+      ;//step(-value);
     }
 
     bool check_position_reached(){
@@ -405,7 +428,7 @@ class EGM_Motion
         t_now = ros::Time::now();
         t_elapsed = t_now -t_prev;
         t_prev = ros::Time::now();
-        ROS_INFO_STREAM("Position reached " << t_elapsed);
+        //ROS_INFO_STREAM("Position reached " << t_elapsed);
         return true;
       }
       else{
@@ -475,7 +498,7 @@ class Communication{
         pub_6 = n.advertise<std_msgs::Bool>("/life_sign_to_mcu", 1);
 
         sub_1 = n.subscribe("/pushed", 100, &Communication::callback_motion_command, this);
-        sub_2 = n.subscribe("theta", 100, &Communication::callback_2, this);
+        sub_2 = n.subscribe("angle", 100, &Communication::callback_angle, this);
         sub_3 = n.subscribe("speed", 100, &Communication::callback_3, this);
         sub_4 = n.subscribe("life_sign_from_mcu", 100, &Communication::callback_4, this);
     }
@@ -551,8 +574,9 @@ class Communication{
         converter(msg.data);
     }
 
-    void callback_2(const std_msgs::Float32& msg){
-        ROS_INFO_STREAM("callback_theta");
+    void callback_angle(const std_msgs::Float32& msg){
+        angle = msg.data;
+        ROS_INFO_STREAM(angle);
     }
 
     void callback_3(const std_msgs::UInt16& msg){
@@ -568,20 +592,20 @@ class Communication{
         *     LINEAR | ROTARY
         *   0 - X-   |   RZ+
         *   1 - X+   |   RZ-
-        *   2 - Y-   |   n.d.
-        *   3 - Y+   |   n.d.
+        *   2 - Y-   |   RX+
+        *   3 - Y+   |   RX-
         *   4 - Z-   |   RX-
         *   5 - Z+   |   RX+
         *   
-        *   6 - X-   |   n.d.
-        *   7 - X+   |   n.d.
+        *   6 - X-   |   RY-
+        *   7 - X+   |   RY+
         *   8 - Y-   |   RZ+
         *   9 - Y+   |   RZ-
         *  10 - Z-   |   RY-
         *  11 - Z+   |   RY+
         *   
-        *  12 - X-   |   n.d.
-        *  13 - X+   |   n.d.
+        *  12 - X-   |   RY-
+        *  13 - X+   |   RY+
         *  14 - Y-   |   RZ-
         *  15 - Y+   |   RZ+
         *  16 - Z-   |   RY+
@@ -589,21 +613,28 @@ class Communication{
         *   
         *  18 - X-   |   RZ-
         *  19 - X+   |   RZ+
-        *  20 - Y-   |   n.d.
-        *  21 - Y+   |   n.d.
+        *  20 - Y-   |   RX+
+        *  21 - Y+   |   RX-
         *  22 - Z-   |   RX+
         *  23 - Z+   |   RX-
-        *  24 - 
-        *  25 - 
-        *  26 - 
-        *  27 - 
-        *  28 - 
-        *  29 - 
+        * 
+        *  24 - MODE LIN
+        *  25 - MODE ROT
+        *  26 - MODE CONT
+        *  27 - MODE STEP
+        *  28 - MODE BUTTON
+        *  29 - MODE LEAD THROUGH
         *  30 - 
         *  31 - 
         */  
-        int bits[32];
-        int i=0;
+        bool cmd_bits[32];
+        bool mode_lin = false;
+        bool mode_rot = false;
+        bool mode_cont = false;
+        bool mode_step = false;
+        bool mode_button = false;
+        bool mode_lead_through = false;
+        /*
         if((number == 1) or (number == 4096) or (number == 262144)){
           button_x_n = true;
         }
@@ -639,12 +670,56 @@ class Communication{
         }
         else{
           button_z_p= false;
+        }*/
+
+        for(int i=0; i<sizeof(cmd_bits); i++){
+            cmd_bits[i]=false;       
         }
-        ROS_INFO_STREAM("number = " << number);
-        for(i=0; number>0; i++) {   
-            bits[i]=number%2;    
+        //ROS_INFO_STREAM("number = " << number);
+        for(int i=0; number>0; i++) {   
+            cmd_bits[i]=number%2;    
             number= number/2;  
-        }       
+        }
+
+        /*for(int i=0; i<sizeof(cmd_bits); i++){
+            ROS_INFO_STREAM(cmd_bits[i]);       
+        }*/
+
+        mode_lin = cmd_bits[24];
+        mode_rot = cmd_bits[25];
+        mode_cont = cmd_bits[26];
+        mode_step = cmd_bits[27];
+        mode_button = cmd_bits[28];
+        mode_lead_through = cmd_bits[29];
+
+        if (mode_lin && !mode_rot){
+          button_x_n = cmd_bits[0] or cmd_bits[6] or cmd_bits[12] or cmd_bits[18];
+          button_x_p = cmd_bits[1] or cmd_bits[7] or cmd_bits[13] or cmd_bits[19];
+          button_y_n = cmd_bits[2] or cmd_bits[8] or cmd_bits[14] or cmd_bits[20];
+          button_y_p = cmd_bits[3] or cmd_bits[9] or cmd_bits[15] or cmd_bits[21];
+          button_z_n = cmd_bits[4] or cmd_bits[10] or cmd_bits[16] or cmd_bits[22];
+          button_z_p = cmd_bits[5] or cmd_bits[11] or cmd_bits[17] or cmd_bits[23];
+          button_rx_n = false;
+          button_rx_p = false;
+          button_ry_n = false;
+          button_ry_p = false;
+          button_rz_n = false;
+          button_rz_p = false;
+        }
+        else if(mode_rot && !mode_lin){
+          button_rx_n = cmd_bits[4] or cmd_bits[21] or cmd_bits[3] or cmd_bits[23];
+          button_rx_p = cmd_bits[5] or cmd_bits[2] or cmd_bits[20] or cmd_bits[22];
+          button_ry_n = cmd_bits[12] or cmd_bits[10] or cmd_bits[17] or cmd_bits[6];
+          button_ry_p = cmd_bits[7] or cmd_bits[11] or cmd_bits[16] or cmd_bits[13];
+          button_rz_n = cmd_bits[1] or cmd_bits[9] or cmd_bits[14] or cmd_bits[18];
+          button_rz_p = cmd_bits[0] or cmd_bits[8] or cmd_bits[15] or cmd_bits[19];
+          button_x_n = false;
+          button_x_p = false;
+          button_y_n = false;
+          button_y_p = false;
+          button_z_n = false;
+          button_z_p = false;
+        }
         
     }
 
@@ -817,11 +892,35 @@ int main(int argc, char** argv)
       if(button_z_n){
         robot.step_z(-10);
       }
-      if(button_z_p){
+      else if(button_z_p){
         robot.step_z(10);
       }
-      
+      else{
+        robot.step_z(0);
+      }
+      if(button_x_n or button_x_p or button_y_n or button_y_p or button_z_n or button_z_p){
+        robot.step();
+      }
 
+      if(button_rx_n){
+        robot.step_rx(-1);
+      }
+      if(button_rx_p){
+        robot.step_rx(1);
+      }
+      if(button_ry_n){
+        robot.step_ry(-1);
+      }
+      if(button_ry_p){
+        robot.step_ry(1);
+      }
+      if(button_rz_n){
+        robot.step_rz(-1);
+      }
+      if(button_rz_p){
+        robot.step_rz(1);
+      }
+      
     }
     //states_pub.publish(msg);
     //ros::Duration(0.5).sleep();

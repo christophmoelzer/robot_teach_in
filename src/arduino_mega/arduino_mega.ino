@@ -24,6 +24,9 @@ Mail: christoph.moelzer@outlook.com
 #include <ros.h>
 #include <std_msgs/Bool.h>
 #include <std_msgs/UInt32.h>
+#include <std_msgs/Int16.h>
+#include <std_msgs/Float32.h>
+
 
 #define nav_left 7
 #define nav_right 6
@@ -283,6 +286,9 @@ class Motion{
   bool button_array[32];
   bool published;
   bool debounced;
+
+  bool mode_lin;
+
   uint32_t coded_motion_buttons;
 
   Button btn_grp_1_x_negative;
@@ -331,6 +337,7 @@ class Motion{
     grp_2_active = false;
     grp_3_active = false;
     grp_4_active = false;
+    mode_lin=true;
     
     btn_grp_1_x_negative = Button(52, debounce_time, "1 - x neg");
     btn_grp_1_x_positive = Button(48, debounce_time, "1 - x pos");
@@ -566,6 +573,22 @@ class Motion{
     button_array[22] = btn_grp_4_z_negative.output; // 2^22
     button_array[23] = btn_grp_4_z_positive.output; // 2^23
 
+    button_array[24] = mode_lin;
+    button_array[25] =! mode_lin;
+
+    if(mode_lin){
+      led_grp_1.green();
+      led_grp_2.green();
+      led_grp_3.green();
+      led_grp_4.green();
+    }
+    else{
+      led_grp_1.blue();
+      led_grp_2.blue();
+      led_grp_3.blue();
+      led_grp_4.blue();
+
+    }
 
     grp_1_active = false;
     grp_2_active = false;
@@ -591,7 +614,7 @@ class Motion{
         grp_4_active = true;  
       }
     }
-      
+    /*
     if (grp_1_active){
       led_grp_1.blue();
     }else{
@@ -612,7 +635,7 @@ class Motion{
     }else{
       led_grp_4.white();
     }
-     
+     */
   }
 
   private:
@@ -634,10 +657,12 @@ int col_width;
 float increment;
 int velocity ;
 bool mode_lin;
-bool mode_rot;
+bool changed;
 WaitMs wait;
 
 long pos_encoder;
+int16_t angle_degrees;
+float angle_radians;
 
 GUI(){
    
@@ -670,24 +695,29 @@ void init(){
   increment = 0.1;
   velocity = 50;
   mode_lin = true;
-  mode_rot = false;
   pos_encoder = -999;
   
 }
 
 void upt_encoder(){
   long new_value;
+  changed = false;
   new_value = encoder.read();
   if (new_value != pos_encoder){
     //Serial.println(new_value);
     display.clearDisplay();
     display.setTextSize(2);
     display.setTextColor(SSD1306_WHITE);
-    display.setCursor(0, 0);
-    display.println((new_value*360)/624);
-    calc_arrow(new_value*2*PI/624);
-    display.display();
+    display.setCursor(96-15, 32-7);
     pos_encoder = new_value;
+    new_value = new_value%624;
+    if(new_value<0) new_value+=624;
+    angle_degrees = (new_value*360/624);
+    angle_radians = new_value*2*PI/624;
+    calc_arrow(angle_radians);
+    display.println(angle_degrees);
+    changed = true;
+    display.display();
   }
   
 }
@@ -695,13 +725,14 @@ void upt_encoder(){
 void calc_arrow(float angle){
   int length = 31;
 
-  Point start(128/2, 64/2);
-  Point vector(length*cos(angle), length*sin(angle));
-  Point end(start.x+vector.x, start.y+vector.y);
+  Point null(128/2+64/2, 64/2);
+  Point vector_start((length*3/4)*cos(angle), (length*3/4)*sin(angle));
+  Point vector_end(length*cos(angle), length*sin(angle));
+  Point start(null.x+vector_start.x, null.y+vector_start.y);
+  Point end(null.x+vector_end.x, null.y+vector_end.y);
   Line line(start,end);  
   display.drawLine(line.start.x, line.start.y, line.end.x, line.end.y, SSD1306_WHITE);
-  display.drawLine(line.start.x, line.start.y-1, line.end.x, line.end.y-1, SSD1306_WHITE);
-  
+  display.drawCircle(null.x, null.y, length, SSD1306_WHITE);
 }
 
 
@@ -713,6 +744,10 @@ void update_buttons(){
   btn_nav_center.update();
   btn_nav_abort.update();
   btn_nav_enter.update();
+
+  if (btn_nav_center.output){
+    mode_lin =! mode_lin;
+  }
 
 /*
   if ((btn_nav_left.update() == LOW) and (btn_nav_left.pressed == false)){
@@ -902,10 +937,10 @@ void draw_lines(void){
         display.display();
       }
 
-    if ((mode_lin == true) and (mode_rot == false)){
+    if ((mode_lin == true)){
       values[0] = "LIN";
     }
-    else if ((mode_lin == false) and (mode_rot == true)){
+    else if ((mode_lin == false)){
       values[0] = "ROT";
     }
     values[1] = String(velocity);
@@ -941,25 +976,34 @@ GUI gui;
 Motion motion;
 ros::NodeHandle nh;
 std_msgs::UInt32 pushed_msg;
+std_msgs::Float32 angle_msg;
 ros::Publisher pub_button("pushed", &pushed_msg);
+ros::Publisher pub_angle("angle", &angle_msg);
 
 void setup() {
   //Serial.begin(9600);
   gui.init();  
   nh.initNode();
   nh.advertise(pub_button);
+  nh.advertise(pub_angle);
 }
 
 void loop() {
   gui.upt_encoder();
-  //gui.update_buttons();
+  gui.update_buttons();
   //gui.show_content();  
-
+  motion.mode_lin = gui.mode_lin;
   motion.update();
   if(motion.debounced && !motion.published){
     pushed_msg.data = motion.coded_motion_buttons;
     pub_button.publish(&pushed_msg);
+
     motion.published = true;
+  }
+
+  if(gui.changed){
+    angle_msg.data = gui.angle_radians;
+    pub_angle.publish(&angle_msg);
   }
 
 
