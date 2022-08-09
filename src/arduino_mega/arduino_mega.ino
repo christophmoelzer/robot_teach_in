@@ -149,7 +149,6 @@ class LED{
   private:
 };
 
-
 class Button{
 public:
 
@@ -210,7 +209,6 @@ bool update(){
 
 private:
 };
-
 
 class Point{
   public:
@@ -630,7 +628,6 @@ Button btn_nav_down;
 Button btn_nav_center;
 Button btn_nav_abort;
 Button btn_nav_enter;
-LED led_1, led_2, led_3, led_4;
 bool nav_button_pressed;
 int cursor_position;
 int col_width;
@@ -651,45 +648,15 @@ GUI(){
   btn_nav_center = Button(nav_center);
   btn_nav_abort = Button(nav_abort);
   btn_nav_enter = Button(nav_enter);
-  led_1 = LED(22, 24, 26);
-  led_2 = LED(28, 30, 32);
-  led_3 = LED(34, 36, 38);
-  led_4 = LED(40, 42, 44);
-  led_1.red();
-  led_2.red();
-  led_3.red();
-  led_4.red();
-  wait.ms(100);
-  led_1.green();
-  led_2.green();
-  led_3.green();
-  led_4.green();
-  wait.ms(100);
-  led_1.blue();
-  led_2.blue();
-  led_3.blue();
-  led_4.blue();
-  wait.ms(100);
-  led_1.white();
-  led_2.white();
-  led_3.white();
-  led_4.white();
-  wait.ms(100);
-  led_1.black();
-  led_2.black();
-  led_3.black();
-  led_4.black();
-
 }
 
 void init(){
   display = Adafruit_SSD1306(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
   if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
-    led_1.red();
     for(;;); // Don't proceed, loop forever
   }
-  led_1.black();
+  
 
   display.clearDisplay();
   display.setTextSize(2);
@@ -970,7 +937,7 @@ void draw_lines(void){
 private:
 };
 
-//GUI gui;
+GUI gui;
 Motion motion;
 ros::NodeHandle nh;
 std_msgs::UInt32 pushed_msg;
@@ -978,13 +945,13 @@ ros::Publisher pub_button("pushed", &pushed_msg);
 
 void setup() {
   //Serial.begin(9600);
-  //gui.init();  
+  gui.init();  
   nh.initNode();
   nh.advertise(pub_button);
 }
 
 void loop() {
-  //gui.upt_encoder();
+  gui.upt_encoder();
   //gui.update_buttons();
   //gui.show_content();  
 

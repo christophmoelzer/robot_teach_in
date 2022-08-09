@@ -432,7 +432,6 @@ class EGM_Motion
 
 };
 
-
 class Display{
   public:
   ros::NodeHandle n;
@@ -475,7 +474,7 @@ class Communication{
         pub_5 = n.advertise<std_msgs::String>("/text_button_center", 1);
         pub_6 = n.advertise<std_msgs::Bool>("/life_sign_to_mcu", 1);
 
-        sub_1 = n.subscribe("/pushed", 100, &Communication::callback_1, this);
+        sub_1 = n.subscribe("/pushed", 100, &Communication::callback_motion_command, this);
         sub_2 = n.subscribe("theta", 100, &Communication::callback_2, this);
         sub_3 = n.subscribe("speed", 100, &Communication::callback_3, this);
         sub_4 = n.subscribe("life_sign_from_mcu", 100, &Communication::callback_4, this);
@@ -547,7 +546,7 @@ class Communication{
 
     }
 
-    void callback_1(const std_msgs::UInt32& msg){
+    void callback_motion_command(const std_msgs::UInt32& msg){
         //ROS_INFO_STREAM("callback_buttons" << msg.data);
         converter(msg.data);
     }
@@ -565,7 +564,45 @@ class Communication{
     }
 
     void converter(uint32_t number){
-        int a[32];
+        /* 
+        *     LINEAR | ROTARY
+        *   0 - X-   |   RZ+
+        *   1 - X+   |   RZ-
+        *   2 - Y-   |   n.d.
+        *   3 - Y+   |   n.d.
+        *   4 - Z-   |   RX-
+        *   5 - Z+   |   RX+
+        *   
+        *   6 - X-   |   n.d.
+        *   7 - X+   |   n.d.
+        *   8 - Y-   |   RZ+
+        *   9 - Y+   |   RZ-
+        *  10 - Z-   |   RY-
+        *  11 - Z+   |   RY+
+        *   
+        *  12 - X-   |   n.d.
+        *  13 - X+   |   n.d.
+        *  14 - Y-   |   RZ-
+        *  15 - Y+   |   RZ+
+        *  16 - Z-   |   RY+
+        *  17 - Z+   |   RY-
+        *   
+        *  18 - X-   |   RZ-
+        *  19 - X+   |   RZ+
+        *  20 - Y-   |   n.d.
+        *  21 - Y+   |   n.d.
+        *  22 - Z-   |   RX+
+        *  23 - Z+   |   RX-
+        *  24 - 
+        *  25 - 
+        *  26 - 
+        *  27 - 
+        *  28 - 
+        *  29 - 
+        *  30 - 
+        *  31 - 
+        */  
+        int bits[32];
         int i=0;
         if((number == 1) or (number == 4096) or (number == 262144)){
           button_x_n = true;
@@ -604,25 +641,11 @@ class Communication{
           button_z_p= false;
         }
         ROS_INFO_STREAM("number = " << number);
-        for(i=0; number>0; i++)    
-        {   //ROS_INFO_STREAM(number%2);
-            if (number%2) {
-              button_values.push_back(true);
-              //ROS_INFO_STREAM("true");
-            }
-            else{
-              button_values.push_back(false);
-              //ROS_INFO_STREAM("false");
-            }
-            a[i]=number%2;    
+        for(i=0; number>0; i++) {   
+            bits[i]=number%2;    
             number= number/2;  
-        }    
-        //ROS_INFO_STREAM("Binary of the given number = ");    
-        for(i=i-1 ;i>=0 ;i--)    
-        {    
-            ;//ROS_INFO_STREAM(a[i]);    
-        }   
-        //ROS_INFO_STREAM(button_values);
+        }       
+        
     }
 
 
