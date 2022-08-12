@@ -1,0 +1,21 @@
+Auswertung der Versuche
+Qualitative Ausage
+
+Präzision vs. Zeit
+Punktesystem für Bewertung
+10 Punkte
+Verteilung der Punkte auf Datenspanne
+
++:
+wenig Zeit, hohe Präzision
+
+-:
+geringe Präzision, viel Zeit
+
+
+Aufnahme der Daten automatisch über Programm
+Export in csv Tabelle für leichtere Auswertung
+
+Wieviel Versuche sind notwendig?
+
+Verteilungsfunktion mit nur 20 Messungen
