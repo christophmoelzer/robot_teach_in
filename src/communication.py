@@ -75,7 +75,16 @@ class PLCConnection():
         method = self.client.get_node('ns=3;s="OPC_UA_ROS_DB".Method')
         print('method = ', method)
         
-        res = sys.call_method(method, ua.Variant(1, ua.VariantType.Int16), ua.Variant(4, ua.VariantType.Int16), ua.Variant(False, ua.VariantType.Boolean), ua.Variant(True, ua.VariantType.Boolean))
+        res = sys.call_method(method, ua.Variant(1, ua.VariantType.Int16), 
+                                    ua.Variant(4, ua.VariantType.Int16), 
+                                    ua.Variant(False, ua.VariantType.Boolean), 
+                                    ua.Variant(True, ua.VariantType.Boolean), 
+                                    ua.Variant(False, ua.VariantType.Boolean), 
+                                    ua.Variant(True, ua.VariantType.Boolean), 
+                                    ua.Variant(False, ua.VariantType.Boolean), 
+                                    ua.Variant(True, ua.VariantType.Boolean), 
+                                    ua.Variant(False, ua.VariantType.Boolean), 
+                                    ua.Variant(True, ua.VariantType.Boolean))
         #res = obj.call_method("3:OPC_UA_ROS")
         print('res = ', res)
     

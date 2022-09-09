@@ -23,8 +23,13 @@ It also contains a state machine for the different motion settings
 #include <std_msgs/UInt16.h>
 #include <std_msgs/Int16.h>
 #include <std_msgs/Float32.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
 
+//bool write_to_file (const char * filepath, std::vector<bool> bool_data);
 bool write_to_file (const char * filepath, std::vector<bool> bool_data, std::vector<uint32_t> float_data);
+//bool write_to_file (const char * filepath, std::vector<bool> bool_data, std::vector<uint8_t> int_data, std::vector<uint8_t> int_data);
+//bool write_to_file (const char * filepath, std::vector<bool> bool_data, std::vector<uint8_t> int_data, std::vector<uint8_t> int_data, std::vector<uint8_t> int_data);
 
 bool button_x_n = false;
 bool button_x_p = false;
@@ -41,6 +46,7 @@ bool button_rz_n = false;
 bool button_rz_p = false;
 
 float angle = 0;
+
 
 volatile sig_atomic_t stop;
 
@@ -86,6 +92,280 @@ class TON{
   }
 
   private:
+};
+
+class TeachTool
+{
+  public:
+
+  void init(){
+    step = 0;
+    entry = true;
+    timer.in = false;
+    timer.pt = ros::Duration(1);
+    timer.run();
+  }
+
+  int state_machine(){
+
+    switch (step)
+    {
+    case 0:   // Init
+      // Entry
+      if (entry == true){
+        entry = false;
+        ROS_INFO_STREAM("entry " << step);
+      }
+      // Cyclic
+      timer.in = true;
+      timer.pt = ros::Duration(1);
+
+      // Exit
+      if (timer.q == true){
+        timer.in = false;
+        entry = true;
+        step = 20;
+      }
+      break;
+    
+    case 20:  // IDLE
+      // Entry
+      if (entry == true){
+        entry = false;
+        ROS_INFO_STREAM("entry " << step);
+
+      }
+      // Cyclic
+      timer.in = true;
+      timer.pt = ros::Duration(1);
+
+      // Exit
+      if (timer.q == true){
+        timer.in = false;
+        entry = true;
+        step = 0;
+      }
+      break;
+
+    case 100:  // Translation
+      // Entry
+      if (entry == true){
+        entry = false;
+        ROS_INFO_STREAM("entry " << step);
+
+      }
+      // Cyclic
+      timer.in = true;
+      timer.pt = ros::Duration(1);
+
+      // Exit
+      if (timer.q == true){
+        timer.in = false;
+        entry = true;
+        step = 0;
+      }
+      break;
+    
+    case 200:  // Rotation
+      // Entry
+      if (entry == true){
+        entry = false;
+        ROS_INFO_STREAM("entry " << step);
+
+      }
+      // Cyclic
+      timer.in = true;
+      timer.pt = ros::Duration(1);
+
+      // Exit
+      if (timer.q == true){
+        timer.in = false;
+        entry = true;
+        step = 0;
+      }
+      break;
+    
+    case 300:  // Lead Through
+      // Entry
+      if (entry == true){
+        entry = false;
+        ROS_INFO_STREAM("entry " << step);
+
+      }
+      // Cyclic
+      timer.in = true;
+      timer.pt = ros::Duration(1);
+
+      // Exit
+      if (timer.q == true){
+        timer.in = false;
+        entry = true;
+        step = 0;
+      }
+      break;
+    
+    case 400:  // 
+      // Entry
+      if (entry == true){
+        entry = false;
+        ROS_INFO_STREAM("entry " << step);
+
+      }
+      // Cyclic
+      timer.in = true;
+      timer.pt = ros::Duration(1);
+
+      // Exit
+      if (timer.q == true){
+        timer.in = false;
+        entry = true;
+        step = 0;
+      }
+      break;
+    
+    
+
+    default:
+      break;
+    }
+
+    timer.run();
+
+    return step;
+  }
+
+
+  private:
+  int step;
+  bool entry;
+  TON timer;
+
+};
+
+class Debug_Info
+{
+  public:
+  ros::Duration t_et;
+  ros::Duration t_pt;
+  ros::Time t_now;
+  ros::Time t_start;
+  bool in;
+  bool q;
+  bool aux;
+
+  void init(){
+    t_et = ros::Duration(0);
+    t_pt = ros::Duration(0);
+    t_now = ros::Time::now();
+    t_start = ros::Time::now();
+    in = false;
+    q = false;
+    aux = false;
+  }
+
+  void run(){
+    if (q == true && false){
+      std::cout << "in: " << in << std::endl;
+      std::cout << "aux: " << aux << std::endl;
+      std::cout << "q: " << q << std::endl;
+      std::cout << "pt: " << t_pt << std::endl;
+      std::cout << "start: " << t_start << std::endl;
+      std::cout << "now: " << t_now << std::endl;
+      std::cout << "et: " << t_et << std::endl;
+      std::cout << std::endl;
+      //std::cout << "" <<  << std::endl;
+    }
+    t_now = ros::Time::now();
+    if (in == true && aux == false){
+      aux = true;
+      t_start = ros::Time::now();
+    }
+    t_et = t_now-t_start;
+    if (in == true && t_et >= t_pt){
+      q = true;
+    }
+    if (in == false){
+      aux = false;
+      q = false;
+    }
+  }
+
+
+  
+};
+
+class EGM_Motion
+{
+
+    public:
+    Debug_Info debug_info;
+    double x, y, z, rx, ry, rz;
+
+
+    void init(){
+      x=0;
+      y=0;
+      z=0;
+      rx=0;
+      ry=0;
+      rz=0;
+      t_prev = ros::Time::now();
+      debug_info.init();
+    }
+
+       
+
+    void step_x(double value){
+      ROS_INFO_STREAM("move x: " << value << " mm");
+      x = value*cos(angle);
+      y = value*sin(angle);
+      //step(value*cos(angle), value*sin(angle), 0, 0, 0, 0);
+    }
+
+    void step_y(double value){
+      ROS_INFO_STREAM("move y: " << value << " mm");
+      x = value*sin(-angle);
+      y = value*cos(-angle);
+      //step(value*sin(-angle), value*cos(-angle), 0, 0, 0, 0);
+    }
+
+    void step_z(double value){
+      ROS_INFO_STREAM("move z: " << value << " mm");
+      z = value;
+      //step(0, 0, value, 0, 0, 0);
+    }
+
+    void step_rx(double value){
+      ROS_INFO_STREAM("move rx: " << value << " °");
+      //step(0, 0, 0, value, 0, 0);
+    }
+
+    void step_ry(double value){
+      ROS_INFO_STREAM("move ry: " << value << " °");
+      //step(0, 0, 0, 0, value, 0);
+    }
+
+    void step_rz(double value){
+      ROS_INFO_STREAM("move rz: " << value << " °");
+      //step(0, 0, 0, 0, 0, value);
+    }
+
+    void step_up(double value){
+        ;//step(value);
+    }
+
+    void step_down(double value){
+      ;//step(-value);
+    }
+
+    private:
+    double position_reference;
+    double new_x, new_y;
+    double diff_old, diff;
+    ros::Duration t_elapsed;
+    ros::Time t_now;
+    ros::Time t_prev;
+
 };
 
 class Display{
@@ -452,6 +732,12 @@ bool read_from_file (const char * filepath)
    return ch == '1';
 }
 
+/**
+ * Write a bool to a file
+ *
+ * @param filepath      In: Path to file
+ * @return true if file exists and the first character is '1'
+ */
 bool write_to_file (const char * filepath, std::vector<bool> bool_data ,std::vector<uint32_t> float_data)
 {
    FILE * fp;
@@ -491,18 +777,30 @@ bool write_to_file (const char * filepath, std::vector<bool> bool_data ,std::vec
    return true;
 }
 
+
+
 int main(int argc, char** argv)
 {
+  //----------------------------------------------------------
+  // Preparations
+  //----------------------------------------------------------
+  // Initialize the node.
   ros::init(argc, argv, "pose_controller_node");
   Communication com;
+  EGM_Motion robot;
   signal(SIGINT, inthand);
   ROS_INFO_STREAM("NODE STARTED");
 
 
   ros::Rate rate(250);
+  //sensor_msgs::JointState msg;
+  geometry_msgs::Pose msg;
+
     
 
-  /*Display disp(node_handle);
+  // Boost components for managing asynchronous UDP socket(s).
+  /*TeachTool tool;
+  Display disp(node_handle);
   tool.init();
   while (!stop){
     tool.state_machine();
@@ -512,12 +810,19 @@ int main(int argc, char** argv)
   return 0;
   */
 
+ 
   bool wait = true;
+  robot.init();
   wait = true;
 
   while(ros::ok()  && !stop)
   {
+    // Wait for a new EGM message from the EGM client (with a timeout of 500 ms).
+  
+    //read_from_file("/home/chris/profinet/build/data.txt");
     
+    //states_pub.publish(msg);
+    //ros::Duration(0.5).sleep();
     write_to_file("/home/chris/catkin_ws/src/robot_teach_in/data/data_from_arduino.txt" ,com.bool_data, com.float_data);
     ros::spinOnce();
     rate.sleep();  

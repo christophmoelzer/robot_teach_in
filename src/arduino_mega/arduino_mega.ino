@@ -159,6 +159,7 @@ public:
 bool input;
 bool last_input;
 bool output;
+bool aux;
 uint8_t _pin;
 unsigned long t_last_change;
 int _t_debounce;
@@ -288,6 +289,8 @@ class Motion{
   bool debounced;
 
   bool mode_lin;
+  bool mode_lead_through;
+  bool button_lead_through;
 
   uint32_t coded_motion_buttons;
 
@@ -338,6 +341,7 @@ class Motion{
     grp_3_active = false;
     grp_4_active = false;
     mode_lin=true;
+    mode_lead_through = false;
     
     btn_grp_1_x_negative = Button(52, debounce_time, "1 - x neg");
     btn_grp_1_x_positive = Button(48, debounce_time, "1 - x pos");
@@ -513,6 +517,7 @@ class Motion{
       published = false;
       debounced = true;
     }
+    
 
     if(btn_grp_1_x_negative.output or 
        btn_grp_1_x_positive.output or 
@@ -576,18 +581,24 @@ class Motion{
     button_array[24] = mode_lin;
     button_array[25] =! mode_lin;
 
-    if(mode_lin){
+    button_array[29] = button_lead_through;
+
+    if(mode_lead_through){
+      led_grp_1.yellow();
+      led_grp_2.yellow();
+      led_grp_3.yellow();
+      led_grp_4.yellow();
+    }
+    else if(mode_lin){
       led_grp_1.green();
       led_grp_2.green();
       led_grp_3.green();
       led_grp_4.green();
-    }
-    else{
+    }else {
       led_grp_1.blue();
       led_grp_2.blue();
       led_grp_3.blue();
       led_grp_4.blue();
-
     }
 
     grp_1_active = false;
@@ -657,8 +668,11 @@ int col_width;
 float increment;
 int velocity ;
 bool mode_lin;
+bool mode_lead_through;
 bool changed;
 WaitMs wait;
+bool debounced;
+bool published;
 
 long pos_encoder;
 int16_t angle_degrees;
@@ -695,7 +709,10 @@ void init(){
   increment = 0.1;
   velocity = 50;
   mode_lin = true;
+  mode_lead_through = false;
   pos_encoder = -999;
+  debounced=false;
+  published=false;
   
 }
 
@@ -745,9 +762,49 @@ void update_buttons(){
   btn_nav_abort.update();
   btn_nav_enter.update();
 
-  if (btn_nav_center.output){
+  if (btn_nav_center.output and not(btn_nav_center.aux)){
+    btn_nav_center.aux = true;
     mode_lin =! mode_lin;
+    display.clearDisplay();
+    display.setTextSize(2);
+    display.setTextColor(SSD1306_WHITE);
+    display.setCursor(5, 5);
+    if (mode_lin){
+      display.println("LIN");
+    }else{
+      display.println("ROT");
+    }
+    display.display();
   }
+  if (not(btn_nav_center.output)){
+    btn_nav_center.aux = false;
+  }
+
+  if (btn_nav_abort.output and not(btn_nav_abort.aux)){
+    btn_nav_abort.aux = true;
+    mode_lead_through =! mode_lead_through;
+    display.clearDisplay();
+    display.setTextSize(2);
+    display.setTextColor(SSD1306_WHITE);
+    display.setCursor(5, 25);
+    if (mode_lead_through){
+      display.println("LEAD_THROUGH");
+    }else{
+      display.println("NORMAL MODE");
+    }
+    display.display();
+  }
+  if (not(btn_nav_abort.output)){
+    btn_nav_abort.aux = false;
+  }
+
+  if (btn_nav_abort.debounced && !btn_nav_abort.published) {
+      btn_nav_abort.published = true;
+      published = false;
+      debounced = true;
+    }
+
+  
 
 /*
   if ((btn_nav_left.update() == LOW) and (btn_nav_left.pressed == false)){
@@ -993,12 +1050,20 @@ void loop() {
   gui.update_buttons();
   //gui.show_content();  
   motion.mode_lin = gui.mode_lin;
+  motion.mode_lead_through = gui.mode_lead_through;
+  motion.button_lead_through = gui.btn_nav_abort.output and gui.btn_nav_abort.debounced;
   motion.update();
   if(motion.debounced && !motion.published){
     pushed_msg.data = motion.coded_motion_buttons;
     pub_button.publish(&pushed_msg);
 
     motion.published = true;
+  }
+  if(gui.debounced && !gui.published){
+    pushed_msg.data = motion.coded_motion_buttons;
+    pub_button.publish(&pushed_msg);
+
+    gui.published = true;
   }
 
   if(gui.changed){

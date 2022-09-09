@@ -24,6 +24,9 @@ include_directories(
  #abb_libegm::abb_libegm 
 )
 
+add_compile_options("-Wall")
+
+
 #################################
 # Build the basic level samples #
 #################################
@@ -31,12 +34,12 @@ include_directories(
 add_executable(${PROJECT_NAME}_node src/robot_teach_in.cpp)
 target_link_libraries(${PROJECT_NAME}_node abb_libegm::abb_libegm ${catkin_LIBRARIES})
 
-add_executable(pose_controller_node src/pose_controller.cpp)
-target_link_libraries(pose_controller_node abb_libegm::abb_libegm ${catkin_LIBRARIES})
+#add_executable(pose_controller_node src/pose_controller.cpp)
+#target_link_libraries(pose_controller_node abb_libegm::abb_libegm ${catkin_LIBRARIES})
 
-add_executable(test_node src/test_node.cpp)
-target_link_libraries(test_node abb_libegm::abb_libegm ${catkin_LIBRARIES})
+#add_executable(test_node src/test_node.cpp)
+#target_link_libraries(test_node abb_libegm::abb_libegm ${catkin_LIBRARIES})
 
-add_executable(foo_node src/foo.cpp)
-target_link_libraries(foo_node abb_libegm::abb_libegm ${catkin_LIBRARIES})
+#add_executable(foo_node src/foo.cpp)
+#target_link_libraries(foo_node abb_libegm::abb_libegm ${catkin_LIBRARIES})
 

@@ -28,9 +28,8 @@
         },
         {
             "name": "Arduino",
-            "compilerPath": "C:\\Program Files (x86)\\Arduino\\hardware\\tools\\avr\\bin\\avr-g++",
+            "compilerPath": "/home/chris/Downloads/arduino-1.8.19-linux64/arduino-1.8.19/hardware/tools/avr/bin/avr-g++",
             "compilerArgs": [
-                "-w",
                 "-std=gnu++11",
                 "-fpermissive",
                 "-fno-exceptions",
@@ -41,22 +40,22 @@
             ],
             "intelliSenseMode": "gcc-x64",
             "includePath": [
-                "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\cores\\arduino",
-                "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\variants\\mega",
-                "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\libraries\\SPI\\src",
-                "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\libraries\\Wire\\src",
-                "C:\\Users\\Christoph\\Documents\\Arduino\\libraries\\Adafruit_SSD1306",
-                "C:\\Users\\Christoph\\Documents\\Arduino\\libraries\\Adafruit_GFX_Library",
-                "C:\\Users\\Christoph\\Documents\\Arduino\\libraries\\Adafruit_BusIO",
-                "C:\\Users\\Christoph\\Documents\\Arduino\\libraries\\ButtonDebounce\\src",
-                "C:\\Users\\Christoph\\Documents\\Arduino\\libraries\\Encoder",
-                "C:\\Users\\Christoph\\Documents\\Arduino\\libraries\\Rosserial_Arduino_Library\\src",
-                "c:\\program files (x86)\\arduino\\hardware\\tools\\avr\\lib\\gcc\\avr\\7.3.0\\include",
-                "c:\\program files (x86)\\arduino\\hardware\\tools\\avr\\lib\\gcc\\avr\\7.3.0\\include-fixed",
-                "c:\\program files (x86)\\arduino\\hardware\\tools\\avr\\avr\\include"
+                "/home/chris/Downloads/arduino-1.8.19-linux64/arduino-1.8.19/hardware/arduino/avr/cores/arduino",
+                "/home/chris/Downloads/arduino-1.8.19-linux64/arduino-1.8.19/hardware/arduino/avr/variants/mega",
+                "/home/chris/Downloads/arduino-1.8.19-linux64/arduino-1.8.19/hardware/arduino/avr/libraries/SPI/src",
+                "/home/chris/Downloads/arduino-1.8.19-linux64/arduino-1.8.19/hardware/arduino/avr/libraries/Wire/src",
+                "/home/chris/Arduino/libraries/Adafruit_SSD1306",
+                "/home/chris/Arduino/libraries/Adafruit_GFX_Library",
+                "/home/chris/Arduino/libraries/Adafruit_BusIO",
+                "/home/chris/Arduino/libraries/ButtonDebounce/src",
+                "/home/chris/Arduino/libraries/Encoder",
+                "/home/chris/Arduino/libraries/Rosserial_Arduino_Library/src",
+                "/home/chris/Downloads/arduino-1.8.19-linux64/arduino-1.8.19/hardware/tools/avr/lib/gcc/avr/7.3.0/include",
+                "/home/chris/Downloads/arduino-1.8.19-linux64/arduino-1.8.19/hardware/tools/avr/lib/gcc/avr/7.3.0/include-fixed",
+                "/home/chris/Downloads/arduino-1.8.19-linux64/arduino-1.8.19/hardware/tools/avr/avr/include"
             ],
             "forcedInclude": [
-                "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\cores\\arduino\\Arduino.h"
+                "/home/chris/Downloads/arduino-1.8.19-linux64/arduino-1.8.19/hardware/arduino/avr/cores/arduino/Arduino.h"
             ],
             "cStandard": "c11",
             "cppStandard": "c++11",

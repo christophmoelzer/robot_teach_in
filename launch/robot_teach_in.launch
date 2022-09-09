@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <launch>
     
+  <node name="profinet_node" pkg="robot_teach_in" type="profinet.sh" output="screen"/>
+  <node pkg="rosserial_python" name="serial_node" type="serial_node.py" args="/dev/ttyACM0" output="screen" />
   <node name="robot_teach_in_node" pkg="robot_teach_in" type="robot_teach_in_node" output="screen"/>
-  <node name="communication" pkg="robot_teach_in" type="communication.py" output="screen"/>
-  <node pkg="rosserial_python" name="serial_node" type="serial_node.py" args="/dev/ttyUSB0" output="screen" />
+  <!--node name="communication" pkg="robot_teach_in" type="communication.py" output="screen"/-->
    
 </launch>
