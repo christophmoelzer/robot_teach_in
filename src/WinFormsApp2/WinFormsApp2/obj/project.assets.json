@@ -498,11 +498,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Laptop DF 2\\source\\repos\\WinFormsApp2\\WinFormsApp2\\WinFormsApp2.csproj",
+      "projectUniqueName": "C:\\Users\\Laptop DF 2\\Documents\\GitHub\\robot_teach_in\\src\\WinFormsApp2\\WinFormsApp2\\WinFormsApp2.csproj",
       "projectName": "WinFormsApp2",
-      "projectPath": "C:\\Users\\Laptop DF 2\\source\\repos\\WinFormsApp2\\WinFormsApp2\\WinFormsApp2.csproj",
+      "projectPath": "C:\\Users\\Laptop DF 2\\Documents\\GitHub\\robot_teach_in\\src\\WinFormsApp2\\WinFormsApp2\\WinFormsApp2.csproj",
       "packagesPath": "C:\\Users\\Laptop DF 2\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Laptop DF 2\\source\\repos\\WinFormsApp2\\WinFormsApp2\\obj\\",
+      "outputPath": "C:\\Users\\Laptop DF 2\\Documents\\GitHub\\robot_teach_in\\src\\WinFormsApp2\\WinFormsApp2\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Laptop DF 2\\AppData\\Roaming\\NuGet\\NuGet.Config",

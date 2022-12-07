@@ -5,9 +5,9 @@ using System.IO.Ports;
 
 using ABB.Robotics.Controllers.Discovery;
 using ABB.Robotics.Controllers.RapidDomain;
-using ABB.Robotics.Controllers;
 using ABB.Robotics.Controllers.IOSystemDomain;
 using System.Timers;
+using ABB.Robotics.Controllers;
 
 namespace WinFormsApp2
 {
@@ -124,6 +124,11 @@ namespace WinFormsApp2
 
         static int myNum;
 
+        private static void set_lable_text(string text)
+        {
+            ;// label1.Text = text;
+        }
+
 
         private static void set_rapid_variable(string key_name)
         {
@@ -214,6 +219,43 @@ namespace WinFormsApp2
             sdk_commands[30] = "n.d.";
             sdk_commands[31] = "n.d.";
 
+            string[] sdk_commands_rot = new string[32];
+            sdk_commands_rot[0] = "sdk_rz_p";
+            sdk_commands_rot[1] = "sdk_rz_n";
+            sdk_commands_rot[2] = "sdk_rx_p";
+            sdk_commands_rot[3] = "sdk_rx_n";
+            sdk_commands_rot[4] = "sdk_rx_n";
+            sdk_commands_rot[5] = "sdk_rx_p";
+
+            sdk_commands_rot[6] = "sdk_ry_n";
+            sdk_commands_rot[7] = "sdk_ry_p";
+            sdk_commands_rot[8] = "sdk_rz_p";
+            sdk_commands_rot[9] = "sdk_rz_n";
+            sdk_commands_rot[10] = "sdk_ry_n";
+            sdk_commands_rot[11] = "sdk_ry_p";
+
+            sdk_commands_rot[12] = "sdk_ry_n";
+            sdk_commands_rot[13] = "sdk_ry_p";
+            sdk_commands_rot[14] = "sdk_rz_n";
+            sdk_commands_rot[15] = "sdk_rz_p";
+            sdk_commands_rot[16] = "sdk_ry_p";
+            sdk_commands_rot[17] = "sdk_ry_n";
+
+            sdk_commands_rot[18] = "sdk_rz_n";
+            sdk_commands_rot[19] = "sdk_rz_p";
+            sdk_commands_rot[20] = "sdk_rx_p";
+            sdk_commands_rot[21] = "sdk_rx_n";
+            sdk_commands_rot[22] = "sdk_rx_p";
+            sdk_commands_rot[23] = "sdk_rx_n";
+
+            sdk_commands_rot[24] = "sdk_mode_lin";
+            sdk_commands_rot[25] = "sdk_mode_lin!";
+            sdk_commands_rot[26] = "n.d.";
+            sdk_commands_rot[27] = "n.d.";
+            sdk_commands_rot[28] = "n.d.";
+            sdk_commands_rot[29] = "sdk_leadthrough";
+            sdk_commands_rot[30] = "n.d.";
+            sdk_commands_rot[31] = "n.d.";
 
             byte aux = 0;
             string myString = "";
@@ -247,17 +289,64 @@ namespace WinFormsApp2
             }
             //MessageBox.Show(myString);
 
-            for (int i=0; i<6; i++)
+            bool foo = false;
+            if (buttons[24])
             {
-                if (buttons[i] || buttons[i + 6] || buttons[i + 2*6] || buttons[i + 3 * 6])
+                for (int i = 0; i < 6; i++)
                 {
-                    set_rapid_variable(sdk_commands[i]);
+                    if (buttons[i] || buttons[i + 6] || buttons[i + 2 * 6] || buttons[i + 3 * 6])
+                    {
+                        set_rapid_variable(sdk_commands[i]);
+                        set_lable_text(sdk_commands[i]);
+                        foo = true;
+                    }
+                    else
+                    {
+                        reset_rapid_variable(sdk_commands[i]);
+                        reset_rapid_variable(sdk_commands_rot[i]);
+                        
+                    }
+                }
+                if (foo == false) { set_lable_text("---"); }
+            }
+            else if (buttons[25])
+            {
+                
+                if (buttons[0] || buttons[8] || buttons[15] || buttons[19])
+                {
+                    set_rapid_variable(sdk_commands_rot[0]);
+                }
+                else if (buttons[1] || buttons[9] || buttons[14] || buttons[18])
+                {
+                    set_rapid_variable(sdk_commands_rot[1]);
+                }
+                else if (buttons[2] || buttons[20] || buttons[22] || buttons[5])
+                {
+                    set_rapid_variable(sdk_commands_rot[2]);
+                }
+                else if (buttons[3] || buttons[21] || buttons[23] || buttons[4])
+                {
+                    set_rapid_variable(sdk_commands_rot[3]);
+                }
+                else if (buttons[6] || buttons[10] || buttons[12] || buttons[17])
+                {
+                    set_rapid_variable(sdk_commands_rot[6]);
+                }
+                else if (buttons[7] || buttons[11] || buttons[13] || buttons[16])
+                {
+                    set_rapid_variable(sdk_commands_rot[7]);
                 }
                 else
                 {
-                    reset_rapid_variable(sdk_commands[i]);
+                    for (int i = 0; i <= 23; i++)
+                    {
+                        reset_rapid_variable(sdk_commands[i]);
+                        reset_rapid_variable(sdk_commands_rot[i]);
+                    }
                 }
+                
             }
+            
             
             if (buttons[29])
             {
@@ -278,7 +367,20 @@ namespace WinFormsApp2
                 }
 
             }
-            
+
+            if (buttons[24] && buttons[25]==false)
+            {
+                set_rapid_variable("sdk_lin_mode");
+                reset_rapid_variable("sdk_rot_mode");
+                //MessageBox.Show("LIN");
+            }
+            if (buttons[25] && buttons[24] == false)
+            {
+                set_rapid_variable("sdk_rot_mode");
+                reset_rapid_variable("sdk_lin_mode");
+                //MessageBox.Show("ROT");
+            }
+
 
             sp.DiscardInBuffer();
         }
@@ -291,10 +393,12 @@ namespace WinFormsApp2
         }
 
       
+        
 
         private void button_z_p_MouseDown(object sender, MouseEventArgs e)
         {
             set_rapid_variable("sdk_z_p");
+
         }
 
         private void button_z_p_MouseUp(object sender, MouseEventArgs e)
@@ -428,6 +532,11 @@ namespace WinFormsApp2
                 reset_rapid_variable("sdk_leadthrough_on");
                 MessageBox.Show("OFF");
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            ;
         }
     }
 }

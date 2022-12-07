@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
@@ -51,29 +49,8 @@
             this.button_rz_n = new System.Windows.Forms.Button();
             this.button_rz_p = new System.Windows.Forms.Button();
             this.cb_lead_through = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(12, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(258, 107);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "ON";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button2.Location = new System.Drawing.Point(276, 12);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(258, 107);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "OFF";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // listView1
             // 
@@ -87,7 +64,7 @@
             this.columnHeader7});
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(12, 125);
+            this.listView1.Location = new System.Drawing.Point(12, 12);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(779, 91);
             this.listView1.TabIndex = 2;
@@ -133,7 +110,7 @@
             // 
             // button_z_p
             // 
-            this.button_z_p.Location = new System.Drawing.Point(21, 335);
+            this.button_z_p.Location = new System.Drawing.Point(12, 171);
             this.button_z_p.Name = "button_z_p";
             this.button_z_p.Size = new System.Drawing.Size(80, 80);
             this.button_z_p.TabIndex = 4;
@@ -144,7 +121,7 @@
             // 
             // button_z_n
             // 
-            this.button_z_n.Location = new System.Drawing.Point(21, 507);
+            this.button_z_n.Location = new System.Drawing.Point(12, 343);
             this.button_z_n.Name = "button_z_n";
             this.button_z_n.Size = new System.Drawing.Size(80, 80);
             this.button_z_n.TabIndex = 5;
@@ -155,7 +132,7 @@
             // 
             // button_y_n
             // 
-            this.button_y_n.Location = new System.Drawing.Point(193, 507);
+            this.button_y_n.Location = new System.Drawing.Point(184, 343);
             this.button_y_n.Name = "button_y_n";
             this.button_y_n.Size = new System.Drawing.Size(80, 80);
             this.button_y_n.TabIndex = 6;
@@ -166,7 +143,7 @@
             // 
             // button_y_p
             // 
-            this.button_y_p.Location = new System.Drawing.Point(193, 335);
+            this.button_y_p.Location = new System.Drawing.Point(184, 171);
             this.button_y_p.Name = "button_y_p";
             this.button_y_p.Size = new System.Drawing.Size(80, 80);
             this.button_y_p.TabIndex = 7;
@@ -177,7 +154,7 @@
             // 
             // button_x_p
             // 
-            this.button_x_p.Location = new System.Drawing.Point(279, 421);
+            this.button_x_p.Location = new System.Drawing.Point(270, 257);
             this.button_x_p.Name = "button_x_p";
             this.button_x_p.Size = new System.Drawing.Size(80, 80);
             this.button_x_p.TabIndex = 8;
@@ -188,7 +165,7 @@
             // 
             // button_x_n
             // 
-            this.button_x_n.Location = new System.Drawing.Point(107, 421);
+            this.button_x_n.Location = new System.Drawing.Point(98, 257);
             this.button_x_n.Name = "button_x_n";
             this.button_x_n.Size = new System.Drawing.Size(80, 80);
             this.button_x_n.TabIndex = 9;
@@ -199,7 +176,7 @@
             // 
             // button_rx_n
             // 
-            this.button_rx_n.Location = new System.Drawing.Point(528, 421);
+            this.button_rx_n.Location = new System.Drawing.Point(519, 257);
             this.button_rx_n.Name = "button_rx_n";
             this.button_rx_n.Size = new System.Drawing.Size(80, 80);
             this.button_rx_n.TabIndex = 15;
@@ -210,7 +187,7 @@
             // 
             // button_rx_p
             // 
-            this.button_rx_p.Location = new System.Drawing.Point(700, 421);
+            this.button_rx_p.Location = new System.Drawing.Point(691, 257);
             this.button_rx_p.Name = "button_rx_p";
             this.button_rx_p.Size = new System.Drawing.Size(80, 80);
             this.button_rx_p.TabIndex = 14;
@@ -221,7 +198,7 @@
             // 
             // button_ry_p
             // 
-            this.button_ry_p.Location = new System.Drawing.Point(614, 335);
+            this.button_ry_p.Location = new System.Drawing.Point(605, 171);
             this.button_ry_p.Name = "button_ry_p";
             this.button_ry_p.Size = new System.Drawing.Size(80, 80);
             this.button_ry_p.TabIndex = 13;
@@ -232,7 +209,7 @@
             // 
             // button_ry_n
             // 
-            this.button_ry_n.Location = new System.Drawing.Point(614, 507);
+            this.button_ry_n.Location = new System.Drawing.Point(605, 343);
             this.button_ry_n.Name = "button_ry_n";
             this.button_ry_n.Size = new System.Drawing.Size(80, 80);
             this.button_ry_n.TabIndex = 12;
@@ -243,7 +220,7 @@
             // 
             // button_rz_n
             // 
-            this.button_rz_n.Location = new System.Drawing.Point(442, 507);
+            this.button_rz_n.Location = new System.Drawing.Point(433, 343);
             this.button_rz_n.Name = "button_rz_n";
             this.button_rz_n.Size = new System.Drawing.Size(80, 80);
             this.button_rz_n.TabIndex = 11;
@@ -254,7 +231,7 @@
             // 
             // button_rz_p
             // 
-            this.button_rz_p.Location = new System.Drawing.Point(442, 335);
+            this.button_rz_p.Location = new System.Drawing.Point(433, 171);
             this.button_rz_p.Name = "button_rz_p";
             this.button_rz_p.Size = new System.Drawing.Size(80, 80);
             this.button_rz_p.TabIndex = 10;
@@ -266,7 +243,7 @@
             // cb_lead_through
             // 
             this.cb_lead_through.AutoSize = true;
-            this.cb_lead_through.Location = new System.Drawing.Point(71, 247);
+            this.cb_lead_through.Location = new System.Drawing.Point(71, 134);
             this.cb_lead_through.Name = "cb_lead_through";
             this.cb_lead_through.Size = new System.Drawing.Size(94, 19);
             this.cb_lead_through.TabIndex = 16;
@@ -274,11 +251,22 @@
             this.cb_lead_through.UseVisualStyleBackColor = true;
             this.cb_lead_through.CheckedChanged += new System.EventHandler(this.cb_lead_through_CheckedChanged);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(373, 136);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 15);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "label1";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(812, 664);
+            this.ClientSize = new System.Drawing.Size(803, 494);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.cb_lead_through);
             this.Controls.Add(this.button_rx_n);
             this.Controls.Add(this.button_rx_p);
@@ -293,8 +281,6 @@
             this.Controls.Add(this.button_z_n);
             this.Controls.Add(this.button_z_p);
             this.Controls.Add(this.listView1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Name = "Form1";
             this.Text = "Network scanner";
             this.ResumeLayout(false);
@@ -303,9 +289,6 @@
         }
 
         #endregion
-
-        private Button button1;
-        private Button button2;
         private ListView listView1;
         private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader2;
@@ -327,5 +310,6 @@
         private Button button_rz_n;
         private Button button_rz_p;
         private CheckBox cb_lead_through;
+        private Label label1;
     }
 }

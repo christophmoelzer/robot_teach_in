@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lU7lDw/QHXfsWv6pq0zE/LAYO85gePCZUtMGGI7+Y3LYQgdt7jTKoQjDBNVQg0De9ct7C/HkM7RWsTzmLfZfYQ==",
+  "dgSpecHash": "bASPAn+QP/LFFNiguf4RYJkUkw7rGlNRSofXGCRJqJJwbA6iarGfuspvDgv2NE6L/jqstcliun3C9q6mlmUMpA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Laptop DF 2\\source\\repos\\WinFormsApp2\\WinFormsApp2\\WinFormsApp2.csproj",
+  "projectFilePath": "C:\\Users\\Laptop DF 2\\Documents\\GitHub\\robot_teach_in\\src\\WinFormsApp2\\WinFormsApp2\\WinFormsApp2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Laptop DF 2\\.nuget\\packages\\dotnetty.common\\0.7.5\\dotnetty.common.0.7.5.nupkg.sha512",
     "C:\\Users\\Laptop DF 2\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\5.0.0\\microsoft.extensions.dependencyinjection.5.0.0.nupkg.sha512",

@@ -1053,6 +1053,7 @@ Motion motion;
 
 char datenpaket;
 int serial_counter=0;
+bool aux_pressed = false;
 
 void setup() {
   Serial.begin(9600);
@@ -1074,7 +1075,11 @@ void loop() {
   motion.mode_lead_through = gui.mode_lead_through;
   motion.button_lead_through = gui.btn_nav_abort.output and gui.btn_nav_abort.debounced;
   motion.update();
-  if(motion.debounced && !motion.published){
+  if (motion.btn_pressed){
+    aux_pressed = true;
+  }
+  if((motion.debounced && !motion.published) or (not(motion.btn_pressed) and aux_pressed)){
+    aux_pressed = false;
     //pushed_msg.data = motion.coded_motion_buttons;
     //pub_button.publish(&pushed_msg);
     //Serial.write(motion.coded_motion_buttons);
