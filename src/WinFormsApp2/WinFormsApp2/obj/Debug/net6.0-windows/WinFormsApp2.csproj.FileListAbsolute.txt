@@ -72,3 +72,40 @@ C:\Users\Laptop DF 2\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsAp
 C:\Users\Laptop DF 2\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\obj\Debug\net6.0-windows\WinFormsApp2.pdb
 C:\Users\Laptop DF 2\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\obj\Debug\net6.0-windows\WinFormsApp2.genruntimeconfig.cache
 C:\Users\Laptop DF 2\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\obj\Debug\net6.0-windows\ref\WinFormsApp2.dll
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\WinFormsApp2.exe
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\WinFormsApp2.deps.json
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\WinFormsApp2.runtimeconfig.json
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\WinFormsApp2.dll
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\WinFormsApp2.pdb
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\DotNetty.Common.dll
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.dll
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\Microsoft.Extensions.Options.dll
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\Microsoft.Extensions.Primitives.dll
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\System.IO.Ports.dll
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\runtimes\linux-arm\native\libSystem.IO.Ports.Native.so
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\runtimes\linux-arm64\native\libSystem.IO.Ports.Native.so
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\runtimes\linux-x64\native\libSystem.IO.Ports.Native.so
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\runtimes\osx-arm64\native\libSystem.IO.Ports.Native.dylib
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\runtimes\osx-x64\native\libSystem.IO.Ports.Native.dylib
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\runtimes\unix\lib\net6.0\System.IO.Ports.dll
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.IO.Ports.dll
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\ABB.Robotics.Controllers.PC.dll
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\RobotStudio.Services.RobApi.Desktop.dll
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\RobotStudio.Services.RobApi.dll
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\bin\Debug\net6.0-windows\ABB.Robotics.Controllers.PC.xml
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\obj\Debug\net6.0-windows\WinFormsApp2.csproj.AssemblyReference.cache
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\obj\Debug\net6.0-windows\WinFormsApp2.Form1.resources
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\obj\Debug\net6.0-windows\WinFormsApp2.csproj.GenerateResource.cache
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\obj\Debug\net6.0-windows\WinFormsApp2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\obj\Debug\net6.0-windows\WinFormsApp2.AssemblyInfoInputs.cache
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\obj\Debug\net6.0-windows\WinFormsApp2.AssemblyInfo.cs
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\obj\Debug\net6.0-windows\WinFormsApp2.csproj.CoreCompileInputs.cache
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\obj\Debug\net6.0-windows\WinFormsApp2.csproj.CopyComplete
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\obj\Debug\net6.0-windows\WinFormsApp2.dll
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\obj\Debug\net6.0-windows\refint\WinFormsApp2.dll
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\obj\Debug\net6.0-windows\WinFormsApp2.pdb
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\obj\Debug\net6.0-windows\WinFormsApp2.genruntimeconfig.cache
+C:\Users\Christoph\Documents\GitHub\robot_teach_in\src\WinFormsApp2\WinFormsApp2\obj\Debug\net6.0-windows\ref\WinFormsApp2.dll

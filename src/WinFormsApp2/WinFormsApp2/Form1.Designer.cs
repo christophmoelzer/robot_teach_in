@@ -36,20 +36,21 @@
             this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
-            this.button_z_p = new System.Windows.Forms.Button();
-            this.button_z_n = new System.Windows.Forms.Button();
-            this.button_y_n = new System.Windows.Forms.Button();
-            this.button_y_p = new System.Windows.Forms.Button();
-            this.button_x_p = new System.Windows.Forms.Button();
-            this.button_x_n = new System.Windows.Forms.Button();
-            this.button_rx_n = new System.Windows.Forms.Button();
-            this.button_rx_p = new System.Windows.Forms.Button();
-            this.button_ry_p = new System.Windows.Forms.Button();
-            this.button_ry_n = new System.Windows.Forms.Button();
-            this.button_rz_n = new System.Windows.Forms.Button();
-            this.button_rz_p = new System.Windows.Forms.Button();
+            button_z_p = new System.Windows.Forms.Button();
+            button_z_n = new System.Windows.Forms.Button();
+            button_y_n = new System.Windows.Forms.Button();
+            button_y_p = new System.Windows.Forms.Button();
+            button_x_p = new System.Windows.Forms.Button();
+            button_x_n = new System.Windows.Forms.Button();
+            button_rx_n = new System.Windows.Forms.Button();
+            button_rx_p = new System.Windows.Forms.Button();
+            button_ry_p = new System.Windows.Forms.Button();
+            button_ry_n = new System.Windows.Forms.Button();
+            button_rz_n = new System.Windows.Forms.Button();
+            button_rz_p = new System.Windows.Forms.Button();
             this.cb_lead_through = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // listView1
@@ -110,135 +111,135 @@
             // 
             // button_z_p
             // 
-            this.button_z_p.Location = new System.Drawing.Point(12, 171);
-            this.button_z_p.Name = "button_z_p";
-            this.button_z_p.Size = new System.Drawing.Size(80, 80);
-            this.button_z_p.TabIndex = 4;
-            this.button_z_p.Text = "Z+";
-            this.button_z_p.UseVisualStyleBackColor = true;
-            this.button_z_p.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_z_p_MouseDown);
-            this.button_z_p.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_z_p_MouseUp);
+            button_z_p.Location = new System.Drawing.Point(12, 171);
+            button_z_p.Name = "button_z_p";
+            button_z_p.Size = new System.Drawing.Size(80, 80);
+            button_z_p.TabIndex = 4;
+            button_z_p.Text = "Z+";
+            button_z_p.UseVisualStyleBackColor = true;
+            button_z_p.MouseDown += new System.Windows.Forms.MouseEventHandler(button_z_p_MouseDown);
+            button_z_p.MouseUp += new System.Windows.Forms.MouseEventHandler(button_z_p_MouseUp);
             // 
             // button_z_n
             // 
-            this.button_z_n.Location = new System.Drawing.Point(12, 343);
-            this.button_z_n.Name = "button_z_n";
-            this.button_z_n.Size = new System.Drawing.Size(80, 80);
-            this.button_z_n.TabIndex = 5;
-            this.button_z_n.Text = "Z-";
-            this.button_z_n.UseVisualStyleBackColor = true;
-            this.button_z_n.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_z_n_MouseDown);
-            this.button_z_n.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_z_n_MouseUp);
+            button_z_n.Location = new System.Drawing.Point(12, 343);
+            button_z_n.Name = "button_z_n";
+            button_z_n.Size = new System.Drawing.Size(80, 80);
+            button_z_n.TabIndex = 5;
+            button_z_n.Text = "Z-";
+            button_z_n.UseVisualStyleBackColor = true;
+            button_z_n.MouseDown += new System.Windows.Forms.MouseEventHandler(button_z_n_MouseDown);
+            button_z_n.MouseUp += new System.Windows.Forms.MouseEventHandler(button_z_n_MouseUp);
             // 
             // button_y_n
             // 
-            this.button_y_n.Location = new System.Drawing.Point(184, 343);
-            this.button_y_n.Name = "button_y_n";
-            this.button_y_n.Size = new System.Drawing.Size(80, 80);
-            this.button_y_n.TabIndex = 6;
-            this.button_y_n.Text = "Y-";
-            this.button_y_n.UseVisualStyleBackColor = true;
-            this.button_y_n.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_y_n_MouseDown);
-            this.button_y_n.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_y_n_MouseUp);
+            button_y_n.Location = new System.Drawing.Point(184, 343);
+            button_y_n.Name = "button_y_n";
+            button_y_n.Size = new System.Drawing.Size(80, 80);
+            button_y_n.TabIndex = 6;
+            button_y_n.Text = "Y-";
+            button_y_n.UseVisualStyleBackColor = true;
+            button_y_n.MouseDown += new System.Windows.Forms.MouseEventHandler(button_y_n_MouseDown);
+            button_y_n.MouseUp += new System.Windows.Forms.MouseEventHandler(button_y_n_MouseUp);
             // 
             // button_y_p
             // 
-            this.button_y_p.Location = new System.Drawing.Point(184, 171);
-            this.button_y_p.Name = "button_y_p";
-            this.button_y_p.Size = new System.Drawing.Size(80, 80);
-            this.button_y_p.TabIndex = 7;
-            this.button_y_p.Text = "Y+";
-            this.button_y_p.UseVisualStyleBackColor = true;
-            this.button_y_p.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_y_p_MouseDown);
-            this.button_y_p.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_y_p_MouseUp);
+            button_y_p.Location = new System.Drawing.Point(184, 171);
+            button_y_p.Name = "button_y_p";
+            button_y_p.Size = new System.Drawing.Size(80, 80);
+            button_y_p.TabIndex = 7;
+            button_y_p.Text = "Y+";
+            button_y_p.UseVisualStyleBackColor = true;
+            button_y_p.MouseDown += new System.Windows.Forms.MouseEventHandler(button_y_p_MouseDown);
+            button_y_p.MouseUp += new System.Windows.Forms.MouseEventHandler(button_y_p_MouseUp);
             // 
             // button_x_p
             // 
-            this.button_x_p.Location = new System.Drawing.Point(270, 257);
-            this.button_x_p.Name = "button_x_p";
-            this.button_x_p.Size = new System.Drawing.Size(80, 80);
-            this.button_x_p.TabIndex = 8;
-            this.button_x_p.Text = "X+";
-            this.button_x_p.UseVisualStyleBackColor = true;
-            this.button_x_p.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_x_p_MouseDown);
-            this.button_x_p.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_x_p_MouseUp);
+            button_x_p.Location = new System.Drawing.Point(270, 257);
+            button_x_p.Name = "button_x_p";
+            button_x_p.Size = new System.Drawing.Size(80, 80);
+            button_x_p.TabIndex = 8;
+            button_x_p.Text = "X+";
+            button_x_p.UseVisualStyleBackColor = true;
+            button_x_p.MouseDown += new System.Windows.Forms.MouseEventHandler(button_x_p_MouseDown);
+            button_x_p.MouseUp += new System.Windows.Forms.MouseEventHandler(button_x_p_MouseUp);
             // 
             // button_x_n
             // 
-            this.button_x_n.Location = new System.Drawing.Point(98, 257);
-            this.button_x_n.Name = "button_x_n";
-            this.button_x_n.Size = new System.Drawing.Size(80, 80);
-            this.button_x_n.TabIndex = 9;
-            this.button_x_n.Text = "X-";
-            this.button_x_n.UseVisualStyleBackColor = true;
-            this.button_x_n.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_x_n_MouseDown);
-            this.button_x_n.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_x_n_MouseUp);
+            button_x_n.Location = new System.Drawing.Point(98, 257);
+            button_x_n.Name = "button_x_n";
+            button_x_n.Size = new System.Drawing.Size(80, 80);
+            button_x_n.TabIndex = 9;
+            button_x_n.Text = "X-";
+            button_x_n.UseVisualStyleBackColor = true;
+            button_x_n.MouseDown += new System.Windows.Forms.MouseEventHandler(button_x_n_MouseDown);
+            button_x_n.MouseUp += new System.Windows.Forms.MouseEventHandler(button_x_n_MouseUp);
             // 
             // button_rx_n
             // 
-            this.button_rx_n.Location = new System.Drawing.Point(519, 257);
-            this.button_rx_n.Name = "button_rx_n";
-            this.button_rx_n.Size = new System.Drawing.Size(80, 80);
-            this.button_rx_n.TabIndex = 15;
-            this.button_rx_n.Text = "RX-";
-            this.button_rx_n.UseVisualStyleBackColor = true;
-            this.button_rx_n.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_rx_n_MouseDown);
-            this.button_rx_n.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_rx_n_MouseUp);
+            button_rx_n.Location = new System.Drawing.Point(519, 257);
+            button_rx_n.Name = "button_rx_n";
+            button_rx_n.Size = new System.Drawing.Size(80, 80);
+            button_rx_n.TabIndex = 15;
+            button_rx_n.Text = "RX-";
+            button_rx_n.UseVisualStyleBackColor = true;
+            button_rx_n.MouseDown += new System.Windows.Forms.MouseEventHandler(button_rx_n_MouseDown);
+            button_rx_n.MouseUp += new System.Windows.Forms.MouseEventHandler(button_rx_n_MouseUp);
             // 
             // button_rx_p
             // 
-            this.button_rx_p.Location = new System.Drawing.Point(691, 257);
-            this.button_rx_p.Name = "button_rx_p";
-            this.button_rx_p.Size = new System.Drawing.Size(80, 80);
-            this.button_rx_p.TabIndex = 14;
-            this.button_rx_p.Text = "RX+";
-            this.button_rx_p.UseVisualStyleBackColor = true;
-            this.button_rx_p.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_rx_p_MouseDown);
-            this.button_rx_p.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button_rx_p_MouseUp);
+            button_rx_p.Location = new System.Drawing.Point(691, 257);
+            button_rx_p.Name = "button_rx_p";
+            button_rx_p.Size = new System.Drawing.Size(80, 80);
+            button_rx_p.TabIndex = 14;
+            button_rx_p.Text = "RX+";
+            button_rx_p.UseVisualStyleBackColor = true;
+            button_rx_p.MouseDown += new System.Windows.Forms.MouseEventHandler(button_rx_p_MouseDown);
+            button_rx_p.MouseMove += new System.Windows.Forms.MouseEventHandler(button_rx_p_MouseUp);
             // 
             // button_ry_p
             // 
-            this.button_ry_p.Location = new System.Drawing.Point(605, 171);
-            this.button_ry_p.Name = "button_ry_p";
-            this.button_ry_p.Size = new System.Drawing.Size(80, 80);
-            this.button_ry_p.TabIndex = 13;
-            this.button_ry_p.Text = "RY+";
-            this.button_ry_p.UseVisualStyleBackColor = true;
-            this.button_ry_p.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_ry_p_MouseDown);
-            this.button_ry_p.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_ry_p_MouseUp);
+            button_ry_p.Location = new System.Drawing.Point(605, 171);
+            button_ry_p.Name = "button_ry_p";
+            button_ry_p.Size = new System.Drawing.Size(80, 80);
+            button_ry_p.TabIndex = 13;
+            button_ry_p.Text = "RY+";
+            button_ry_p.UseVisualStyleBackColor = true;
+            button_ry_p.MouseDown += new System.Windows.Forms.MouseEventHandler(button_ry_p_MouseDown);
+            button_ry_p.MouseUp += new System.Windows.Forms.MouseEventHandler(button_ry_p_MouseUp);
             // 
             // button_ry_n
             // 
-            this.button_ry_n.Location = new System.Drawing.Point(605, 343);
-            this.button_ry_n.Name = "button_ry_n";
-            this.button_ry_n.Size = new System.Drawing.Size(80, 80);
-            this.button_ry_n.TabIndex = 12;
-            this.button_ry_n.Text = "RY-";
-            this.button_ry_n.UseVisualStyleBackColor = true;
-            this.button_ry_n.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_ry_n_MouseDown);
-            this.button_ry_n.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_ry_n_MouseUp);
+            button_ry_n.Location = new System.Drawing.Point(605, 343);
+            button_ry_n.Name = "button_ry_n";
+            button_ry_n.Size = new System.Drawing.Size(80, 80);
+            button_ry_n.TabIndex = 12;
+            button_ry_n.Text = "RY-";
+            button_ry_n.UseVisualStyleBackColor = true;
+            button_ry_n.MouseDown += new System.Windows.Forms.MouseEventHandler(button_ry_n_MouseDown);
+            button_ry_n.MouseUp += new System.Windows.Forms.MouseEventHandler(button_ry_n_MouseUp);
             // 
             // button_rz_n
             // 
-            this.button_rz_n.Location = new System.Drawing.Point(433, 343);
-            this.button_rz_n.Name = "button_rz_n";
-            this.button_rz_n.Size = new System.Drawing.Size(80, 80);
-            this.button_rz_n.TabIndex = 11;
-            this.button_rz_n.Text = "RZ-";
-            this.button_rz_n.UseVisualStyleBackColor = true;
-            this.button_rz_n.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_rz_n_MouseDown);
-            this.button_rz_n.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_rz_n_MouseUp);
+            button_rz_n.Location = new System.Drawing.Point(433, 343);
+            button_rz_n.Name = "button_rz_n";
+            button_rz_n.Size = new System.Drawing.Size(80, 80);
+            button_rz_n.TabIndex = 11;
+            button_rz_n.Text = "RZ-";
+            button_rz_n.UseVisualStyleBackColor = true;
+            button_rz_n.MouseDown += new System.Windows.Forms.MouseEventHandler(button_rz_n_MouseDown);
+            button_rz_n.MouseUp += new System.Windows.Forms.MouseEventHandler(button_rz_n_MouseUp);
             // 
             // button_rz_p
             // 
-            this.button_rz_p.Location = new System.Drawing.Point(433, 171);
-            this.button_rz_p.Name = "button_rz_p";
-            this.button_rz_p.Size = new System.Drawing.Size(80, 80);
-            this.button_rz_p.TabIndex = 10;
-            this.button_rz_p.Text = "RZ+";
-            this.button_rz_p.UseVisualStyleBackColor = true;
-            this.button_rz_p.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_rz_p_MouseDown);
-            this.button_rz_p.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_rz_p_MouseUp);
+            button_rz_p.Location = new System.Drawing.Point(433, 171);
+            button_rz_p.Name = "button_rz_p";
+            button_rz_p.Size = new System.Drawing.Size(80, 80);
+            button_rz_p.TabIndex = 10;
+            button_rz_p.Text = "RZ+";
+            button_rz_p.UseVisualStyleBackColor = true;
+            button_rz_p.MouseDown += new System.Windows.Forms.MouseEventHandler(button_rz_p_MouseDown);
+            button_rz_p.MouseUp += new System.Windows.Forms.MouseEventHandler(button_rz_p_MouseUp);
             // 
             // cb_lead_through
             // 
@@ -253,33 +254,43 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(373, 136);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 15);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "label1";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(373, 136);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(38, 15);
+            label1.TabIndex = 17;
+            label1.Text = "label1";
+            label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(131, 478);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(38, 15);
+            label2.TabIndex = 18;
+            label2.Text = "label2";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(803, 494);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(803, 574);
+            this.Controls.Add(label2);
+            this.Controls.Add(label1);
             this.Controls.Add(this.cb_lead_through);
-            this.Controls.Add(this.button_rx_n);
-            this.Controls.Add(this.button_rx_p);
-            this.Controls.Add(this.button_ry_p);
-            this.Controls.Add(this.button_ry_n);
-            this.Controls.Add(this.button_rz_n);
-            this.Controls.Add(this.button_rz_p);
-            this.Controls.Add(this.button_x_n);
-            this.Controls.Add(this.button_x_p);
-            this.Controls.Add(this.button_y_p);
-            this.Controls.Add(this.button_y_n);
-            this.Controls.Add(this.button_z_n);
-            this.Controls.Add(this.button_z_p);
+            this.Controls.Add(button_rx_n);
+            this.Controls.Add(button_rx_p);
+            this.Controls.Add(button_ry_p);
+            this.Controls.Add(button_ry_n);
+            this.Controls.Add(button_rz_n);
+            this.Controls.Add(button_rz_p);
+            this.Controls.Add(button_x_n);
+            this.Controls.Add(button_x_p);
+            this.Controls.Add(button_y_p);
+            this.Controls.Add(button_y_n);
+            this.Controls.Add(button_z_n);
+            this.Controls.Add(button_z_p);
             this.Controls.Add(this.listView1);
             this.Name = "Form1";
             this.Text = "Network scanner";
@@ -297,19 +308,20 @@
         private ColumnHeader columnHeader5;
         private ColumnHeader columnHeader6;
         private ColumnHeader columnHeader7;
-        private Button button_z_p;
-        private Button button_z_n;
-        private Button button_y_n;
-        private Button button_y_p;
-        private Button button_x_p;
-        private Button button_x_n;
-        private Button button_rx_n;
-        private Button button_rx_p;
-        private Button button_ry_p;
-        private Button button_ry_n;
-        private Button button_rz_n;
-        private Button button_rz_p;
+        private static Button button_z_p;
+        private static Button button_z_n;
+        private static Button button_y_n;
+        private static Button button_y_p;
+        private static Button button_x_p;
+        private static Button button_x_n;
+        private static Button button_rx_n;
+        private static Button button_rx_p;
+        private static Button button_ry_p;
+        private static Button button_ry_n;
+        private static Button button_rz_n;
+        private static Button button_rz_p;
         private CheckBox cb_lead_through;
-        private Label label1;
+        private static Label label1;
+        private static Label label2;
     }
 }

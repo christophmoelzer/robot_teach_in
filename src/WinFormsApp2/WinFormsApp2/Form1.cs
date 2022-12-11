@@ -39,15 +39,17 @@ namespace WinFormsApp2
             this.FormClosed += new FormClosedEventHandler(Form1_FormClosed);
             if (port == null)
             {
-                port = new SerialPort("COM4", 9600);
+                string com_port = "COM7";
+                port = new SerialPort(com_port, 115200);
                 try
                 {
                     port.Open();
                     port.DataReceived += new SerialDataReceivedEventHandler(DataReceived);
+                    ;// MessageBox.Show("Bediengerät ("+com_port+") verbunden.");
                 }
                 catch
                 {
-                    ;// MessageBox.Show("COM4 not available.");
+                    MessageBox.Show(com_port+" not available.");
                 }
             }
 
@@ -83,7 +85,8 @@ namespace WinFormsApp2
                     }
                     controller = Controller.Connect(controllerInfo, ConnectionType.Standalone, false);
                     controller.Logon(UserInfo.DefaultUser);
-                    
+                    //MessageBox.Show(controller.Rapid.GetTasks()[0].GetModules()[1].ToString());
+
                 }
                 else
                 {
@@ -126,46 +129,68 @@ namespace WinFormsApp2
 
         private static void set_lable_text(string text)
         {
-            ;// label1.Text = text;
+            label1.Text = text;
         }
 
 
         private static void set_rapid_variable(string key_name)
         {
-            Bool rapidBool;
-            RapidData rdBool = controller.Rapid.GetRapidData("T_ROB1", "module_mr19m010", key_name);
-            if (rdBool.Value is Bool)
+            ;// MessageBox.Show(controller.Rapid.GetTasks()[0].GetModules()[0].ToString());
+
+            try
             {
-                rapidBool = (Bool)rdBool.Value;
-
-                bool boolValue = rapidBool.Value;
-
-                rapidBool.Value = true;
-
-                using (Mastership.Request(controller.Rapid))
+                Bool rapidBool;               
+                RapidData rdBool = controller.Rapid.GetTasks()[0].GetModules()[1].GetRapidData(key_name);
+                if (rdBool.Value is Bool)
                 {
-                    rdBool.Value = rapidBool;
+                    rapidBool = (Bool)rdBool.Value;
+
+                    bool boolValue = rapidBool.Value;
+
+                    rapidBool.Value = true;
+
+                    using (Mastership.Request(controller.Rapid))
+                    {
+                        rdBool.Value = rapidBool;
+                    }
                 }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private static void reset_rapid_variable(string key_name)
         {
-            Bool rapidBool;
-            RapidData rdBool = controller.Rapid.GetRapidData("T_ROB1", "module_mr19m010", key_name);
-            if (rdBool.Value is Bool)
+            try
             {
-                rapidBool = (Bool)rdBool.Value;
-
-                bool boolValue = rapidBool.Value;
-
-                rapidBool.Value = false;
-
-                using (Mastership.Request(controller.Rapid))
+                Bool rapidBool;
+                RapidData rdBool = controller.Rapid.GetTasks()[0].GetModules()[1].GetRapidData(key_name);
+                if (rdBool.Value is Bool)
                 {
-                    rdBool.Value = rapidBool;
+                    rapidBool = (Bool)rdBool.Value;
+
+                    bool boolValue = rapidBool.Value;
+
+                    rapidBool.Value = false;
+
+                    using (Mastership.Request(controller.Rapid))
+                    {
+                        rdBool.Value = rapidBool;
+                    }
                 }
+
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private static void show_angle(UInt32 value)
+        {
+            label2.Text = value.ToString();
         }
 
         static bool aux_leadthrough = false;
@@ -174,13 +199,30 @@ namespace WinFormsApp2
         {
             SerialPort sp = (SerialPort)sender;
 
-            myNum = 4;
+            myNum +=1;
+
+            
 
             byte[] data = new byte[4];
+            byte[] angle_data = new byte[4];
+
             data[0] = (byte)sp.ReadByte();
             data[1] = (byte)sp.ReadByte();
             data[2] = (byte)sp.ReadByte();
             data[3] = (byte)sp.ReadByte();
+
+
+            //angle_data[0] = (byte)sp.ReadByte();
+            //angle_data[1] = (byte)sp.ReadByte();
+            //angle_data[2] = (byte)sp.ReadByte();
+            //angle_data[3] = (byte)sp.ReadByte();
+
+            UInt32 angle = 0;
+            angle += angle_data[0];
+            angle += (UInt32)(angle_data[1] << 4);
+            angle += (UInt32)(angle_data[2] << 8);
+            angle += (UInt32)(angle_data[3] << 12);
+
 
             bool[] buttons = new bool[32];
             for(int i=0; i < 32; i++) { buttons[i] = false; }
@@ -190,26 +232,26 @@ namespace WinFormsApp2
             sdk_commands[1] = "sdk_x_p";
             sdk_commands[2] = "sdk_y_n";
             sdk_commands[3] = "sdk_y_p";
-            sdk_commands[4] = "sdk_z_n";
-            sdk_commands[5] = "sdk_z_p";
+            sdk_commands[4] = "sdk_z_p";
+            sdk_commands[5] = "sdk_z_n";
             sdk_commands[6] = "sdk_x_n";
             sdk_commands[7] = "sdk_x_p";
             sdk_commands[8] = "sdk_y_n";
             sdk_commands[9] = "sdk_y_p";
-            sdk_commands[10] = "sdk_z_n";
-            sdk_commands[11] = "sdk_z_p";
+            sdk_commands[10] = "sdk_z_p";
+            sdk_commands[11] = "sdk_z_n";
             sdk_commands[12] = "sdk_x_n";
             sdk_commands[13] = "sdk_x_p";
             sdk_commands[14] = "sdk_y_n";
             sdk_commands[15] = "sdk_y_p";
-            sdk_commands[16] = "sdk_z_n";
-            sdk_commands[17] = "sdk_z_p";
+            sdk_commands[16] = "sdk_z_p";
+            sdk_commands[17] = "sdk_z_n";
             sdk_commands[18] = "sdk_x_n";
             sdk_commands[19] = "sdk_x_p";
             sdk_commands[20] = "sdk_y_n";
             sdk_commands[21] = "sdk_y_p";
-            sdk_commands[22] = "sdk_z_n";
-            sdk_commands[23] = "sdk_z_p";
+            sdk_commands[22] = "sdk_z_p";
+            sdk_commands[23] = "sdk_z_n";
             sdk_commands[24] = "sdk_mode_lin";
             sdk_commands[25] = "sdk_mode_lin!";
             sdk_commands[26] = "n.d.";
@@ -263,6 +305,10 @@ namespace WinFormsApp2
             for(int x=0; x<4; x++)
             {
                 aux = data[x];
+                
+                show_angle(data[0]);
+                Console.WriteLine(data[x]);
+                
                 for (int i = 0; i < 8; i++)
                 {
                     //MessageBox.Show((aux % 2).ToString());
