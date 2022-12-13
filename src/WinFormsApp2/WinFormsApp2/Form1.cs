@@ -8,6 +8,7 @@ using ABB.Robotics.Controllers.RapidDomain;
 using ABB.Robotics.Controllers.IOSystemDomain;
 using System.Timers;
 using ABB.Robotics.Controllers;
+using System.Diagnostics;
 
 namespace WinFormsApp2
 {
@@ -29,7 +30,11 @@ namespace WinFormsApp2
         double num1;
 
         double serial_data = 0;
-        
+
+        private static Stopwatch stopwatch = new Stopwatch();
+        private static Mastership mastership;
+
+
 
 
         public Form1()
@@ -37,21 +42,7 @@ namespace WinFormsApp2
             InitializeComponent();
             
             this.FormClosed += new FormClosedEventHandler(Form1_FormClosed);
-            if (port == null)
-            {
-                string com_port = "COM7";
-                port = new SerialPort(com_port, 115200);
-                try
-                {
-                    port.Open();
-                    port.DataReceived += new SerialDataReceivedEventHandler(DataReceived);
-                    ;// MessageBox.Show("Bediengerät ("+com_port+") verbunden.");
-                }
-                catch
-                {
-                    MessageBox.Show(com_port+" not available.");
-                }
-            }
+            
 
             this.scanner = new NetworkScanner();
             this.scanner.Scan();
@@ -84,8 +75,10 @@ namespace WinFormsApp2
                         controller = null;
                     }
                     controller = Controller.Connect(controllerInfo, ConnectionType.Standalone, false);
-                    controller.Logon(UserInfo.DefaultUser);
-                    //MessageBox.Show(controller.Rapid.GetTasks()[0].GetModules()[1].ToString());
+                    UserInfo userInfo = new UserInfo("admin", "robotics");
+                    controller.Logon(userInfo);
+                    mastership = Mastership.Request(controller.Rapid);
+                    //MessageBox.Show(controller.Rapid.GetRapidData("T_ROB1","module_mr19m010","sdk_x_n").Value.ToString());
 
                 }
                 else
@@ -94,11 +87,28 @@ namespace WinFormsApp2
                 }
             }
 
+            if (port == null)
+            {
+                string com_port = "COM4";
+                port = new SerialPort(com_port, 115200);
+                try
+                {
+                    port.Open();
+                    port.DataReceived += new SerialDataReceivedEventHandler(DataReceived);
+                    ;// MessageBox.Show("Bediengerät ("+com_port+") verbunden.");
+                }
+                catch
+                {
+                    MessageBox.Show(com_port + " not available.");
+                }
+            }
+
 
         }
 
         void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            mastership.Release();
             if(port != null && port.IsOpen)
             {
 
@@ -136,11 +146,11 @@ namespace WinFormsApp2
         private static void set_rapid_variable(string key_name)
         {
             ;// MessageBox.Show(controller.Rapid.GetTasks()[0].GetModules()[0].ToString());
-
+            
             try
             {
                 Bool rapidBool;               
-                RapidData rdBool = controller.Rapid.GetTasks()[0].GetModules()[1].GetRapidData(key_name);
+                RapidData rdBool = controller.Rapid.GetRapidData("T_ROB1", "module_mr19m010", key_name);
                 if (rdBool.Value is Bool)
                 {
                     rapidBool = (Bool)rdBool.Value;
@@ -148,17 +158,24 @@ namespace WinFormsApp2
                     bool boolValue = rapidBool.Value;
 
                     rapidBool.Value = true;
-
-                    using (Mastership.Request(controller.Rapid))
-                    {
+                    
+                    
+                    
+                    //using (Mastership.Request(controller.Rapid))
+                    //{
                         rdBool.Value = rapidBool;
-                    }
+                    //}
+
+                    
                 }
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            
+
+
         }
 
         private static void reset_rapid_variable(string key_name)
@@ -166,7 +183,7 @@ namespace WinFormsApp2
             try
             {
                 Bool rapidBool;
-                RapidData rdBool = controller.Rapid.GetTasks()[0].GetModules()[1].GetRapidData(key_name);
+                RapidData rdBool = controller.Rapid.GetRapidData("T_ROB1", "module_mr19m010", key_name);
                 if (rdBool.Value is Bool)
                 {
                     rapidBool = (Bool)rdBool.Value;
@@ -175,10 +192,10 @@ namespace WinFormsApp2
 
                     rapidBool.Value = false;
 
-                    using (Mastership.Request(controller.Rapid))
-                    {
+                    //using (Mastership.Request(controller.Rapid))
+                    //{
                         rdBool.Value = rapidBool;
-                    }
+                    //}
                 }
 
             }
@@ -188,16 +205,21 @@ namespace WinFormsApp2
             }
         }
 
-        private static void show_angle(UInt32 value)
+        private static void show_angle(UInt32 value0, UInt32 value1, UInt32 value2, 
+            UInt32 value3, UInt32 value4, UInt32 value5)
         {
-            label2.Text = value.ToString();
+            label2.Text = value0.ToString() + " " + value1.ToString()
+                + " " + value2.ToString() + " " + value3.ToString() 
+                + " " + value4.ToString() + " " + value5.ToString();
         }
 
         static bool aux_leadthrough = false;
 
         private static void DataReceived(Object sender, SerialDataReceivedEventArgs e)
         {
+            stopwatch.Start();
             SerialPort sp = (SerialPort)sender;
+            sp.ReadTimeout = 50;           
 
             myNum +=1;
 
@@ -205,11 +227,27 @@ namespace WinFormsApp2
 
             byte[] data = new byte[4];
             byte[] angle_data = new byte[4];
+            byte start_byte = new byte();
+            byte stop_byte = new byte();
 
-            data[0] = (byte)sp.ReadByte();
-            data[1] = (byte)sp.ReadByte();
-            data[2] = (byte)sp.ReadByte();
-            data[3] = (byte)sp.ReadByte();
+            try
+            {
+                start_byte = (byte)sp.ReadByte();
+                data[0] = (byte)sp.ReadByte();
+                data[1] = (byte)sp.ReadByte();
+                data[2] = (byte)sp.ReadByte();
+                data[3] = (byte)sp.ReadByte();
+                stop_byte = (byte)sp.ReadByte();
+            }
+            catch (TimeoutException)
+            {
+                ;
+            }
+
+            stopwatch.Stop();
+
+
+            //show_angle(start_byte, data[0], data[1], data[2], data[3], stop_byte);
 
 
             //angle_data[0] = (byte)sp.ReadByte();
@@ -306,8 +344,7 @@ namespace WinFormsApp2
             {
                 aux = data[x];
                 
-                show_angle(data[0]);
-                Console.WriteLine(data[x]);
+                
                 
                 for (int i = 0; i < 8; i++)
                 {
@@ -336,6 +373,7 @@ namespace WinFormsApp2
             //MessageBox.Show(myString);
 
             bool foo = false;
+            //MessageBox.Show(buttons[24].ToString());
             if (buttons[24])
             {
                 for (int i = 0; i < 6; i++)
@@ -343,8 +381,11 @@ namespace WinFormsApp2
                     if (buttons[i] || buttons[i + 6] || buttons[i + 2 * 6] || buttons[i + 3 * 6])
                     {
                         set_rapid_variable(sdk_commands[i]);
-                        set_lable_text(sdk_commands[i]);
+                        //set_lable_text(sdk_commands[i]);
                         foo = true;
+                        byte[] send_data = new byte[2];
+                        send_data[0] = 1;
+                        sp.Write(send_data, 0, 1);
                     }
                     else
                     {
@@ -353,37 +394,52 @@ namespace WinFormsApp2
                         
                     }
                 }
-                if (foo == false) { set_lable_text("---"); }
+
+                if (foo == false) { 
+                    //set_lable_text("---");
+                    byte[] send_data = new byte[2];
+                    send_data[0] = 2;
+                    sp.Write(send_data, 0, 1);
+                    //MessageBox.Show(stopwatch.ElapsedMilliseconds.ToString());
+                    stopwatch.Reset();
+                }
             }
             else if (buttons[25])
             {
-                
+                set_lable_text("25");
                 if (buttons[0] || buttons[8] || buttons[15] || buttons[19])
                 {
                     set_rapid_variable(sdk_commands_rot[0]);
+                    set_lable_text("rzp");
                 }
                 else if (buttons[1] || buttons[9] || buttons[14] || buttons[18])
                 {
                     set_rapid_variable(sdk_commands_rot[1]);
+                    set_lable_text("rzn");
                 }
                 else if (buttons[2] || buttons[20] || buttons[22] || buttons[5])
                 {
                     set_rapid_variable(sdk_commands_rot[2]);
+                    set_lable_text("rxp");
                 }
                 else if (buttons[3] || buttons[21] || buttons[23] || buttons[4])
                 {
                     set_rapid_variable(sdk_commands_rot[3]);
+                    set_lable_text("rxn");
                 }
                 else if (buttons[6] || buttons[10] || buttons[12] || buttons[17])
                 {
                     set_rapid_variable(sdk_commands_rot[6]);
+                    set_lable_text("ryn");
                 }
                 else if (buttons[7] || buttons[11] || buttons[13] || buttons[16])
                 {
                     set_rapid_variable(sdk_commands_rot[7]);
+                    set_lable_text("ryp");
                 }
                 else
                 {
+                    set_lable_text("---");
                     for (int i = 0; i <= 23; i++)
                     {
                         reset_rapid_variable(sdk_commands[i]);
@@ -391,6 +447,14 @@ namespace WinFormsApp2
                     }
                 }
                 
+            }
+            else
+            {
+                for (int i = 0; i <= 23; i++)
+                {
+                    reset_rapid_variable(sdk_commands[i]);
+                    reset_rapid_variable(sdk_commands_rot[i]);
+                }
             }
             
             
@@ -414,18 +478,7 @@ namespace WinFormsApp2
 
             }
 
-            if (buttons[24] && buttons[25]==false)
-            {
-                set_rapid_variable("sdk_lin_mode");
-                reset_rapid_variable("sdk_rot_mode");
-                //MessageBox.Show("LIN");
-            }
-            if (buttons[25] && buttons[24] == false)
-            {
-                set_rapid_variable("sdk_rot_mode");
-                reset_rapid_variable("sdk_lin_mode");
-                //MessageBox.Show("ROT");
-            }
+            
 
 
             sp.DiscardInBuffer();
@@ -444,7 +497,6 @@ namespace WinFormsApp2
         private void button_z_p_MouseDown(object sender, MouseEventArgs e)
         {
             set_rapid_variable("sdk_z_p");
-
         }
 
         private void button_z_p_MouseUp(object sender, MouseEventArgs e)
@@ -576,7 +628,7 @@ namespace WinFormsApp2
             {
                 set_rapid_variable("sdk_leadthrough_off");
                 reset_rapid_variable("sdk_leadthrough_on");
-                MessageBox.Show("OFF");
+                //MessageBox.Show("OFF");
             }
         }
 

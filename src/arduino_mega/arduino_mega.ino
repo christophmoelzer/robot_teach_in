@@ -179,11 +179,12 @@ class Button{
   }
 
 
-  bool update(){
+  void update(){
     // Statusänderung prüfen. Wenn Änderung dann Zeit zurücksetzen
     // Wenn Zeit überschritten dann Ausgang setzen
-    input =! digitalRead(_pin);
-
+    //input =! digitalRead(_pin);
+    output =! digitalRead(_pin);
+  /*
     if(last_input != input){
       t_last_change = millis();
       published = false;
@@ -196,8 +197,9 @@ class Button{
     }
 
     last_input = input;
+    */
     
-    return output;
+    //return output;
   }
 
 
@@ -275,7 +277,7 @@ class Motion{
   int debounce_time;
   bool btn_pressed;
   bool button_array[32];
-  bool published;
+  //bool published;
   bool debounced;
 
   bool mode_lin;
@@ -326,8 +328,8 @@ class Motion{
 
   Motion(){
     btn_pressed = false;
-    debounce_time = 50;
-    published = false;
+    debounce_time = 1;
+    //published = false;
     grp_1_active = false;
     grp_2_active = false;
     grp_3_active = false;
@@ -406,6 +408,7 @@ class Motion{
     btn_grp_4_z_negative.update();
     btn_grp_4_z_positive.update();
     
+    /*
     if (btn_grp_1_x_negative.debounced && !btn_grp_1_x_negative.published){
       btn_grp_1_x_negative.published = true;
       published = false;
@@ -514,7 +517,7 @@ class Motion{
       published = false;
       debounced = true;
     }
-    
+    */
 
     if(btn_grp_1_x_negative.output or 
        btn_grp_1_x_positive.output or 
@@ -543,7 +546,7 @@ class Motion{
         btn_pressed = true;
        }
         
-    init_button_array();
+    //init_button_array();
 
     button_array[0] = btn_grp_1_x_negative.output; // 2^0
     button_array[1] = btn_grp_1_x_positive.output; // 2^1
@@ -575,8 +578,22 @@ class Motion{
 
     button_array[24] = mode_lin;
     button_array[25] =! mode_lin;
-
+    button_array[26] = false;
+    button_array[27] = false;
+    button_array[28] = false;
     button_array[29] = button_lead_through;
+    button_array[30] = false;
+    button_array[31] = false;
+
+
+    for(int x=0; x<4; x++){
+        coded_buttons[x]=0;
+        for(int i=(x*8); i<((x*8)+8); i++){
+          if(button_array[i]){
+            coded_buttons[x] += (uint8_t)bit(i-(x*8));
+          }
+        }
+      }
 
     grp_1_active = false;
     grp_2_active = false;
@@ -675,7 +692,7 @@ class GUI{
     display.setTextSize(2);
     display.setTextColor(SSD1306_WHITE);
     display.setCursor(0, 0);
-    display.println("FOO");
+    display.println("ROBOT TEACH IN");
     display.display();
 
     cursor_position = 0;
@@ -879,19 +896,56 @@ class GUI{
   private:
 };
 
+class StopWatch{
+  public:
+  unsigned long start_time;
+  unsigned long stop_time;
+  unsigned long elapsed_time;
+
+  StopWatch(){
+   start_time = millis();
+   stop_time = millis();
+   elapsed_time = 0; 
+  }
+
+  void start(){
+    start_time = millis();
+  }
+
+  void stop(){
+    stop_time=millis();
+    elapsed_time = stop_time-start_time;
+  }
+
+  void reset(){
+    start_time = millis();
+    stop_time = millis();
+    elapsed_time = millis();
+  }
+
+  private:
+
+};
+
 GUI gui;
 Motion motion;
 WaitMs startDelay;
+StopWatch stopwatch; 
 
 char datenpaket;
 int serial_counter=0;
 bool aux_changed = false;
 bool aux_last = false;
+bool aux_stop = false;
+int line_height = 16;
+byte received_data = 0;
+
+
 
 void setup() {
   Serial.begin(115200);
   gui.init();  
-  startDelay.ms(3000);
+  startDelay.ms(1000);
 }
 
 void loop() {
@@ -901,48 +955,57 @@ void loop() {
   //gui.show_content();  
   motion.mode_lin = gui.mode_lin;
   motion.mode_lead_through = gui.mode_lead_through;
-  motion.button_lead_through = gui.btn_nav_abort.output and gui.btn_nav_abort.debounced;
+  motion.button_lead_through = gui.btn_nav_abort.output;
   motion.update();
 
+  if(Serial.available()>0){
+    
+      gui.display.setTextSize(2);
+      gui.display.setTextColor(SSD1306_WHITE);
+      gui.display.setCursor(100, 0);
+      received_data = Serial.read();
+      gui.display.println(received_data);
+      gui.display.display();
+      if (received_data == 1){
+        stopwatch.reset();
+        stopwatch.start();        
+      }
+      if (received_data == 2){
+        stopwatch.stop();
+        gui.display.setTextSize(2);
+        gui.display.setCursor(100, line_height*3);
+        gui.display.println(stopwatch.elapsed_time);
+        gui.display.display();        
+      }
+  }
 
   
   if (motion.btn_pressed != aux_last){
-    if(motion.btn_pressed == false){
-      Serial.write(0);
-      Serial.write(0);
-      Serial.write(0);
-      Serial.write(0);
-      gui.display.clearDisplay();
-      gui.display.setTextSize(2);
-      gui.display.setTextColor(SSD1306_WHITE);
-      gui.display.setCursor(5, 5);
-      gui.display.println("STOP");
-      gui.display.display();
-    }
-    else{
-
-      for(int x=0; x<4; x++){
-        motion.coded_buttons[x]=0;
-        for(int i=(x*8); i<((x*8)+8); i++){
-          if(motion.button_array[i]){
-            motion.coded_buttons[x] += (uint8_t)bit(i-(x*8));
-          }
-        }
-      }
-
+    if(motion.btn_pressed == true){
+      aux_stop = false;
+      Serial.write(15);
       Serial.write(motion.coded_buttons[0]);  // 1
       Serial.write(motion.coded_buttons[1]);  // 1
       Serial.write(motion.coded_buttons[2]);  // 1
       Serial.write(motion.coded_buttons[3]);  // 1
-
+      Serial.write(255);
+      
       gui.display.clearDisplay();
       gui.display.setTextSize(2);
       gui.display.setTextColor(SSD1306_WHITE);
-      gui.display.setCursor(5, 5);
-      gui.display.println(motion.coded_buttons[0]);
+      gui.display.setCursor(0, 0);
+      printHEX(15,30,0);
+      printHEX(motion.coded_buttons[0],0,0);
+      printHEX(motion.coded_buttons[1],0,line_height*1);
+      printHEX(motion.coded_buttons[2],0,line_height*2);
+      printHEX(motion.coded_buttons[3],0,line_height*3);
+      printHEX(255,30,line_height*3);
+      gui.display.setTextSize(4);
+      gui.display.setCursor(30, 16);
+      gui.display.println("MOVE");
       gui.display.display();
-
     }
+
 
     //Serial.write(gui.angle_radians_serial[0]);
     //Serial.write(gui.angle_radians_serial[1]);
@@ -951,7 +1014,30 @@ void loop() {
   }
   aux_last = motion.btn_pressed;
 
-  
+  //if(motion.btn_pressed == false and aux_stop == false){
+    if(motion.btn_pressed == false and received_data != 2){
+      aux_stop = true;
+      Serial.write(15);
+      Serial.write(motion.coded_buttons[0]);  // 1
+      Serial.write(motion.coded_buttons[1]);  // 1
+      Serial.write(motion.coded_buttons[2]);  // 1
+      Serial.write(motion.coded_buttons[3]);  // 1
+      Serial.write(255);
+      gui.display.clearDisplay();
+      gui.display.setTextSize(2);
+      gui.display.setTextColor(SSD1306_WHITE);
+      printHEX(motion.coded_buttons[0],0,0);
+      printHEX(motion.coded_buttons[1],0,line_height*1);
+      printHEX(motion.coded_buttons[2],0,line_height*2);
+      printHEX(motion.coded_buttons[3],0,line_height*3);
+
+      
+      gui.display.setTextSize(4);
+      gui.display.setCursor(30, 16);
+      gui.display.println("STOP");
+      gui.display.display();
+      
+    }
   
 
   if(gui.changed){
@@ -960,4 +1046,16 @@ void loop() {
     //pub_angle.publish(&angle_msg);
   }
 
+}
+
+void printHEX(uint8_t value,int x, int y){
+    gui.display.setCursor(x,y);
+  if(value<16){
+    gui.display.println(0);
+    gui.display.setCursor(x+12,y);
+    gui.display.println(value,HEX);
+  }
+  else{
+    gui.display.println(value,HEX);
+  }
 }
