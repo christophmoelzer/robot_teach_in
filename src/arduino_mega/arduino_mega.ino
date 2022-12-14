@@ -938,8 +938,8 @@ bool aux_changed = false;
 bool aux_last = false;
 bool aux_stop = false;
 int line_height = 16;
-byte received_data = 0;
-
+byte received_data[4];
+byte watchdog = 0;
 
 
 void setup() {
@@ -957,33 +957,40 @@ void loop() {
   motion.mode_lead_through = gui.mode_lead_through;
   motion.button_lead_through = gui.btn_nav_abort.output;
   motion.update();
+  watchdog += 1;
 
   if(Serial.available()>0){
     
       gui.display.setTextSize(2);
       gui.display.setTextColor(SSD1306_WHITE);
       gui.display.setCursor(100, 0);
-      received_data = Serial.read();
-      gui.display.println(received_data);
+      received_data[0] = Serial.read();
+      received_data[1] = Serial.read();
+      received_data[2] = Serial.read();
+      received_data[3] = Serial.read();
+      gui.display.println(received_data[0]);
       gui.display.display();
-      if (received_data == 1){
+      if (received_data[0] == 1){
         stopwatch.reset();
         stopwatch.start();        
       }
-      if (received_data == 2){
+      if (received_data[0] == 2){
         stopwatch.stop();
         gui.display.setTextSize(2);
         gui.display.setCursor(100, line_height*3);
         gui.display.println(stopwatch.elapsed_time);
         gui.display.display();        
       }
+
+      Serial.flush();
   }
 
   
-  if (motion.btn_pressed != aux_last){
+  //if (motion.btn_pressed != aux_last){
+  if (true){
     if(motion.btn_pressed == true){
       aux_stop = false;
-      Serial.write(15);
+      Serial.write(watchdog);
       Serial.write(motion.coded_buttons[0]);  // 1
       Serial.write(motion.coded_buttons[1]);  // 1
       Serial.write(motion.coded_buttons[2]);  // 1
@@ -994,7 +1001,7 @@ void loop() {
       gui.display.setTextSize(2);
       gui.display.setTextColor(SSD1306_WHITE);
       gui.display.setCursor(0, 0);
-      printHEX(15,30,0);
+      printHEX(watchdog,30,0);
       printHEX(motion.coded_buttons[0],0,0);
       printHEX(motion.coded_buttons[1],0,line_height*1);
       printHEX(motion.coded_buttons[2],0,line_height*2);
@@ -1017,7 +1024,7 @@ void loop() {
   //if(motion.btn_pressed == false and aux_stop == false){
     if(motion.btn_pressed == false and received_data != 2){
       aux_stop = true;
-      Serial.write(15);
+      Serial.write(watchdog);
       Serial.write(motion.coded_buttons[0]);  // 1
       Serial.write(motion.coded_buttons[1]);  // 1
       Serial.write(motion.coded_buttons[2]);  // 1
@@ -1026,11 +1033,13 @@ void loop() {
       gui.display.clearDisplay();
       gui.display.setTextSize(2);
       gui.display.setTextColor(SSD1306_WHITE);
+      gui.display.setCursor(0, 0);
+      printHEX(watchdog,30,0);
       printHEX(motion.coded_buttons[0],0,0);
       printHEX(motion.coded_buttons[1],0,line_height*1);
       printHEX(motion.coded_buttons[2],0,line_height*2);
       printHEX(motion.coded_buttons[3],0,line_height*3);
-
+      printHEX(255,30,line_height*3);
       
       gui.display.setTextSize(4);
       gui.display.setCursor(30, 16);

@@ -32,13 +32,20 @@ namespace WinFormsApp2
         double serial_data = 0;
 
         private static Stopwatch stopwatch = new Stopwatch();
+        private static Stopwatch lifesign_timer = new Stopwatch();
         private static Mastership mastership;
 
-
+        static int myNum;
+        static bool aux_leadthrough = false;
+        static byte lifesign = 0;
+        static byte aux_lifesign = 0;
+        static bool stop_motion = true;
 
 
         public Form1()
         {
+
+
             InitializeComponent();
             
             this.FormClosed += new FormClosedEventHandler(Form1_FormClosed);
@@ -62,7 +69,6 @@ namespace WinFormsApp2
 
             }
 
-            
             if (item.Tag != null)
             {
                 ControllerInfo controllerInfo = (ControllerInfo)item.Tag;
@@ -77,7 +83,23 @@ namespace WinFormsApp2
                     controller = Controller.Connect(controllerInfo, ConnectionType.Standalone, false);
                     UserInfo userInfo = new UserInfo("admin", "robotics");
                     controller.Logon(userInfo);
-                    mastership = Mastership.Request(controller.Rapid);
+                    try
+                    {
+                        mastership = Mastership.Request(controller.Rapid);
+                    }
+                    catch
+                    {
+                        if(mastership != null)
+                        {
+                            MessageBox.Show(mastership.IsMaster.ToString());
+                        }
+                        else
+                        {
+                            MessageBox.Show("ERROR");
+                        }
+                        
+
+                    }
                     //MessageBox.Show(controller.Rapid.GetRapidData("T_ROB1","module_mr19m010","sdk_x_n").Value.ToString());
 
                 }
@@ -104,11 +126,13 @@ namespace WinFormsApp2
             }
 
 
+         
+
         }
 
         void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            mastership.Release();
+           mastership.Release();
             if(port != null && port.IsOpen)
             {
 
@@ -135,13 +159,10 @@ namespace WinFormsApp2
             }
         }
 
-        static int myNum;
-
         private static void set_lable_text(string text)
         {
             label1.Text = text;
         }
-
 
         private static void set_rapid_variable(string key_name)
         {
@@ -213,8 +234,6 @@ namespace WinFormsApp2
                 + " " + value4.ToString() + " " + value5.ToString();
         }
 
-        static bool aux_leadthrough = false;
-
         private static void DataReceived(Object sender, SerialDataReceivedEventArgs e)
         {
             stopwatch.Start();
@@ -245,6 +264,26 @@ namespace WinFormsApp2
             }
 
             stopwatch.Stop();
+
+            lifesign = start_byte;
+            if (lifesign == aux_lifesign)
+            {
+                lifesign_timer.Start();
+            }
+            else
+            {
+                lifesign_timer.Stop();
+                lifesign_timer.Reset();
+                stop_motion = false;
+            }
+            aux_lifesign = lifesign;
+
+            if (lifesign_timer.ElapsedMilliseconds > 500)
+            {
+                stop_motion = true;
+                MessageBox.Show("LIFESIGN ERROR");
+            }
+
 
 
             //show_angle(start_byte, data[0], data[1], data[2], data[3], stop_byte);
@@ -339,8 +378,9 @@ namespace WinFormsApp2
 
             byte aux = 0;
             string myString = "";
+            byte[] send_data = new byte[2];
 
-            for(int x=0; x<4; x++)
+            for (int x=0; x<4; x++)
             {
                 aux = data[x];
                 
@@ -378,12 +418,12 @@ namespace WinFormsApp2
             {
                 for (int i = 0; i < 6; i++)
                 {
-                    if (buttons[i] || buttons[i + 6] || buttons[i + 2 * 6] || buttons[i + 3 * 6])
+                    if ((buttons[i] || buttons[i + 6] || buttons[i + 2 * 6] || buttons[i + 3 * 6]) && stop_motion == false)
                     {
                         set_rapid_variable(sdk_commands[i]);
                         //set_lable_text(sdk_commands[i]);
                         foo = true;
-                        byte[] send_data = new byte[2];
+                        
                         send_data[0] = 1;
                         sp.Write(send_data, 0, 1);
                     }
@@ -397,7 +437,6 @@ namespace WinFormsApp2
 
                 if (foo == false) { 
                     //set_lable_text("---");
-                    byte[] send_data = new byte[2];
                     send_data[0] = 2;
                     sp.Write(send_data, 0, 1);
                     //MessageBox.Show(stopwatch.ElapsedMilliseconds.ToString());
@@ -407,35 +446,48 @@ namespace WinFormsApp2
             else if (buttons[25])
             {
                 set_lable_text("25");
-                if (buttons[0] || buttons[8] || buttons[15] || buttons[19])
+
+                if ((buttons[0] || buttons[8] || buttons[15] || buttons[19]) && stop_motion == false)
                 {
                     set_rapid_variable(sdk_commands_rot[0]);
-                    set_lable_text("rzp");
+                    set_lable_text("rzp"); 
+                    send_data[0] = 1;
+                    sp.Write(send_data, 0, 1);
                 }
-                else if (buttons[1] || buttons[9] || buttons[14] || buttons[18])
+                else if ((buttons[1] || buttons[9] || buttons[14] || buttons[18]) && stop_motion == false)
                 {
                     set_rapid_variable(sdk_commands_rot[1]);
                     set_lable_text("rzn");
+                    send_data[0] = 1;
+                    sp.Write(send_data, 0, 1);
                 }
-                else if (buttons[2] || buttons[20] || buttons[22] || buttons[5])
+                else if ((buttons[2] || buttons[20] || buttons[22] || buttons[5]) && stop_motion == false)
                 {
                     set_rapid_variable(sdk_commands_rot[2]);
                     set_lable_text("rxp");
+                    send_data[0] = 1;
+                    sp.Write(send_data, 0, 1);
                 }
-                else if (buttons[3] || buttons[21] || buttons[23] || buttons[4])
+                else if ((buttons[3] || buttons[21] || buttons[23] || buttons[4]) && stop_motion == false)
                 {
                     set_rapid_variable(sdk_commands_rot[3]);
                     set_lable_text("rxn");
+                    send_data[0] = 1;
+                    sp.Write(send_data, 0, 1);
                 }
-                else if (buttons[6] || buttons[10] || buttons[12] || buttons[17])
+                else if ((buttons[6] || buttons[10] || buttons[12] || buttons[17]) && stop_motion == false)
                 {
                     set_rapid_variable(sdk_commands_rot[6]);
                     set_lable_text("ryn");
+                    send_data[0] = 1;
+                    sp.Write(send_data, 0, 1);
                 }
-                else if (buttons[7] || buttons[11] || buttons[13] || buttons[16])
+                else if ((buttons[7] || buttons[11] || buttons[13] || buttons[16]) && stop_motion == false)
                 {
                     set_rapid_variable(sdk_commands_rot[7]);
                     set_lable_text("ryp");
+                    send_data[0] = 1;
+                    sp.Write(send_data, 0, 1);
                 }
                 else
                 {
@@ -445,6 +497,8 @@ namespace WinFormsApp2
                         reset_rapid_variable(sdk_commands[i]);
                         reset_rapid_variable(sdk_commands_rot[i]);
                     }
+                    send_data[0] = 2;
+                    sp.Write(send_data, 0, 1);
                 }
                 
             }
@@ -484,16 +538,11 @@ namespace WinFormsApp2
             sp.DiscardInBuffer();
         }
 
-
-
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
-
       
-        
-
         private void button_z_p_MouseDown(object sender, MouseEventArgs e)
         {
             set_rapid_variable("sdk_z_p");
