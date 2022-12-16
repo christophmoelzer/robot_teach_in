@@ -1,0 +1,394 @@
+MODULE module_mr19m010
+    
+    
+    CONST robtarget p10:=[[385.31,291.92,569.22],[1.12667E-9,-0.314299,-0.949324,1.63728E-9],[0,-1,0,0],[9E+9,9E+9,9E+9,9E+9,9E+9,9E+9]];
+    CONST robtarget p20:=[[-91.70,474.62,716.56],[4.68724E-8,0.234722,-0.972063,-1.45607E-6],[1,0,0,0],[9E+9,9E+9,9E+9,9E+9,9E+9,9E+9]];
+    VAR robtarget p_store:=[[100,200,300],[1,0,0,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+    VAR robtarget p_temp:=[[0,0,0],[1,0,0,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+    VAR robtarget p_curr:=[[0,0,0],[1,0,0,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+    
+    PERS bool wd_stop := TRUE;
+    
+    VAR bool sdk_x_n;
+    VAR bool sdk_x_p;
+    VAR bool sdk_y_n;
+    VAR bool sdk_y_p;
+    VAR bool sdk_z_n;
+    VAR bool sdk_z_p;
+    VAR bool sdk_rx_n;
+    VAR bool sdk_rx_p;
+    VAR bool sdk_ry_n;
+    VAR bool sdk_ry_p;
+    VAR bool sdk_rz_n;
+    VAR bool sdk_rz_p;
+    VAR bool sdk_lin_mode;
+    VAR bool sdk_rot_mode;
+    VAR bool sdk_leadthrough_on;
+    VAR bool sdk_leadthrough_off;
+    VAR bool sdk_in_position;
+    VAR bool sdk_is_moving;
+    VAR bool sdk_is_leadthrough;
+    
+    VAR num sdk_num;
+    
+    VAR num button_state;
+    VAR num previous_button_state;
+    VAR bool update;
+    VAR num offs_value_lin := 100;
+    VAR num offs_value_rot := 10;
+    
+    CONST speeddata v_default := [5, 3, 5, 3];
+    CONST speeddata v_rz := [5, 10, 5, 10];
+    VAR speeddata v_norm := v_default;
+    VAR bool aux_leadthrough := FALSE;
+    VAR triggdata trigg1;
+    
+    
+    VAR intnum intno1;
+    
+    TRAP myTRAP
+        sdk_in_position := TRUE;
+    ENDTRAP
+    
+    PROC main_mr19m010()
+        
+        VAR robtarget p_offs:=[[0,0,0],[1,0,0,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]]; 
+        VAR num rx:=0;
+        VAR num ry:=0;
+        VAR num rz:=0;
+            
+    
+        CONNECT intno1 WITH myTrap;
+        TriggInt trigg1, 0,intno1;
+        
+            
+        WHILE true DO
+            button_state := 0;
+            update := FALSE;
+            p_offs:=[[0,0,0],[1,0,0,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+            rx:=0;
+            ry:=0;
+            rz:=0;
+            
+            
+            IF sdk_leadthrough_on and IsLeadThrough()=FALSE THEN
+                WaitTime 0.5;
+                SetLeadThrough \On;
+                aux_leadthrough:=TRUE;
+                sdk_is_leadthrough:=TRUE;
+                
+            ELSEIF sdk_leadthrough_on=FALSE AND IsLeadThrough() = TRUE THEN
+                SetLeadThrough \Off;
+                aux_leadthrough:=FALSE;
+                sdk_is_leadthrough:=FALSE;
+            ENDIF
+            
+            
+            IF sdk_x_n THEN
+                button_state := button_state + 1;
+                p_offs.trans.x := -offs_value_lin;
+                v_norm := v_default;
+            ENDIF
+            IF sdk_x_p THEN
+                button_state := button_state + 2;
+                p_offs.trans.x := offs_value_lin;
+                v_norm := v_default;
+            ENDIF
+            IF sdk_y_n THEN
+                button_state := button_state + 4;
+                p_offs.trans.y := -offs_value_lin;
+                v_norm := v_default;
+            ENDIF
+            IF sdk_y_p THEN
+                button_state := button_state + 8;
+                p_offs.trans.y := offs_value_lin;
+                v_norm := v_default;
+            ENDIF
+            IF sdk_z_n THEN
+                button_state := button_state + 16;
+                p_offs.trans.z := -offs_value_lin;
+                v_norm := v_default;
+            ENDIF
+            IF sdk_z_p THEN
+                button_state := button_state + 32;
+                p_offs.trans.z := offs_value_lin;
+                v_norm := v_default;
+            ENDIF
+            IF sdk_rx_n THEN
+                button_state := button_state + 64;
+                rx := -offs_value_rot;
+                v_norm := v_rz;
+            ENDIF
+            IF sdk_rx_p THEN
+                button_state := button_state + 128;
+                rx := offs_value_rot;
+                v_norm := v_rz;
+            ENDIF
+            IF sdk_ry_n THEN
+                button_state := button_state + 256;
+                ry := -offs_value_rot;
+                v_norm := v_rz;
+            ENDIF
+            IF sdk_ry_p THEN
+                button_state := button_state + 512;
+                ry := offs_value_rot;
+                v_norm := v_rz;
+            ENDIF
+            IF sdk_rz_n THEN
+                button_state := button_state + 1024;
+                rz := -offs_value_rot;
+                v_norm := v_rz;
+            ENDIF
+            IF sdk_rz_p THEN
+                button_state := button_state + 2048;
+                rz := offs_value_rot;
+                v_norm := v_rz;
+            ENDIF
+            
+            IF button_state <> previous_button_state THEN
+                update:=TRUE;
+            ENDIF
+            previous_button_state:=button_state;
+            
+            
+            IF IsLeadThrough() = FALSE THEN
+                
+                IF (update or sdk_in_position) and button_state>0 and wd_stop = false THEN
+                    StopMove;
+                    ClearPath;
+                    StartMove;
+                    !TPWrite "state: "\Num:=button_state;
+                    p_curr := CRobT(\Tool:=tool0 \WObj:=wobj0);
+                    !p_temp := CRobT(\Tool:=tool0 \WObj:=wobj0);
+                    !p_temp.trans := p_temp.trans+p_offs.trans; 
+                    !MoveL \Conc, RelTool(p_curr, p_offs.trans.x, p_offs.trans.y, p_offs.trans.z,\Rx:=rx,\Ry:=ry,\Rz:=rz), v_norm, fine, tool0\WObj:=wobj0;
+                    sdk_in_position:=FALSE;
+                    sdk_is_moving := TRUE;
+                    TriggL \conc, RelTool(p_curr, p_offs.trans.x, p_offs.trans.y, p_offs.trans.z,\Rx:=rx,\Ry:=ry,\Rz:=rz),v_norm,trigg1,z50,tool0\WObj:=wobj0;
+                    !TPWrite "move";
+                ELSEIF button_state=0 or wd_stop = true THEN
+                    StopMove;
+                    ClearPath;
+                    sdk_is_moving := FALSE;
+                    !TPWrite "stop";
+                ENDIF
+            endif
+        ENDWHILE     
+    ENDPROC
+    
+!    MODULE module_mr19m010
+    
+!    VAR robtarget act_position:=[[100,200,300],[1,0,0,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+!    VAR robtarget delta_position:=[[100,200,300],[1,0,0,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+!    VAR robtarget last_delta_position:=[[100,200,300],[1,0,0,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+!    VAR robtarget new_position:=[[100,200,300],[1,0,0,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+    
+!    CONST robtarget pos_start:=[[55.53,-748.28,193.37],[0.0001245,-0.705503,0.708707,0.000958071],[-1,-1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+!    CONST robtarget pos_dest:=[[346.89,-865.63,178.82],[9.08197E-05,-0.705465,0.708744,0.000875866],[-1,-1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    
+    
+    
+!    TASK PERS tooldata myTool := [TRUE,[[0,0,138],[0.19509,0,0,0.980785]],[0.465,[0,0,50],[1,0,0,0],0,0,0]];
+
+!    VAR num toggle := 0;
+    
+!    VAR bool aux := FALSE;
+!    VAR num linear_distance := 50;
+!    VAR num angular_distance_rx := 5;
+!    VAR num angular_distance_ry := 5;
+!    VAR num angular_distance_rz := 90;
+!    VAR bool aux_leadthrough := FALSE;
+!    VAR num last_btn_lead_through := 0;
+!    VAR num btn_lead_through := 0;
+    
+!    CONST speeddata v_default := [5, 3, 5, 3];
+!    CONST speeddata v_rz := [5, 10, 5, 10];
+!    VAR speeddata v_norm := v_default;
+    
+!    VAR num angle_rad := 0;
+!    VAR num angle_deg_encoder :=0;
+!    VAR num angle_deg_axis :=0;
+!    VAR num angle_deg :=0;
+    
+!    VAR num dx:=0;
+!    VAR num dy:=0;
+!    VAR num dz:=0;
+!    !
+!    VAR num drx:=0;
+!    VAR num dry:=0;
+!    VAR num drz:=0;
+    
+!    VAR jointtarget joints;
+    
+!    VAR num last_angle_deg_encoder:=0;
+!    VAR bool aux_angle_deg_encoder:=false;
+!    TASK PERS loaddata teach_tool := [0.39,[0,0,-260],[1,0,0,0],0,0,0];
+    
+!    ! PC SDK TEST
+!    VAR bool rapid_bool := TRUE;
+!    VAR num rapid_num := 13;
+    
+!    ! PC SDK CONTROLLER
+!    VAR bool sdk_z_p := FALSE;
+!    VAR bool sdk_z_n := FALSE;
+!    VAR bool sdk_y_p := FALSE;
+!    VAR bool sdk_y_n := FALSE;
+!    VAR bool sdk_x_p := FALSE;
+!    VAR bool sdk_x_n := FALSE;
+    
+!    VAR bool sdk_rz_p := FALSE;
+!    VAR bool sdk_rz_n := FALSE;
+!    VAR bool sdk_ry_p := FALSE;
+!    VAR bool sdk_ry_n := FALSE;
+!    VAR bool sdk_rx_p := FALSE;
+!    VAR bool sdk_rx_n := FALSE;
+    
+!    VAR bool sdk_leadthrough_on := FALSE;
+!    VAR bool sdk_leadthrough_off := FALSE;
+    
+!    VAR bool sdk_lin_mode := FALSE;
+!    VAR bool sdk_rot_mode := FALSE;
+    
+!    VAR num sdk_angle := 0;
+    
+    
+    
+    
+!    PROC main_mr19m010()   
+        
+!        !SpyStart "HOME:/spy.log";
+!        WHILE TRUE DO
+            
+!            toggle := DInput(ix_live_sign);
+!            btn_lead_through := DInput(ix3_4);
+!            act_position := CRobT(\Tool:=myTool \WObj:=wobj0);
+            
+!            !delta_position.trans := act_position.trans - pos_dest.trans;
+!            !IF abs(delta_position.trans.x-last_delta_position.trans.x) > 0.01 or abs(delta_position.trans.y-last_delta_position.trans.y) > 0.01 or abs(delta_position.trans.z-last_delta_position.trans.z) > 0.01 then 
+!            !    TPWrite "dx = "+ValToStr(delta_position.trans.x)+" | dy = "+ValToStr(delta_position.trans.y)+" | dz = "+ValToStr(delta_position.trans.z);
+!            !ENDIF
+!            !last_delta_position.trans := delta_position.trans;
+                        
+            
+!            IF sdk_leadthrough_on and sdk_leadthrough_off=FALSE and aux_leadthrough = FALSE THEN
+!                WaitTime 0.5;
+!                SetLeadThrough \On;
+!                aux_leadthrough:=TRUE;
+                
+!            ELSEIF sdk_leadthrough_off and sdk_leadthrough_on=FALSE AND aux_leadthrough = TRUE THEN
+!                SetLeadThrough \Off;
+!                aux_leadthrough:=FALSE;
+!            ENDIF
+!            WaitDI ix3_4, 0;
+            
+            
+!            !angle_rad := AInput(id_angle)/1000/1000;
+!            angle_rad := sdk_angle/1000/1000;
+!            angle_deg_encoder := angle_rad*180/pi;
+            
+!            IF Abs(angle_deg_encoder-last_angle_deg_encoder) > 2 THEN
+!                aux_angle_deg_encoder:=TRUE;
+!            ENDIF
+!            last_angle_deg_encoder:=angle_deg_encoder;
+            
+!            joints := CJointT();
+            
+!            angle_deg := angle_deg_encoder + (joints.robax.rax_6 - 22.5);
+            
+!            IF sdk_y_n THEN
+!                dx := linear_distance*cos(-angle_deg);
+!                dy := linear_distance*sin(-angle_deg);
+!                dz := 0;
+!                v_norm:=v_default;
+!            ELSEIF sdk_x_n THEN
+!                dy := linear_distance*cos(angle_deg);
+!                dx := linear_distance*sin(angle_deg);
+!                dz := 0;
+!                v_norm:=v_default;
+!            ELSEIF sdk_y_p THEN
+!                dx := -linear_distance*cos(-angle_deg);
+!                dy := -linear_distance*sin(-angle_deg);
+!                dz := 0;
+!                v_norm:=v_default;
+!            ELSEIF sdk_x_p THEN
+!                dy := -linear_distance*cos(angle_deg);
+!                dx := -linear_distance*sin(angle_deg);
+!                dz := 0;
+!                v_norm:=v_default;
+!            ELSEIF sdk_z_p THEN
+!                dx := 0;
+!                dy := 0;
+!                dz := -linear_distance;
+!                v_norm:=v_default;
+!            ELSEIF sdk_z_n THEN
+!                dx := 0;
+!                dy := 0;
+!                dz := linear_distance;
+!                v_norm:=v_default;
+                
+                
+!            ELSEIF sdk_ry_n THEN
+!                drx := angular_distance_rx*cos(-angle_deg);
+!                dry := angular_distance_ry*sin(-angle_deg);
+!                drz := 0;
+!                v_norm:=v_default;
+!            ELSEIF sdk_rx_n THEN
+!                dry := angular_distance_ry*cos(angle_deg);
+!                drx := angular_distance_rx*sin(angle_deg);
+!                drz := 0;
+!                v_norm:=v_default;
+!            ELSEIF sdk_ry_p THEN
+!                drx := -angular_distance_rx*cos(-angle_deg);
+!                dry := -angular_distance_ry*sin(-angle_deg);
+!                drz := 0;
+!                v_norm:=v_default;
+!            ELSEIF sdk_rx_p THEN
+!                dry := -angular_distance_ry*cos(angle_deg);
+!                drx := -angular_distance_rx*sin(angle_deg);
+!                drz := 0;
+!                v_norm:=v_default;
+!            ELSEIF sdk_rz_p THEN
+!                drx := 0;
+!                dry := 0;
+!                drz := -angular_distance_rz;
+!                v_norm:=v_rz;
+!            ELSEIF sdk_rz_n THEN
+!                drx := 0;
+!                dry := 0;
+!                drz := angular_distance_rz;
+!                v_norm:=v_rz;
+!            ENDIF
+            
+!            IF aux_leadthrough = FALSE THEN
+!                IF (sdk_x_p or sdk_x_n or sdk_y_p or sdk_y_n or sdk_z_p or sdk_z_n) THEN
+!                    IF aux = FALSE THEN
+!                        aux:=TRUE;
+!                        StartMove;
+!                        MoveL \Conc, RelTool(act_position, dx, dy, dz), v_norm, fine, myTool\WObj:=wobj0;
+!                    ENDIF
+                
+!                ELSEIF (sdk_rx_p or sdk_rx_n or sdk_ry_p or sdk_ry_n or sdk_rz_p or sdk_rz_n) THEN
+!                    IF aux = FALSE then
+!                        aux:=TRUE;
+!                        StartMove;
+!                        MoveL \Conc, RelTool(act_position, 0, 0, 0 \Rx:=drx \Ry:=dry \Rz:=drz), v_norm, fine, myTool\WObj:=wobj0;
+!                    ENDIF
+!                ELSE
+!                    aux_angle_deg_encoder := FALSE;
+!                    aux := false;        
+!                    StopMove;
+!                    ClearPath;
+!                    !StopMoveReset;    
+!                ENDIF                  
+!            ENDIF
+        
+!        ENDWHILE
+!        SpyStop;
+!    ENDPROC
+    
+!ENDMODULE
+
+
+    
+ENDMODULE
+    

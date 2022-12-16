@@ -1,0 +1,535 @@
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/startup_with_axc.cmd
+01:09:51:281000 Status 0 from startup_log
+Begin system startup
+01:09:51:281000 Status 0 from echo
+01:09:51:281000 Status 0 from invoke2 s17_initialize
+01:09:51:281000 Status 0 from invoke AxcHal_InitModule
+01:09:51:281000 Status 0 from invoke AxcHal_StartModule
+01:09:55:281000 Status 0 from delay
+C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/TEMP has been mounted.
+01:09:56:50000 Status 0 from baseinit
+Goto to label: NO_ASCII_LOG
+01:09:56:50000 Status 0 from getkey ASCIILogMedia
+01:09:56:50000 Status 0 from uprobe_init
+01:09:56:50000 Status 0 from debug_service_base_init
+01:09:56:50000 Status 0 from invoke S33_01_create
+01:09:56:50000 Status 0 from S33_01_init
+01:09:56:769000 Status 0 from invoke AxcServoControl_InitModule
+Goto to label: VC_MCHEXCEPTION_SKIP
+01:09:56:769000 Status 0 from ifvc VC_MCHEXCEPTION_SKIP
+01:09:56:769000 Status 0 from invoke S98_01_create
+01:09:56:769000 Status 0 from S98_01_init
+01:11:42:206000 Status 0 from invoke scinit_load_and_start_safety_controller
+Goto to label: VC_SEP_SKIP
+01:11:42:206000 Status 0 from ifvc VC_SEP_SKIP
+Goto to label: VC_CS_SKIP
+01:11:42:206000 Status 0 from ifvc VC_CS_SKIP
+Goto to label: VC_SKIP_FIRMWARE_UPGRADE
+01:11:42:206000 Status 0 from ifvc VC_SKIP_FIRMWARE_UPGRADE
+01:11:42:206000 Status 0 from bb_populate
+01:11:42:206000 Status 0 from bb_populate
+01:11:42:206000 Status 0 from bb_populate
+01:11:42:206000 Status 0 from bb_populate
+01:11:42:206000 Status 0 from bb_populate
+01:11:42:206000 Status 0 from bb_populate
+01:11:42:206000 Status 0 from bb_populate
+01:11:42:206000 Status 0 from bb_populate
+01:11:42:206000 Status 0 from bb_populate
+01:11:42:206000 Status 0 from bb_populate
+01:11:42:206000 Status 0 from bb_populate
+01:11:42:206000 Status 0 from bb_populate
+01:11:49:820000 Status 0 from sysdmp_init
+01:11:50:594000 Status 0 from task 
+01:11:50:594000 Status 0 from debug_service_init
+01:11:50:594000 Status 0 from sysdmp_add
+01:11:50:594000 Status 0 from sysdmp_add
+01:11:50:594000 Status 0 from sysdmp_add
+01:11:50:594000 Status 0 from sysdmp_add
+01:11:50:594000 Status 0 from sysdmp_add
+01:11:50:594000 Status 0 from sysdmp_add
+01:11:50:594000 Status 0 from sysdmp_add
+Goto to label: NO_WVLOG
+01:11:50:594000 Status 0 from ifvc NO_WVLOG
+Goto to label: NO_ETHCAP
+01:11:50:594000 Status 0 from ifvc NO_ETHCAP
+01:11:51:313000 Status 0 from task 
+01:11:51:319000 Status 0 from synchronize task
+01:11:51:319000 Status 0 from go task
+01:11:52:98000 Status 0 from task 
+01:11:52:873000 Status 0 from task 
+01:11:53:652000 Status 0 from task 
+Goto to label: VC_NO_CLOCK_PROBE
+01:11:53:652000 Status 0 from ifvc VC_NO_CLOCK_PROBE
+
+22-12-16  15:03:22 MC0: type = STATE_CHANGE id = Operational code = 45 (10045)
+
+01:11:53:652000 Status 0 from basenew
+Base services started
+01:11:53:652000 Status 0 from echo
+Goto to label: VC_NO_REMOTE_DIAGNOSTIC
+01:11:53:652000 Status 0 from ifvc VC_NO_REMOTE_DIAGNOSTIC
+01:11:53:652000 Status 0 from S98_01_new
+01:11:53:652000 Status 0 from direxist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/TEMP/rw_trash
+Goto to label: NEXT_STEP
+01:11:53:652000 Status 0 from goto NEXT_STEP
+Initializing system interrupts
+01:11:53:652000 Status 0 from print
+01:11:54:144000 Status 0 from invoke AxcServoControl_StartModule
+01:11:57:144000 Status 0 from delay
+Goto to label: VC_NO_MC_SEP_UPGRADE
+01:11:57:144000 Status 0 from ifvc VC_NO_MC_SEP_UPGRADE
+Goto to label: VC_NO_MC_CS_UPGRADE
+01:11:57:144000 Status 0 from ifvc VC_NO_MC_CS_UPGRADE
+Goto to label: VC_NO_MC_FPGA_UPGRADE
+01:11:57:144000 Status 0 from ifvc VC_NO_MC_FPGA_UPGRADE
+01:11:57:144000 Status 0 from invoke fciInit
+01:11:57:144000 Status 0 from init eio
+01:11:57:144000 Status 0 from invoke internalBusDrv
+01:11:57:612000 Status 0 from task 
+01:11:58:110000 Status 0 from task 
+01:11:58:110000 Status 0 from invoke incInstallDriver
+Goto to label: LOAD_CMD
+01:11:58:110000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/en_base.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/en_base.cmd
+01:11:58:110000 Status 0 from sysdmp_add
+01:11:58:568000 Status 0 from task 
+01:11:59:55000 Status 0 from task 
+01:11:59:552000 Status 0 from task 
+01:11:59:552000 Status 0 from invoke incInstallDriver
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/en_base.cmd
+01:11:59:552000 Status 0 from include 
+Goto to label: NO_BONJOUR_DAEMON
+01:11:59:552000 Status 0 from ifvc NO_BONJOUR_DAEMON
+01:11:59:552000 Status 0 from invoke2 init_mempools
+01:12:00:44000 Status 0 from task 
+01:12:00:136000 Status 0 from task 
+01:12:00:592000 Status 0 from task 
+01:12:01:80000 Status 0 from task 
+01:12:01:80000 Status 0 from task 
+Starting features - phase 1 of 5
+01:12:01:80000 Status 0 from echo
+Goto to label: LOAD_CMD
+01:12:01:80000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/opt_l0.cmd
+
+Script begin: C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/opt_l0.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/pnet/pn_opt.cmd
+Starting Profinet and installs the driver/networks
+01:12:01:80000 Status 0 from echo
+01:12:01:80000 Status 0 from sysdmp_add
+01:12:01:368000 Status 0 from task 
+01:12:01:712000 Status 0 from task 
+01:12:01:712000 Status 0 from invoke incInstallDriver
+... Done
+01:12:01:712000 Status 0 from echo
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/pnet/pn_opt.cmd
+01:12:01:712000 Status 0 from include ... Done
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/ScInc_opt.cmd
+Starting ScIncTasks and installs the driver/networks
+01:12:01:712000 Status 0 from echo
+01:12:02:56000 Status 0 from task 
+01:12:02:417000 Status 0 from task 
+01:12:02:417000 Status 0 from invoke incInstallDriver
+End of ScIncTasks installation
+01:12:02:417000 Status 0 from echo
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/ScInc_opt.cmd
+01:12:02:417000 Status 0 from include End of ScIncTasks installation
+Script end: C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/opt_l0.cmd
+01:12:02:417000 Status 0 from include End of ScIncTasks installation
+01:12:02:417000 Status 0 from init sio
+01:12:02:417000 Status 0 from init motion
+01:12:02:417000 Status 0 from init rol
+01:12:02:417000 Status 0 from init cab
+01:12:02:417000 Status 0 from init bar
+01:12:02:417000 Status 0 from init pgmrun
+01:12:02:417000 Status 0 from init rapid
+01:12:02:417000 Status 0 from init puscfg
+01:12:02:417000 Status 0 from invoke sdlog_init
+01:12:02:768000 Status 0 from task 
+Goto to label: VC_CABSUPTS_SKIP
+01:12:02:768000 Status 0 from ifvc VC_CABSUPTS_SKIP
+01:12:02:768000 Status 0 from invoke2 sevt_safety_init
+01:12:02:768000 Status 0 from invoke2 scsafIntBusInit
+01:12:02:768000 Status 0 from invoke2 epanel_device_init
+01:12:02:768000 Status 0 from invoke2 axc_brd_create_IntBusDrvSys
+01:12:03:138000 Status 0 from task 
+01:12:03:508000 Status 0 from task 
+01:12:03:882000 Status 0 from task 
+01:12:04:246000 Status 0 from task 
+01:12:04:580000 Status 0 from task 
+01:12:04:580000 Status 0 from reconfigure eio
+01:12:04:580000 Status 0 from reconfigure sio
+01:12:04:580000 Status 0 from task 
+01:12:04:580000 Status 0 from task 
+01:12:04:792000 Status 0 from task 
+01:12:05:14000 Status 0 from task 
+01:12:05:236000 Status 0 from task 
+01:12:05:438000 Status 0 from task 
+01:12:05:648000 Status 0 from task 
+01:12:05:858000 Status 0 from task 
+01:12:06:64000 Status 0 from task 
+01:12:06:278000 Status 0 from task 
+01:12:06:485000 Status 0 from task 
+01:12:06:696000 Status 0 from task 
+01:12:06:889000 Status 0 from task 
+01:12:07:77000 Status 0 from task 
+01:12:07:184000 Status 0 from task 
+01:12:07:344000 Status 0 from task 
+01:12:07:532000 Status 0 from task 
+01:12:07:726000 Status 0 from task 
+01:12:07:893000 Status 0 from task 
+01:12:08:68000 Status 0 from task 
+01:12:08:264000 Status 0 from task 
+01:12:08:456000 Status 0 from task 
+01:12:08:624000 Status 0 from task 
+01:12:08:776000 Status 0 from task 
+01:12:08:962000 Status 0 from task 
+01:12:09:108000 Status 0 from task 
+01:12:09:296000 Status 0 from task 
+Goto to label: VC_AXC_SKIP
+01:12:09:296000 Status 0 from ifvc VC_AXC_SKIP
+01:12:09:410000 Status 0 from task 
+01:12:09:587000 Status 0 from task 
+01:12:09:764000 Status 0 from task 
+01:12:09:940000 Status 0 from task 
+01:12:10:127000 Status 0 from task 
+01:12:10:315000 Status 0 from task 
+01:12:10:498000 Status 0 from task 
+01:12:10:662000 Status 0 from task 
+01:12:10:846000 Status 0 from task 
+01:12:11:28000 Status 0 from task 
+01:12:11:194000 Status 0 from task 
+01:12:11:359000 Status 0 from task 
+01:12:11:540000 Status 0 from task 
+01:12:11:695000 Status 0 from task 
+01:12:11:868000 Status 0 from task 
+01:12:12:44000 Status 0 from task 
+01:12:12:219000 Status 0 from task 
+01:12:12:396000 Status 0 from task 
+01:12:12:552000 Status 0 from task 
+01:12:12:716000 Status 0 from task 
+01:12:12:883000 Status 0 from task 
+01:12:13:48000 Status 0 from task 
+01:12:13:222000 Status 0 from task 
+01:12:13:395000 Status 0 from task 
+01:12:13:560000 Status 0 from task 
+01:12:13:726000 Status 0 from task 
+01:12:13:885000 Status 0 from task 
+Waiting for task group 1 to start
+01:12:13:885000 Status 0 from print
+01:12:13:891000 Status 0 from synchronize task
+01:12:14:391000 Status 0 from delay
+Message (cmd/msgType: 299/3) received from sid: 0
+Message (cmd/msgType: 299/3) received from sid: 0
+Rapi-Subscription running on slot: 204
+01:12:14:391000 Status 0 from go task
+Goto to label: VC_AXC_SKIP
+01:12:14:391000 Status 0 from ifvc VC_AXC_SKIP
+Starting features - phase 2 of 5
+01:12:14:391000 Status 0 from echo
+Goto to label: LOAD_CMD
+01:12:14:391000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/option.cmd
+
+Script begin: C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/option.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/udpuc/startup.cmd
+01:12:14:424000 Status 0 from task 
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/udpuc/startup.cmd
+01:12:14:424000 Status 0 from include 
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/scopt.cmd
+01:12:14:424000 Status 0 from sysdmp_add
+01:12:14:424000 Status 0 from sysdmp_add
+01:12:14:424000 Status 0 from sysdmp_add
+01:12:14:424000 Status 0 from sysdmp_add
+Starting Safety Controller orchestrator
+01:12:14:424000 Status 0 from echo
+  Cpu1 in state ready
+01:12:14:464000 Status 0 from task 
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/scopt.cmd
+01:12:14:464000 Status 0 from include 
+Script end: C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/option.cmd
+01:12:14:464000 Status 0 from include 
+Starting motion system
+01:12:14:464000 Status 0 from echo
+Simulated moc_io.
+STATMATS. New motion_planner: motion_planner_1
+STATMATS. New motion_planner: motion_planner_2
+STATMATS. New motion_planner: motion_planner_3
+STATMATS. New motion_planner: motion_planner_4
+STATMATS. New motion_planner: motion_planner_5
+STATMATS. New motion_planner: motion_planner_6
+STATMATS. New motion_planner: motion_planner_7
+SISMA_BS_INFO 41152
+01:12:15:487000 Status 0 from new motion
+01:12:16:987000 Status 0 from delay
+01:12:16:987000 Status 0 from connect_dependings SYS_STORED_OBJ_CAB
+01:12:16:987000 Status 0 from if SYNCROB
+Goto to label: NOSYNC
+01:12:16:987000 Status 0 from goto NOSYNC
+Waiting for motion system to start
+01:12:16:987000 Status 0 from echo
+01:12:16:993000 Status 0 from synchronize task
+Message (cmd/msgType: 299/3) received from sid: 0
+Message (cmd/msgType: 299/3) received from sid: 0
+Message (cmd/msgType: 299/3) received from sid: 0
+Message (cmd/msgType: 299/3) received from sid: 0
+Message (cmd/msgType: 299/3) received from sid: 0
+01:12:16:993000 Status 0 from go task
+Synchronizing industrial networks
+01:12:16:993000 Status 0 from echo
+Message (cmd/msgType: 299/3) received from sid: 0
+01:12:16:993000 Status 0 from io_synchronize
+Goto to label: VIRTIOTS_RUN
+01:12:16:993000 Status 0 from ifvc VIRTIOTS_RUN
+01:12:16:993000 Status 0 from task 
+Starting RAPID system
+01:12:16:993000 Status 0 from echo
+01:12:16:993000 Status 0 from invoke rldryrun_start
+01:12:16:993000 Status 0 from invoke rlcyclic_start
+01:12:16:993000 Status 13 from invoke rlvisualize_start
+01:12:16:993000 Status 0 from invoke rldata_init
+------------number_of_tasks 3 
+------------number_of_tasks 3 
+------------number_of_tasks 3 
+01:12:17:496000 Status 0 from new rapid
+Starting features - phase 3 of 5
+01:12:17:496000 Status 0 from echo
+01:12:17:496000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/opt_l1.cmd
+Goto to label: NEXT_STEP
+01:12:17:496000 Status 0 from goto NEXT_STEP
+
+22-12-16  15:03:26 MC0: type = STATE_CHANGE id = Operational code = 12 (10012)
+
+
+22-12-16  15:03:26 MC0: type = STATE_CHANGE id = Operational code = 15 (10015)
+
+01:12:22:752000 Status 0 from new cab
+Starting communication services
+01:12:22:752000 Status 0 from echo
+01:12:22:752000 Status 0 from invoke2 set_max_allowed_robapi_wan_connections
+
+22-12-16  15:03:26 MC0: type = STATE_CHANGE id = Operational code = 2 (10002)
+arg 0: 1 arg 1: 0 
+arg 2: SC_CBC
+
+
+22-12-16  15:03:26 MC0: type = STATE_CHANGE id = Operational code = 2 (10002)
+arg 0: 3 arg 1: 0 
+arg 2: T_COMM
+
+
+22-12-16  15:03:26 MC0: type = STATE_CHANGE id = Operational code = 150 (10150)
+arg 0: 1 
+arg 1: SC_CBC
+
+
+22-12-16  15:03:26 MC0: type = STATE_CHANGE id = Operational code = 150 (10150)
+arg 0: 2 
+arg 1: T_ROB1
+
+
+22-12-16  15:03:26 MC0: type = STATE_CHANGE id = Operational code = 150 (10150)
+arg 0: 3 
+arg 1: T_COMM
+
+01:12:22:752000 Status 0 from task 
+
+22-12-16  15:03:26 MC0: type = STATE_CHANGE id = Operational code = 129 (10129)
+arg 0: 1 
+arg 1: SC_CBC
+
+
+22-12-16  15:03:26 MC0: type = STATE_CHANGE id = Operational code = 2 (10002)
+arg 0: 2 arg 1: 0 
+arg 2: T_ROB1
+
+
+22-12-16  15:03:26 MC0: type = STATE_CHANGE id = Operational code = 129 (10129)
+arg 0: 3 
+arg 1: T_COMM
+
+
+22-12-16  15:03:26 MC0: type = STATE_CHANGE id = Operational code = 150 (10150)
+arg 0: 1 
+arg 1: SC_CBC
+
+
+22-12-16  15:03:26 MC0: type = STATE_CHANGE id = Operational code = 150 (10150)
+arg 0: 3 
+arg 1: T_COMM
+
+01:12:22:752000 Status 0 from task 
+01:12:22:772000 Status 0 from task 
+01:12:22:788000 Status 0 from task 
+robcmdts ipc connected 
+01:12:22:812000 Status 0 from task 
+robayats started 
+01:12:22:840000 Status 0 from task 
+
+22-12-16  15:03:26 MC0: type = STATE_CHANGE id = Operational code = 129 (10129)
+arg 0: 2 
+arg 1: T_ROB1
+
+01:12:22:856000 Status 0 from task 
+01:12:22:888000 Status 0 from task 
+01:12:22:908000 Status 0 from task 
+01:12:22:930000 Status 0 from task 
+01:12:22:956000 Status 0 from task 
+01:12:22:992000 Status 0 from task 
+01:12:22:992000 Status 0 from invoke2 init_opcua_mempools
+01:12:23:24000 Status 0 from task 
+Starting features - phase 4 of 5
+01:12:23:24000 Status 0 from echo
+Goto to label: LOAD_CMD
+01:12:23:24000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/opt_l2.cmd
+
+Script begin: C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/opt_l2.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/udpuc/opt_udpuc.cmd
+
+22-12-16  15:03:26 MC0(robRootts): E:\Agents\6\_work\277\s\S0.01.Kernel\Areas\SensorInterfaces\Components\UdpUcDev\udpucdevconfig.c 212 Unknown udpuc host type 10798E70 due to 0xfffffffd
+
+
+22-12-16  15:03:26 MC0(robRootts): E:\Agents\6\_work\277\s\S0.01.Kernel\Areas\SensorInterfaces\Components\UdpUcDev\udpucdevconfig.c 212 Unknown udpuc host type 10798E70 due to 0xfffffffd
+
+01:12:23:24000 Status 0 from invoke2 udpuc_reconfig
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/udpuc/opt_udpuc.cmd
+01:12:23:24000 Status 0 from include 
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/ftpc/opt_ftp.cmd
+Goto to label: VC_FTP_CONFIG_SKIP
+01:12:23:24000 Status 0 from ifvc VC_FTP_CONFIG_SKIP
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/ftpc/opt_ftp.cmd
+01:12:23:24000 Status 0 from include C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/ftpc/opt_ftp.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sftpc/opt_sftp.cmd
+Goto to label: VC_SFTP_CONFIG_SKIP
+01:12:23:24000 Status 0 from ifvc VC_SFTP_CONFIG_SKIP
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sftpc/opt_sftp.cmd
+01:12:23:24000 Status 0 from include C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sftpc/opt_sftp.cmd
+Script end: C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/opt_l2.cmd
+01:12:23:24000 Status 0 from include C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sftpc/opt_sftp.cmd
+01:12:23:54000 Status 0 from task 
+Goto to label: NETSCANSKIP
+01:12:23:54000 Status 0 from ifvc NETSCANSKIP
+Finalizing RAPID system
+01:12:23:54000 Status 0 from echo
+01:12:23:60000 Status 0 from synchronize task
+01:12:23:60000 Status 0 from rapid_startup_ready
+01:12:23:60000 Status 0 from cab_startup_ready
+Message (cmd/msgType: 299/3) received from sid: 0
+Message (cmd/msgType: 299/3) received from sid: 0
+Message (cmd/msgType: 299/3) received from sid: 0
+Message (cmd/msgType: 299/3) received from sid: 0
+01:12:23:60000 Status 0 from go task
+Goto to label: VTSPEED
+01:12:23:60000 Status 0 from ifvc VTSPEED
+01:12:23:60000 Status 0 from invoke VTSetSpeed
+Starting features - phase 1 of 5
+01:12:23:60000 Status 0 from echo
+01:12:23:60000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/opt_l3.cmd
+Goto to label: NEXT_STEP
+01:12:23:60000 Status 0 from goto NEXT_STEP
+01:12:23:60000 Status 0 from upgrade_warm_start_completed
+01:12:23:60000 Status 0 from unofficial_rw_notification
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status -1 from sysdmp_add
+ ... will continue!
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+Goto to label: NEXT_STEP
+01:12:23:60000 Status 0 from goto NEXT_STEP
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_trigger_add
+01:12:23:60000 Status 0 from sysdmp_trigger_add
+01:12:23:60000 Status 0 from sysdmp_trigger_add
+01:12:23:60000 Status 0 from sysdmp_trigger_add
+01:12:23:60000 Status 0 from sysdmp_trigger_add
+01:12:23:60000 Status 0 from sysdmp_trigger_add
+01:12:23:60000 Status 0 from sysdmp_trigger_add
+01:12:23:60000 Status 0 from sysdmp_trigger_add
+01:12:23:60000 Status 0 from sysdmp_trigger_add
+01:12:23:60000 Status 0 from sysdmp_trigger_add
+01:12:23:60000 Status 0 from sysdmp_trigger_add
+01:12:23:60000 Status 0 from sysdmp_trigger_add
+01:12:23:60000 Status 0 from sysdmp_trigger_add
+01:12:23:60000 Status 0 from sysdmp_trigger_add
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add_logfile
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from sysdmp_add
+01:12:23:60000 Status 0 from invoke fpevent_init
+01:12:23:60000 Status 0 from invoke fpcmd_init
+01:12:23:60000 Status 0 from invoke fpconsole_init
+01:12:23:60000 Status 0 from invoke fpdbg_init
+01:12:23:60000 Status 0 from invoke fpdevices_init
+01:12:23:60000 Status 0 from systemrun
+System started
+01:12:23:60000 Status 0 from echo
+01:12:23:60000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/post_startup_action.cmd
+Goto to label: NO_POST_ACTION
+01:12:23:60000 Status 0 from goto NO_POST_ACTION
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/startup_with_axc.cmd
+01:12:23:60000 Status 0 from include NO_POST_ACTION
+Goto to label: END
+01:12:23:60000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/startup.cmd

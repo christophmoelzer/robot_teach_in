@@ -27,15 +27,15 @@ Mail: christoph.moelzer@outlook.com
 #define nav_enter 14
 #define led_onboard 13
 
-#define SCREEN_WIDTH 128 // OLED display width, in pixels
-#define SCREEN_HEIGHT 64 // OLED display height, in pixels
-#define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
-#define SCREEN_ADDRESS 0x3C ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
+#define SCREEN_WIDTH 128     // OLED display width, in pixels
+#define SCREEN_HEIGHT 64     // OLED display height, in pixels
+#define OLED_RESET -1        // Reset pin # (or -1 if sharing Arduino reset pin)
+#define SCREEN_ADDRESS 0x3C  ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
 
 
-Encoder encoder(2,3);
+Encoder encoder(2, 3);
 
-class Timer{
+class Timer {
 public:
   unsigned long st;
   unsigned long et;
@@ -44,45 +44,45 @@ public:
   bool in;
   bool q;
 
-  void run(){
-    if (in == true and aux == false){
+  void run() {
+    if (in == true and aux == false) {
       aux = true;
       st = millis();
       q = false;
       et = 0;
     }
-    et = millis()-st;
-    if (et > pt){
+    et = millis() - st;
+    if (et > pt) {
       q = true;
     }
-    if (in == false){
+    if (in == false) {
       aux = false;
       q = false;
     }
-  }  
+  }
 private:
 };
 
-class WaitMs{
-  public:
+class WaitMs {
+public:
 
-  void ms(int ms){
-    for (int i=0; i < ms; i++){
+  void ms(int ms) {
+    for (int i = 0; i < ms; i++) {
       delayMicroseconds(1000);
     }
   }
-  private:
+private:
 };
 
-class LED{
-  public:
+class LED {
+public:
   int _pin_r;
   int _pin_g;
   int _pin_b;
-  LED(){
+  LED() {
     ;
   }
-  LED(int pin_r, int pin_g, int pin_b){
+  LED(int pin_r, int pin_g, int pin_b) {
     _pin_r = pin_r;
     _pin_g = pin_g;
     _pin_b = pin_b;
@@ -91,59 +91,59 @@ class LED{
     pinMode(_pin_b, OUTPUT);
   }
 
-  void red(){
+  void red() {
     digitalWrite(_pin_r, HIGH);
     digitalWrite(_pin_g, LOW);
     digitalWrite(_pin_b, LOW);
   }
 
-  void green(){
+  void green() {
     digitalWrite(_pin_r, LOW);
     digitalWrite(_pin_g, HIGH);
     digitalWrite(_pin_b, LOW);
   }
 
-  void blue(){
+  void blue() {
     digitalWrite(_pin_r, LOW);
     digitalWrite(_pin_g, LOW);
     digitalWrite(_pin_b, HIGH);
   }
 
-  void white(){
+  void white() {
     digitalWrite(_pin_r, HIGH);
     digitalWrite(_pin_g, HIGH);
     digitalWrite(_pin_b, HIGH);
   }
 
-  void black(){
+  void black() {
     digitalWrite(_pin_r, LOW);
     digitalWrite(_pin_g, LOW);
     digitalWrite(_pin_b, LOW);
   }
 
-  void violett(){
+  void violett() {
     digitalWrite(_pin_r, HIGH);
     digitalWrite(_pin_g, LOW);
     digitalWrite(_pin_b, HIGH);
   }
 
-   void yellow(){
+  void yellow() {
     digitalWrite(_pin_r, HIGH);
     digitalWrite(_pin_g, HIGH);
     digitalWrite(_pin_b, LOW);
   }
 
-   void light_blue(){
+  void light_blue() {
     digitalWrite(_pin_r, LOW);
     digitalWrite(_pin_g, HIGH);
     digitalWrite(_pin_b, HIGH);
   }
 
-  private:
+private:
 };
 
-class Button{
-  public:
+class Button {
+public:
 
   //state
   bool input;
@@ -157,34 +157,34 @@ class Button{
   bool debounced;
   String label;
 
-  Button(){
+  Button() {
     ;
   }
-  Button(uint8_t pin){
+  Button(uint8_t pin) {
     _pin = pin;
     _t_debounce = 50;
     output = false;
     pinMode(_pin, INPUT_PULLUP);
-    last_input =! digitalRead(_pin);
+    last_input = !digitalRead(_pin);
   }
 
-  Button(uint8_t pin, int t_debounce, String lb){
+  Button(uint8_t pin, int t_debounce, String lb) {
     _pin = pin;
     label = lb;
     _t_debounce = t_debounce;
     output = false;
     pinMode(_pin, INPUT_PULLUP);
-    last_input =! digitalRead(_pin);
+    last_input = !digitalRead(_pin);
     debounced = false;
   }
 
 
-  void update(){
+  void update() {
     // Statusänderung prüfen. Wenn Änderung dann Zeit zurücksetzen
     // Wenn Zeit überschritten dann Ausgang setzen
     //input =! digitalRead(_pin);
-    output =! digitalRead(_pin);
-  /*
+    output = !digitalRead(_pin);
+    /*
     if(last_input != input){
       t_last_change = millis();
       published = false;
@@ -198,82 +198,80 @@ class Button{
 
     last_input = input;
     */
-    
+
     //return output;
   }
 
 
-  private:
+private:
 };
 
-class Point{
-  public:
+class Point {
+public:
   int x, y;
-  Point(){
-    x=0;
-    y=0;
+  Point() {
+    x = 0;
+    y = 0;
   }
 
-  Point(int _x, int _y){
-    x=_x;
-    y=_y;
+  Point(int _x, int _y) {
+    x = _x;
+    y = _y;
   }
 
-  private:
+private:
 };
 
-class Line{
-  public:
+class Line {
+public:
   Point start, end;
-  Line(){
-    start = Point(0,0);
-    end = Point(0,0);
+  Line() {
+    start = Point(0, 0);
+    end = Point(0, 0);
   }
-  Line(Point _start, Point _end){
+  Line(Point _start, Point _end) {
     start = _start;
     end = _end;
   }
 
-  private:
+private:
 };
 
-class Page{
-  public:
+class Page {
+public:
   Line line[10];
 
-  Page(){
+  Page() {
 
     line[0].start = Point(0, 0);
-    line[0].end = Point(SCREEN_WIDTH-1, 0);
+    line[0].end = Point(SCREEN_WIDTH - 1, 0);
 
-    line[1].start = Point(0, SCREEN_HEIGHT/3);
-    line[1].end = Point(SCREEN_WIDTH-1, SCREEN_HEIGHT/3);
+    line[1].start = Point(0, SCREEN_HEIGHT / 3);
+    line[1].end = Point(SCREEN_WIDTH - 1, SCREEN_HEIGHT / 3);
 
-    line[2].start = Point(0, SCREEN_HEIGHT*2/3);
-    line[2].end = Point(SCREEN_WIDTH-1, SCREEN_HEIGHT*2/3);
+    line[2].start = Point(0, SCREEN_HEIGHT * 2 / 3);
+    line[2].end = Point(SCREEN_WIDTH - 1, SCREEN_HEIGHT * 2 / 3);
 
-    line[3].start = Point(0, SCREEN_HEIGHT-1);
-    line[3].end = Point(SCREEN_WIDTH-1, SCREEN_HEIGHT-1);
+    line[3].start = Point(0, SCREEN_HEIGHT - 1);
+    line[3].end = Point(SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1);
 
     line[4].start = Point(0, 0);
-    line[4].end = Point(0, SCREEN_HEIGHT-1);
+    line[4].end = Point(0, SCREEN_HEIGHT - 1);
 
-    line[5].start = Point(SCREEN_WIDTH/2, 0);
-    line[5].end = Point(SCREEN_WIDTH/2, SCREEN_HEIGHT-1);
+    line[5].start = Point(SCREEN_WIDTH / 2, 0);
+    line[5].end = Point(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 1);
 
-    line[6].start = Point(SCREEN_WIDTH-1, 0);
-    line[6].end = Point(SCREEN_WIDTH-1, SCREEN_HEIGHT-1);
-    
+    line[6].start = Point(SCREEN_WIDTH - 1, 0);
+    line[6].end = Point(SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1);
   }
 
 
 
-  private:
-
+private:
 };
 
-class Motion{
-  public:
+class Motion {
+public:
   int debounce_time;
   bool btn_pressed;
   bool button_array[32];
@@ -287,7 +285,7 @@ class Motion{
   uint8_t coded_buttons[4];
 
   uint32_t mask[4];
-  
+
 
   Button btn_grp_1_x_negative;
   Button btn_grp_1_x_positive;
@@ -297,7 +295,7 @@ class Motion{
   Button btn_grp_1_z_positive;
   LED led_grp_1;
   bool grp_1_active;
-  
+
   //Button btn_grp_2_x_negative;
   Button btn_grp_2_x_positive;
   Button btn_grp_2_y_negative;
@@ -315,7 +313,7 @@ class Motion{
   Button btn_grp_3_z_positive;
   LED led_grp_3;
   bool grp_3_active;
-  
+
   Button btn_grp_4_x_negative;
   Button btn_grp_4_x_positive;
   //Button btn_grp_4_y_negative;
@@ -326,7 +324,7 @@ class Motion{
   bool grp_4_active;
 
 
-  Motion(){
+  Motion() {
     btn_pressed = false;
     debounce_time = 1;
     //published = false;
@@ -334,14 +332,14 @@ class Motion{
     grp_2_active = false;
     grp_3_active = false;
     grp_4_active = false;
-    mode_lin=true;
+    mode_lin = true;
     mode_lead_through = false;
 
     mask[0] = 0x000F;
     mask[1] = 0x00F0;
     mask[2] = 0x0F00;
     mask[3] = 0xF000;
-    
+
     btn_grp_1_x_negative = Button(52, debounce_time, "1 - x neg");
     btn_grp_1_x_positive = Button(48, debounce_time, "1 - x pos");
     btn_grp_1_y_negative = Button(46, debounce_time, "1 - y neg");
@@ -369,15 +367,15 @@ class Motion{
     btn_grp_4_z_negative = Button(23, debounce_time, "4 - z neg");
     btn_grp_4_z_positive = Button(27, debounce_time, "4 - z pos");
     led_grp_4 = LED(22, 24, 26);
-  }  
+  }
 
-  void init_button_array(){
-    for (int i=0; i<sizeof(button_array); i++){
+  void init_button_array() {
+    for (int i = 0; i < sizeof(button_array); i++) {
       button_array[i] = false;
     }
   }
 
-  void update(){
+  void update() {
     btn_pressed = false;
 
     btn_grp_1_x_negative.update();
@@ -386,28 +384,28 @@ class Motion{
     //btn_grp_1_y_positive.update();
     btn_grp_1_z_negative.update();
     btn_grp_1_z_positive.update();
-    
+
     //btn_grp_2_x_negative.update();
     btn_grp_2_x_positive.update();
     btn_grp_2_y_negative.update();
     btn_grp_2_y_positive.update();
     btn_grp_2_z_negative.update();
     btn_grp_2_z_positive.update();
-    
+
     btn_grp_3_x_negative.update();
     //btn_grp_3_x_positive.update();
     btn_grp_3_y_negative.update();
     btn_grp_3_y_positive.update();
     btn_grp_3_z_negative.update();
     btn_grp_3_z_positive.update();
-    
+
     btn_grp_4_x_negative.update();
     btn_grp_4_x_positive.update();
     //btn_grp_4_y_negative.update();
     btn_grp_4_y_positive.update();
     btn_grp_4_z_negative.update();
     btn_grp_4_z_positive.update();
-    
+
     /*
     if (btn_grp_1_x_negative.debounced && !btn_grp_1_x_negative.published){
       btn_grp_1_x_negative.published = true;
@@ -519,130 +517,156 @@ class Motion{
     }
     */
 
-    if(btn_grp_1_x_negative.output or 
-       btn_grp_1_x_positive.output or 
-       btn_grp_1_y_negative.output or 
-       //btn_grp_1_y_positive.output or 
-       btn_grp_1_z_negative.output or 
-       btn_grp_1_z_positive.output or 
-       //btn_grp_2_x_negative.output or 
-       btn_grp_2_x_positive.output or 
-       btn_grp_2_y_negative.output or 
-       btn_grp_2_y_positive.output or 
-       btn_grp_2_z_negative.output or 
-       btn_grp_2_z_positive.output or 
-       btn_grp_3_x_negative.output or 
-       //btn_grp_3_x_positive.output or 
-       btn_grp_3_y_negative.output or 
-       btn_grp_3_y_positive.output or 
-       btn_grp_3_z_negative.output or 
-       btn_grp_3_z_positive.output or 
-       btn_grp_4_x_negative.output or 
-       btn_grp_4_x_positive.output or 
-       //btn_grp_4_y_negative.output or 
-       btn_grp_4_y_positive.output or 
-       btn_grp_4_z_negative.output or 
-       btn_grp_4_z_positive.output){
-        btn_pressed = true;
-       }
-        
+    if (btn_grp_1_x_negative.output or btn_grp_1_x_positive.output or btn_grp_1_y_negative.output or
+        //btn_grp_1_y_positive.output or
+        btn_grp_1_z_negative.output or btn_grp_1_z_positive.output or
+        //btn_grp_2_x_negative.output or
+        btn_grp_2_x_positive.output or btn_grp_2_y_negative.output or btn_grp_2_y_positive.output or btn_grp_2_z_negative.output or btn_grp_2_z_positive.output or btn_grp_3_x_negative.output or
+        //btn_grp_3_x_positive.output or
+        btn_grp_3_y_negative.output or btn_grp_3_y_positive.output or btn_grp_3_z_negative.output or btn_grp_3_z_positive.output or btn_grp_4_x_negative.output or btn_grp_4_x_positive.output or
+        //btn_grp_4_y_negative.output or
+        btn_grp_4_y_positive.output or btn_grp_4_z_negative.output or btn_grp_4_z_positive.output) {
+      btn_pressed = true;
+    }
+
     //init_button_array();
 
-    button_array[0] = btn_grp_1_x_negative.output; // 2^0
-    button_array[1] = btn_grp_1_x_positive.output; // 2^1
-    button_array[2] = btn_grp_1_y_negative.output; // 2^2
-    button_array[3] = false;//btn_grp_1_y_positive.output; // 2^3
-    button_array[4] = btn_grp_1_z_negative.output; // 2^4
-    button_array[5] = btn_grp_1_z_positive.output; // 2^5
-    
-    button_array[6] = false;//btn_grp_2_x_negative.output; // 2^6
-    button_array[7] = btn_grp_2_x_positive.output; // 2^7
-    button_array[8] = btn_grp_2_y_negative.output; // 2^8
-    button_array[9] = btn_grp_2_y_positive.output; // 2^9
-    button_array[10] = btn_grp_2_z_negative.output; // 2^10
-    button_array[11] = btn_grp_2_z_positive.output; // 2^11
-    
-    button_array[12] = btn_grp_3_x_negative.output; // 2^12
-    button_array[13] = false;//btn_grp_3_x_positive.output; // 2^13
-    button_array[14] = btn_grp_3_y_negative.output; // 2^14
-    button_array[15] = btn_grp_3_y_positive.output; // 2^15
-    button_array[16] = btn_grp_3_z_negative.output; // 2^16
-    button_array[17] = btn_grp_3_z_positive.output; // 2^17
-    
-    button_array[18] = btn_grp_4_x_negative.output; // 2^18
-    button_array[19] = btn_grp_4_x_positive.output; // 2^19
-    button_array[20] = false;//btn_grp_4_y_negative.output; // 2^20
-    button_array[21] = btn_grp_4_y_positive.output; // 2^21
-    button_array[22] = btn_grp_4_z_negative.output; // 2^22
-    button_array[23] = btn_grp_4_z_positive.output; // 2^23
+    button_array[0] = btn_grp_1_x_negative.output;  // 2^0
+    button_array[1] = btn_grp_1_x_positive.output;  // 2^1
+    button_array[2] = btn_grp_1_y_negative.output;  // 2^2
+    button_array[3] = false;                        //btn_grp_1_y_positive.output; // 2^3
+    button_array[4] = btn_grp_1_z_negative.output;  // 2^4
+    button_array[5] = btn_grp_1_z_positive.output;  // 2^5
+
+    button_array[6] = false;                         //btn_grp_2_x_negative.output; // 2^6
+    button_array[7] = btn_grp_2_x_positive.output;   // 2^7
+    button_array[8] = btn_grp_2_y_negative.output;   // 2^8
+    button_array[9] = btn_grp_2_y_positive.output;   // 2^9
+    button_array[10] = btn_grp_2_z_negative.output;  // 2^10
+    button_array[11] = btn_grp_2_z_positive.output;  // 2^11
+
+    button_array[12] = btn_grp_3_x_negative.output;  // 2^12
+    button_array[13] = false;                        //btn_grp_3_x_positive.output; // 2^13
+    button_array[14] = btn_grp_3_y_negative.output;  // 2^14
+    button_array[15] = btn_grp_3_y_positive.output;  // 2^15
+    button_array[16] = btn_grp_3_z_negative.output;  // 2^16
+    button_array[17] = btn_grp_3_z_positive.output;  // 2^17
+
+    button_array[18] = btn_grp_4_x_negative.output;  // 2^18
+    button_array[19] = btn_grp_4_x_positive.output;  // 2^19
+    button_array[20] = false;                        //btn_grp_4_y_negative.output; // 2^20
+    button_array[21] = btn_grp_4_y_positive.output;  // 2^21
+    button_array[22] = btn_grp_4_z_negative.output;  // 2^22
+    button_array[23] = btn_grp_4_z_positive.output;  // 2^23
 
     button_array[24] = mode_lin;
-    button_array[25] =! mode_lin;
+    button_array[25] = !mode_lin;
     button_array[26] = false;
     button_array[27] = false;
     button_array[28] = false;
-    button_array[29] = button_lead_through;
+    button_array[29] = mode_lead_through;
     button_array[30] = false;
     button_array[31] = false;
 
 
-    for(int x=0; x<4; x++){
-        coded_buttons[x]=0;
-        for(int i=(x*8); i<((x*8)+8); i++){
-          if(button_array[i]){
-            coded_buttons[x] += (uint8_t)bit(i-(x*8));
-          }
+    for (int x = 0; x < 4; x++) {
+      coded_buttons[x] = 0;
+      for (int i = (x * 8); i < ((x * 8) + 8); i++) {
+        if (button_array[i]) {
+          coded_buttons[x] += (uint8_t)bit(i - (x * 8));
         }
       }
+    }
 
     grp_1_active = false;
     grp_2_active = false;
     grp_3_active = false;
     grp_4_active = false;
 
-    for(int i=0; i<6; i++){
-      if(button_array[i]){
-        grp_1_active = true;  
+    for (int i = 0; i < 6; i++) {
+      if (button_array[i]) {
+        grp_1_active = true;
       }
-      if(button_array[i+6]){
-        grp_2_active = true;  
+      if (button_array[i + 6]) {
+        grp_2_active = true;
       }
-      if(button_array[i+12]){
-        grp_3_active = true;  
+      if (button_array[i + 12]) {
+        grp_3_active = true;
       }
-      if(button_array[i+18]){
-        grp_4_active = true;  
+      if (button_array[i + 18]) {
+        grp_4_active = true;
       }
     }
-    
-    if (grp_1_active){
+
+    if (grp_1_active) {
       led_grp_1.blue();
-    }else{
+    } else {
       led_grp_1.white();
     }
-    if (grp_2_active){
+    if (grp_2_active) {
       led_grp_2.blue();
-    }else{
+    } else {
       led_grp_2.white();
     }
-    if (grp_3_active){
+    if (grp_3_active) {
       led_grp_3.blue();
-    }else{
+    } else {
       led_grp_3.white();
     }
-    if (grp_4_active){
+    if (grp_4_active) {
       led_grp_4.blue();
-    }else{
+    } else {
       led_grp_4.white();
     }
-     
   }
 
-  private:
+private:
 };
 
-class GUI{
-  public:
+class DisplayContent {
+public:
+  DisplayContent() {
+
+    _size = 2;
+    _x = 0;
+    _y = 0;
+    _text = "";
+  }
+
+  void set(String text, int x, int y, int size = 2) {
+    _text = text;
+    _x = x;
+    _y = y;
+    _size = size;
+  }
+
+  int x() {
+    return _x;
+  }
+
+  int y() {
+    return _y;
+  }
+
+  int size() {
+    return _size;
+  }
+
+  String text() {
+    return _text;
+  }
+
+
+
+private:
+  int _size;
+  int _x;
+  int _y;
+  String _text;
+};
+
+class GUI {
+public:
   Adafruit_SSD1306 display;
   Button btn_nav_left;
   Button btn_nav_right;
@@ -655,7 +679,7 @@ class GUI{
   int cursor_position;
   int col_width;
   float increment;
-  int velocity ;
+  int velocity;
   bool mode_lin;
   bool mode_lead_through;
   bool changed;
@@ -668,9 +692,12 @@ class GUI{
   float angle_radians;
 
   uint8_t angle_radians_serial[4];
+  int line_height = 16;
 
-  GUI(){
-    
+  DisplayContent content[10];
+
+  GUI() {
+
     btn_nav_left = Button(nav_left);
     btn_nav_right = Button(nav_right);
     btn_nav_up = Button(nav_up);
@@ -680,13 +707,14 @@ class GUI{
     btn_nav_enter = Button(nav_enter);
   }
 
-  void init(){
+  void init() {
     display = Adafruit_SSD1306(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-    if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
-      for(;;); // Don't proceed, loop forever
+    if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
+      for (;;)
+        ;  // Don't proceed, loop forever
     }
-    
+
 
     display.clearDisplay();
     display.setTextSize(2);
@@ -702,65 +730,65 @@ class GUI{
     mode_lin = true;
     mode_lead_through = false;
     pos_encoder = -999;
-    debounced=false;
-    published=false;
-    
+    debounced = false;
+    published = false;
   }
 
-  void convert_angle_to_bytes(float rad){
-    uint32_t no_comma_angle = (uint32_t)(rad*1000);
+  void convert_angle_to_bytes(float rad) {
+    uint32_t no_comma_angle = (uint32_t)(rad * 1000);
     uint32_t mask[4];
     mask[0] = 0x000F;
     mask[1] = 0x00F0;
     mask[2] = 0x0F00;
     mask[3] = 0xF000;
 
-    for(int i=0; i<4; i++){    
+    for (int i = 0; i < 4; i++) {
       angle_radians_serial[i] = 0;
       angle_radians_serial[i] = mask[i] & no_comma_angle;
     }
-  
   }
 
-  void upt_encoder(){
+  void upt_encoder() {
     long new_value;
     changed = false;
     new_value = encoder.read();
-    if (new_value != pos_encoder){
+    if (new_value != pos_encoder) {
       //Serial.println(new_value);
-      display.clearDisplay();
-      display.setTextSize(2);
-      display.setTextColor(SSD1306_WHITE);
-      display.setCursor(96-15, 32-7);
+      //display.clearDisplay();
+      //display.setTextSize(2);
+      //display.setTextColor(SSD1306_WHITE);
+      //display.setCursor(96 - 15, 32 - 7);
       pos_encoder = new_value;
-      new_value = new_value%624;
-      if(new_value<0) new_value+=624;
-      angle_degrees = (new_value*360/624);
-      angle_radians = new_value*2*PI/624;
+      new_value = new_value % 624;
+      if (new_value < 0) new_value += 624;
+      angle_degrees = (new_value * 360 / 624);
+      angle_radians = new_value * 2 * PI / 624;
       convert_angle_to_bytes(angle_radians);
-      calc_arrow(angle_radians);
-      display.println(angle_degrees);
+      //calc_arrow(angle_radians);
+      //display.println(angle_degrees);
+      
       changed = true;
-      display.display();
+      //display.display();
     }
-    
   }
 
-  void calc_arrow(float angle){
-    int length = 31;
+  void calc_arrow(float angle) {
+    int length = 20;
 
-    Point null(128/2+64/2, 64/2);
-    Point vector_start((length*3/4)*cos(angle), (length*3/4)*sin(angle));
-    Point vector_end(length*cos(angle), length*sin(angle));
-    Point start(null.x+vector_start.x, null.y+vector_start.y);
-    Point end(null.x+vector_end.x, null.y+vector_end.y);
-    Line line(start,end);  
+    //Point null(128 / 2 + 64 / 2, 64 / 2);
+    Point null(127-length, 63-length);
+    Point vector_start((length * 3 / 4) * cos(angle), (length * 3 / 4) * sin(angle));
+    Point vector_end(length * cos(angle), length * sin(angle));
+    Point start(null.x + vector_start.x, null.y + vector_start.y);
+    Point end(null.x + vector_end.x, null.y + vector_end.y);
+    Line line(start, end);
     display.drawLine(line.start.x, line.start.y, line.end.x, line.end.y, SSD1306_WHITE);
     display.drawCircle(null.x, null.y, length, SSD1306_WHITE);
+    content[4].set((String)angle_degrees, null.x-6, null.y-3, 1);
   }
 
 
-  void update_buttons(){
+  void update_buttons() {
     btn_nav_left.update();
     btn_nav_right.update();
     btn_nav_up.update();
@@ -769,302 +797,243 @@ class GUI{
     btn_nav_abort.update();
     btn_nav_enter.update();
 
-    if (btn_nav_center.output and not(btn_nav_center.aux)){
+    if (btn_nav_center.output and not(btn_nav_center.aux)) {
       btn_nav_center.aux = true;
-      mode_lin =! mode_lin;
-      display.clearDisplay();
-      display.setTextSize(2);
-      display.setTextColor(SSD1306_WHITE);
-      display.setCursor(5, 5);
-      if (mode_lin){
-        display.println("LIN");
-      }else{
-        display.println("ROT");
-      }
-      display.display();
+      mode_lin = !mode_lin;
+      
     }
-    if (not(btn_nav_center.output)){
+    if (not(btn_nav_center.output)) {
       btn_nav_center.aux = false;
     }
 
-    if (btn_nav_abort.output and not(btn_nav_abort.aux)){
+    if (btn_nav_abort.output and not(btn_nav_abort.aux)) {
       btn_nav_abort.aux = true;
-      mode_lead_through =! mode_lead_through;
-      display.clearDisplay();
-      display.setTextSize(2);
-      display.setTextColor(SSD1306_WHITE);
-      display.setCursor(5, 25);
-      if (mode_lead_through){
-        display.println("LEAD_THROUGH");
-      }else{
-        display.println("NORMAL MODE");
-      }
-      display.display();
+      mode_lead_through = !mode_lead_through;
+      
     }
-    if (not(btn_nav_abort.output)){
+    if (not(btn_nav_abort.output)) {
       btn_nav_abort.aux = false;
     }
 
     if (btn_nav_abort.debounced && !btn_nav_abort.published) {
-        btn_nav_abort.published = true;
-        published = false;
-        debounced = true;
-      }
-
+      btn_nav_abort.published = true;
+      published = false;
+      debounced = true;
+    }
   }
 
-  void draw_lines(void){
-    int gap = display.height()/3;
-    display.drawLine(0, 0, display.width()-1, 0, SSD1306_WHITE);
-    display.drawLine(0, gap, display.width()-1, gap, SSD1306_WHITE);
-    display.drawLine(0, gap*2, display.width()-1, gap*2, SSD1306_WHITE);
-    display.drawLine(0, display.height()-1, display.width()-1, display.height()-1, SSD1306_WHITE);
-    display.drawLine(0, 0, 0, display.height()-1, SSD1306_WHITE);
-    display.drawLine(display.width()-1, 0, display.width()-1, display.height()-1, SSD1306_WHITE);
-    display.drawLine(col_width, 0, col_width, display.height()-1, SSD1306_WHITE);
-    
+  void draw_lines(void) {
+    int gap = display.height() / 3;
+    display.drawLine(0, 0, display.width() - 1, 0, SSD1306_WHITE);
+    display.drawLine(0, gap, display.width() - 1, gap, SSD1306_WHITE);
+    display.drawLine(0, gap * 2, display.width() - 1, gap * 2, SSD1306_WHITE);
+    display.drawLine(0, display.height() - 1, display.width() - 1, display.height() - 1, SSD1306_WHITE);
+    display.drawLine(0, 0, 0, display.height() - 1, SSD1306_WHITE);
+    display.drawLine(display.width() - 1, 0, display.width() - 1, display.height() - 1, SSD1306_WHITE);
+    display.drawLine(col_width, 0, col_width, display.height() - 1, SSD1306_WHITE);
   }
 
-    void draw_background(bool invert){
-      int gap = display.height()/3;
-      static bool bg_black[3] = {false, false, false};
-      if (invert == true){
-        display.fillRect(2, (cursor_position*gap)+2, col_width-3, gap-3, SSD1306_WHITE);
-        display.fillRect(col_width+2, (cursor_position*gap)+2, display.width()-col_width-4, gap-3, SSD1306_WHITE);
-        bg_black[cursor_position] = false;
+  void draw_background(bool invert) {
+    int gap = display.height() / 3;
+    static bool bg_black[3] = { false, false, false };
+    if (invert == true) {
+      display.fillRect(2, (cursor_position * gap) + 2, col_width - 3, gap - 3, SSD1306_WHITE);
+      display.fillRect(col_width + 2, (cursor_position * gap) + 2, display.width() - col_width - 4, gap - 3, SSD1306_WHITE);
+      bg_black[cursor_position] = false;
+    } else {
+      if (bg_black[0] == false) {
+        bg_black[0] = true;
+        display.fillRect(2, (0 * gap) + 2, col_width - 3, gap - 3, SSD1306_BLACK);
+        display.fillRect(col_width + 2, (0 * gap) + 2, display.width() - col_width - 4, gap - 3, SSD1306_BLACK);
       }
-      else{
-        if (bg_black[0] == false){
-          bg_black[0] = true;
-          display.fillRect(2, (0*gap)+2, col_width-3, gap-3, SSD1306_BLACK);
-          display.fillRect(col_width+2, (0*gap)+2, display.width()-col_width-4, gap-3, SSD1306_BLACK);
-        }
-        if (bg_black[1] == false){
-          bg_black[1] = true;
-          display.fillRect(2, (1*gap)+2, col_width-3, gap-3, SSD1306_BLACK);
-          display.fillRect(col_width+2, (1*gap)+2, display.width()-col_width-4, gap-3, SSD1306_BLACK);
-        }
-        if (bg_black[2] == false){
-          bg_black[2] = true;
-          display.fillRect(2, (2*gap)+2, col_width-3, gap-3, SSD1306_BLACK);
-          display.fillRect(col_width+2, (2*gap)+2, display.width()-col_width-4, gap-3, SSD1306_BLACK);
-        }
+      if (bg_black[1] == false) {
+        bg_black[1] = true;
+        display.fillRect(2, (1 * gap) + 2, col_width - 3, gap - 3, SSD1306_BLACK);
+        display.fillRect(col_width + 2, (1 * gap) + 2, display.width() - col_width - 4, gap - 3, SSD1306_BLACK);
+      }
+      if (bg_black[2] == false) {
+        bg_black[2] = true;
+        display.fillRect(2, (2 * gap) + 2, col_width - 3, gap - 3, SSD1306_BLACK);
+        display.fillRect(col_width + 2, (2 * gap) + 2, display.width() - col_width - 4, gap - 3, SSD1306_BLACK);
       }
     }
+  }
 
-    void show_content(){
-      String label[3] = {"MOD", "VEL", "INC"};
-      String values[3] = {"LIN", "50mm/s", "0.5mm"};
+  void show_content() {
+    String label[3] = { "MOD", "VEL", "INC" };
+    String values[3] = { "LIN", "50mm/s", "0.5mm" };
 
-      if (nav_button_pressed == true){
-          display.clearDisplay();
-          display.display();
-        }
-
-      if ((mode_lin == true)){
-        values[0] = "LIN";
-      }
-      else if ((mode_lin == false)){
-        values[0] = "ROT";
-      }
-      values[1] = String(velocity);
-      values[2] = String(increment);
-      int gap = display.height()/3;
-      display.setTextSize(2);             // Normal 1:1 pixel scale
-      
-      draw_background(true);
-      draw_lines();
-      
-      for (int i=0; i<3; i++){
-        if (i == cursor_position){
-          display.setTextColor(SSD1306_BLACK);
-        }
-        else{
-          display.setTextColor(SSD1306_WHITE);
-        }
-        display.setCursor(4,gap*i+4);
-        display.println(label[i]);
-        display.setCursor(5+col_width,gap*i+4);
-        display.println(values[i]);
-        if (nav_button_pressed == true){
-          display.display();
-          nav_button_pressed = false;
-        }
-      }
+    if (nav_button_pressed == true) {
+      display.clearDisplay();
+      display.display();
     }
 
-  private:
+    if ((mode_lin == true)) {
+      values[0] = "LIN";
+    } else if ((mode_lin == false)) {
+      values[0] = "ROT";
+    }
+    values[1] = String(velocity);
+    values[2] = String(increment);
+    int gap = display.height() / 3;
+    display.setTextSize(2);  // Normal 1:1 pixel scale
+
+    draw_background(true);
+    draw_lines();
+
+    for (int i = 0; i < 3; i++) {
+      if (i == cursor_position) {
+        display.setTextColor(SSD1306_BLACK);
+      } else {
+        display.setTextColor(SSD1306_WHITE);
+      }
+      display.setCursor(4, gap * i + 4);
+      display.println(label[i]);
+      display.setCursor(5 + col_width, gap * i + 4);
+      display.println(values[i]);
+      if (nav_button_pressed == true) {
+        display.display();
+        nav_button_pressed = false;
+      }
+    }
+  }
+
+  void update_display() {
+    display.clearDisplay();
+    for (int i = 0; i < 10; i++) {
+      if(content[i].text()!=""){
+        display.setCursor(content[i].x(), content[i].y());
+        display.setTextSize(content[i].size());
+        display.setTextColor(SSD1306_WHITE);
+        display.println(content[i].text());
+      }
+    }
+    calc_arrow(angle_radians);
+    display.display();
+  }
+
+private:
 };
 
-class StopWatch{
-  public:
+class StopWatch {
+public:
   unsigned long start_time;
   unsigned long stop_time;
   unsigned long elapsed_time;
 
-  StopWatch(){
-   start_time = millis();
-   stop_time = millis();
-   elapsed_time = 0; 
+  StopWatch() {
+    start_time = millis();
+    stop_time = millis();
+    elapsed_time = 0;
   }
 
-  void start(){
+  void start() {
     start_time = millis();
   }
 
-  void stop(){
-    stop_time=millis();
-    elapsed_time = stop_time-start_time;
+  void stop() {
+    stop_time = millis();
+    elapsed_time = stop_time - start_time;
   }
 
-  void reset(){
+  void reset() {
     start_time = millis();
     stop_time = millis();
     elapsed_time = millis();
   }
 
-  private:
-
+private:
 };
 
 GUI gui;
 Motion motion;
 WaitMs startDelay;
-StopWatch stopwatch; 
+StopWatch stopwatch;
 
 char datenpaket;
-int serial_counter=0;
+int serial_counter = 0;
 bool aux_changed = false;
 bool aux_last = false;
 bool aux_stop = false;
 int line_height = 16;
 byte received_data[4];
 byte watchdog = 0;
+byte robot_state = 0;
 
 
 void setup() {
   Serial.begin(115200);
-  gui.init();  
+  gui.init();
   startDelay.ms(1000);
 }
 
 void loop() {
-  
+
   gui.upt_encoder();
   gui.update_buttons();
-  //gui.show_content();  
+  //gui.show_content();
   motion.mode_lin = gui.mode_lin;
   motion.mode_lead_through = gui.mode_lead_through;
-  motion.button_lead_through = gui.btn_nav_abort.output;
   motion.update();
   watchdog += 1;
 
-  if(Serial.available()>0){
-    
-      gui.display.setTextSize(2);
-      gui.display.setTextColor(SSD1306_WHITE);
-      gui.display.setCursor(100, 0);
-      received_data[0] = Serial.read();
-      received_data[1] = Serial.read();
-      received_data[2] = Serial.read();
-      received_data[3] = Serial.read();
-      gui.display.println(received_data[0]);
-      gui.display.display();
-      if (received_data[0] == 1){
-        stopwatch.reset();
-        stopwatch.start();        
-      }
-      if (received_data[0] == 2){
-        stopwatch.stop();
-        gui.display.setTextSize(2);
-        gui.display.setCursor(100, line_height*3);
-        gui.display.println(stopwatch.elapsed_time);
-        gui.display.display();        
-      }
+  if (Serial.available() > 0) {
+    robot_state = Serial.read();
+    received_data[0] = Serial.read();
+    received_data[1] = Serial.read();
+    received_data[2] = Serial.read();
+    received_data[3] = Serial.read();
+    gui.content[5].set("R"+(String)received_data[0], 0, 30, 1);
+    gui.content[6].set("R"+(String)received_data[1], 0, 38, 1);
+    gui.content[7].set("R"+(String)received_data[2], 0, 46, 1);
+    gui.content[8].set("R"+(String)received_data[3], 0, 54, 1);
+    if(robot_state == 1){
+      gui.content[9].set("moving", 0, 20, 1);
+    }
+    else if(robot_state == 2){
+      gui.content[9].set("stopped", 0, 20, 1);
 
-      Serial.flush();
-  }
+    }
+    else{
+      gui.content[9].set("---", 0, 20, 1);
 
-  
-  //if (motion.btn_pressed != aux_last){
-  if (true){
-    if(motion.btn_pressed == true){
-      aux_stop = false;
-      Serial.write(watchdog);
-      Serial.write(motion.coded_buttons[0]);  // 1
-      Serial.write(motion.coded_buttons[1]);  // 1
-      Serial.write(motion.coded_buttons[2]);  // 1
-      Serial.write(motion.coded_buttons[3]);  // 1
-      Serial.write(255);
-      
-      gui.display.clearDisplay();
-      gui.display.setTextSize(2);
-      gui.display.setTextColor(SSD1306_WHITE);
-      gui.display.setCursor(0, 0);
-      printHEX(watchdog,30,0);
-      printHEX(motion.coded_buttons[0],0,0);
-      printHEX(motion.coded_buttons[1],0,line_height*1);
-      printHEX(motion.coded_buttons[2],0,line_height*2);
-      printHEX(motion.coded_buttons[3],0,line_height*3);
-      printHEX(255,30,line_height*3);
-      gui.display.setTextSize(4);
-      gui.display.setCursor(30, 16);
-      gui.display.println("MOVE");
-      gui.display.display();
     }
 
-
-    //Serial.write(gui.angle_radians_serial[0]);
-    //Serial.write(gui.angle_radians_serial[1]);
-    //Serial.write(gui.angle_radians_serial[2]);
-    //Serial.write(gui.angle_radians_serial[3]);
-  }
-  aux_last = motion.btn_pressed;
-
-  //if(motion.btn_pressed == false and aux_stop == false){
-    if(motion.btn_pressed == false and received_data != 2){
-      aux_stop = true;
-      Serial.write(watchdog);
-      Serial.write(motion.coded_buttons[0]);  // 1
-      Serial.write(motion.coded_buttons[1]);  // 1
-      Serial.write(motion.coded_buttons[2]);  // 1
-      Serial.write(motion.coded_buttons[3]);  // 1
-      Serial.write(255);
-      gui.display.clearDisplay();
-      gui.display.setTextSize(2);
-      gui.display.setTextColor(SSD1306_WHITE);
-      gui.display.setCursor(0, 0);
-      printHEX(watchdog,30,0);
-      printHEX(motion.coded_buttons[0],0,0);
-      printHEX(motion.coded_buttons[1],0,line_height*1);
-      printHEX(motion.coded_buttons[2],0,line_height*2);
-      printHEX(motion.coded_buttons[3],0,line_height*3);
-      printHEX(255,30,line_height*3);
-      
-      gui.display.setTextSize(4);
-      gui.display.setCursor(30, 16);
-      gui.display.println("STOP");
-      gui.display.display();
-      
+    if (received_data[0] == 1) {
+      stopwatch.reset();
+      stopwatch.start();
     }
-  
-
-  if(gui.changed){
-    ;
-    //angle_msg.data = gui.angle_radians;
-    //pub_angle.publish(&angle_msg);
+    if (received_data[0] == 2) {
+      stopwatch.stop();
+      gui.content[2].set((String)stopwatch.elapsed_time, 100, line_height * 3, 1);
+    }
+    Serial.flush();
   }
 
-}
+  Serial.write(watchdog);
+  Serial.write(motion.coded_buttons[0]);  // 1
+  Serial.write(motion.coded_buttons[1]);  // 1
+  Serial.write(motion.coded_buttons[2]);  // 1
+  Serial.write(motion.coded_buttons[3]);  // 1
+  Serial.write(255);
 
-void printHEX(uint8_t value,int x, int y){
-    gui.display.setCursor(x,y);
-  if(value<16){
-    gui.display.println(0);
-    gui.display.setCursor(x+12,y);
-    gui.display.println(value,HEX);
+  gui.content[0].set("WD = "+(String)watchdog, 80, 0, 1);
+  if (motion.btn_pressed == true) { 
+    gui.content[1].set("MOVE", 0, 0, 2);
   }
   else{
-    gui.display.println(value,HEX);
+    gui.content[1].set("STOP", 0, 0, 2);
+  }
+  gui.update_display();
+}
+
+void printHEX(uint8_t value, int x, int y) {
+  gui.display.setCursor(x, y);
+  if (value < 16) {
+    gui.display.println(0);
+    gui.display.setCursor(x + 12, y);
+    gui.display.println(value, HEX);
+  } else {
+    gui.display.println(value, HEX);
   }
 }

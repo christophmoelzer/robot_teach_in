@@ -1,0 +1,2015 @@
+02:52:01:471000 Status 0 from startup_log
+Begin system installation
+02:52:01:471000 Status 0 from echo
+02:52:01:471000 Status 0 from basedefs
+02:52:34:531000 Status 0 from invoke2 s17_initialize
+02:52:34:531000 Status 0 from if_feature_present abb.robotics.controller.axiscomputer.none
+Goto to label: END
+02:52:34:531000 Status 0 from goto END
+C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/TEMP has been mounted.
+02:52:35:184000 Status 0 from baseinit
+02:52:35:193000 Status 0 from uprobe_init
+02:52:35:233000 Status 0 from debug_service_base_init
+02:52:35:233000 Status 0 from invoke S33_01_create
+02:52:35:394000 Status 0 from S33_01_init
+02:52:35:394000 Status 0 from if_feature_present abb.robotics.controller.axiscomputer.none
+02:52:36:223000 Status 0 from invoke2 AxcServoControl_InitModule
+Goto to label: END
+02:52:36:223000 Status 0 from goto END
+02:52:36:229000 Status 0 from invoke S98_01_create
+02:52:36:242000 Status 0 from S98_01_setup
+02:52:36:354000 Status 0 from S98_01_init
+02:52:43:664000 Status 0 from sysdmp_init
+Goto to label: VC_SKIP_SYSDMPTASK
+02:52:43:664000 Status 0 from ifvc VC_SKIP_SYSDMPTASK
+02:52:43:664000 Status 0 from debug_service_init
+02:52:43:664000 Status 0 from sysdmp_add
+02:52:43:664000 Status 0 from setstr $ANSWER
+02:52:43:664000 Status 0 from selectmedia $ANSWER
+02:52:44:363000 Status 0 from task 
+02:52:44:369000 Status 0 from synchronize task
+02:52:44:369000 Status 0 from go task
+02:52:45:159000 Status 0 from task 
+02:52:45:932000 Status 0 from task 
+02:52:46:712000 Status 0 from task 
+
+22-12-16  15:02:25 MC0: type = STATE_CHANGE id = Operational code = 46 (10046)
+
+02:52:46:745000 Status 0 from basenew
+Base services started
+02:52:46:745000 Status 0 from echo
+02:52:46:745000 Status 0 from S98_01_new
+02:52:46:745000 Status 0 from setenv
+02:52:46:745000 Status 0 from setenv
+Goto to label: VC_PYTHON
+02:52:46:745000 Status 0 from ifvc VC_PYTHON
+02:52:46:745000 Status 0 from setenv
+02:52:46:745000 Status 0 from setenv
+02:52:46:965000 Status 0 from init eio
+02:52:46:977000 Status 0 from init sio
+ Size of MOC_IO_BS_BUFFER 18844
+02:52:47:836000 Status 0 from init motion
+02:52:48:226000 Status 0 from init rol
+02:52:48:531000 Status 0 from init cab
+02:52:48:540000 Status 0 from init bar
+02:52:48:554000 Status 0 from init pgmrun
+02:52:48:600000 Status 0 from init rapid
+02:52:48:613000 Status 0 from init puscfg
+02:52:48:613000 Status 0 from setEioValidationLevel
+02:52:49:310000 Status 0 from task 
+02:52:50:58000 Status 0 from task 
+02:52:50:58000 Status 0 from setvar
+Installing configuration system
+02:52:50:58000 Status 0 from echo
+02:52:50:378000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/sys.cfg
+02:52:50:787000 Status 0 from invoke2 cfg_create_type_xml
+02:52:51:114000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/eio_internal.cfg
+02:52:51:448000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/sys_eiosig.cfg
+Goto to label: NO_PIB_SAF
+02:52:51:448000 Status 0 from getkey pib
+02:52:51:773000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/pgmbtn.cfg
+02:52:52:117000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlmset.cfg
+02:52:52:445000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlmove.cfg
+02:52:52:743000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlmsys.cfg
+02:52:53:75000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlexe.cfg
+02:52:53:414000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlcom.cfg
+02:52:53:696000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlsocket.cfg
+02:52:53:958000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlio.cfg
+02:52:54:307000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rltrap.cfg
+02:52:54:620000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlmmec.cfg
+02:52:54:908000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlsys.cfg
+02:52:55:192000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlload.cfg
+02:52:55:483000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlmsrc.cfg
+02:52:55:730000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rltrig.cfg
+02:52:56:30000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlpid.cfg
+02:52:56:390000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlsmod.cfg
+02:52:56:705000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlfsta.cfg
+02:52:57:50000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlraps.cfg
+02:52:57:335000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlmath.cfg
+02:52:57:663000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlmexe.cfg
+02:52:57:973000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlsset.cfg
+02:52:58:408000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlstr.cfg
+02:52:58:697000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlcure.cfg
+02:52:59:11000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlwz.cfg
+02:52:59:298000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rltool.cfg
+02:52:59:636000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlsym.cfg
+02:53:00:132000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlbit.cfg
+02:53:00:468000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlcal.cfg
+02:53:00:768000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlcyclic.cfg
+02:53:00:768000 Status 0 from setvar
+Goto to label: NO_PAINT_CNV
+02:53:00:768000 Status 0 from getkey paintMedia
+02:53:01:122000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlcnv.cfg
+Goto to label: NEXT_STEP
+02:53:01:122000 Status 0 from goto NEXT_STEP
+02:53:01:448000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlind.cfg
+02:53:01:767000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlcorr.cfg
+02:53:02:67000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlopr.cfg
+02:53:02:485000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rldata.cfg
+02:53:02:854000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlmq.cfg
+02:53:03:187000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rltrigios.cfg
+02:53:03:517000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/mockit1.cfg
+02:53:03:872000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/calwrist.cfg
+02:53:04:224000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/usrmmc.cfg
+02:53:04:557000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/usrmmc_mc.cfg
+02:53:04:854000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/bat_shutdownmmc.cfg
+02:53:05:176000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/rlbasic.cfg
+02:53:05:464000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/calwrist_sys.cfg
+02:53:05:744000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/bat_shutdownsys.cfg
+02:53:05:744000 Status 0 from is_option_present SAFEMOVEPRO
+Goto to label: SAFE_MOVE_OPTION_PRESENT
+02:53:05:744000 Status 0 from goto SAFE_MOVE_OPTION_PRESENT
+02:53:05:744000 Status 0 from if_feature_present abb.robotics.robots.robots.irb14050.0_5-0_5
+02:53:06:187000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/CBC_SYS.cfg
+02:53:06:520000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/CBC_SYS_mmc.cfg
+Goto to label: NEXT_STEP
+02:53:06:520000 Status 0 from goto NEXT_STEP
+02:53:06:816000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/linked_m_sup_base.cfg
+Goto to label: CRB15000_PRESENT
+02:53:06:816000 Status 0 from if_feature_present abb.robotics.robots.robots.crb15000.5-0_95
+02:53:07:103000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/SYS_TRQ_CALIB.cfg
+02:53:07:129000 Status 0 from copy C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/TorqueSensorCalib.jpg
+02:53:07:692000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/usrsys.cfg
+02:53:08:103000 Status 0 from invoke2 cfg_create_type_xml
+02:53:08:398000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/sio_net_nondeletable.cfg
+02:53:08:695000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/sio_net_internal.cfg
+02:53:08:978000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/sio_net.cfg
+02:53:09:375000 Status 0 from invoke2 cfg_create_type_xml
+02:53:09:679000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/sys_fan_control.cfg
+02:53:09:685000 Status 0 from synchronize task
+02:53:09:685000 Status 0 from go task
+Installing system files
+02:53:09:685000 Status 0 from echo
+02:53:09:685000 Status 0 from direxist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/OPTIONS/SC
+02:53:09:685000 Status 0 from mkdir C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/OPTIONS/SC
+02:53:09:685000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/opt_l0.cmd
+Goto to label: NEXT_STEP
+02:53:09:685000 Status 0 from goto NEXT_STEP
+02:53:09:685000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/option.cmd
+Goto to label: NEXT_STEP
+02:53:09:685000 Status 0 from goto NEXT_STEP
+02:53:09:685000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/opt_l1.cmd
+Goto to label: NEXT_STEP
+02:53:09:685000 Status 0 from goto NEXT_STEP
+02:53:09:685000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/opt_l2.cmd
+Goto to label: NEXT_STEP
+02:53:09:685000 Status 0 from goto NEXT_STEP
+02:53:09:685000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/opt_l3.cmd
+Goto to label: NEXT_STEP
+02:53:09:685000 Status 0 from goto NEXT_STEP
+02:53:09:685000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/upgrade_opt.cmd
+Goto to label: NEXT_STEP
+02:53:09:685000 Status 0 from goto NEXT_STEP
+02:53:09:685000 Status 0 from register 
+02:53:09:685000 Status 0 from register 
+02:53:10:490000 Status 0 from register 
+02:53:11:154000 Status 0 from register 
+02:53:11:154000 Status 0 from register 
+02:53:12:100000 Status 0 from register 
+02:53:12:100000 Status 0 from register 
+02:53:12:100000 Status 0 from register 
+02:53:12:100000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/HOME/rapid_edit_rules.xml
+Goto to label: NEXT_STEP
+02:53:12:100000 Status 0 from goto NEXT_STEP
+02:53:12:100000 Status 0 from setstr $ANSWER
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/rules/install.cmd
+02:53:12:261000 Status 0 from register 
+02:53:12:261000 Status 0 from setstr $CFGRULES
+02:53:13:112000 Status 0 from register 
+02:53:13:872000 Status 0 from register 
+02:53:14:78000 Status 0 from register 
+02:53:14:141000 Status 0 from register 
+02:53:14:465000 Status 0 from register 
+02:53:14:875000 Status 0 from register 
+02:53:14:924000 Status 0 from register 
+02:53:15:546000 Status 0 from register 
+02:53:15:943000 Status 0 from register 
+02:53:16:461000 Status 0 from register 
+Goto to label: NO_RC
+02:53:16:461000 Status 0 from ifvc NO_RC
+02:53:16:461000 Status 0 from getkey MT
+Goto to label: END_ST
+02:53:16:461000 Status 0 from goto END_ST
+02:53:16:461000 Status 0 from is_option_present UDPUC
+02:53:17:204000 Status 0 from register 
+Goto to label: END_IV
+02:53:17:204000 Status 0 from is_option_present IV
+02:53:17:204000 Status 0 from register 
+02:53:18:143000 Status 0 from register 
+02:53:18:143000 Status 0 from register 
+02:53:18:143000 Status 0 from setstr $ELOGRULES
+02:53:18:705000 Status 0 from register 
+02:53:19:293000 Status 0 from register 
+02:53:20:31000 Status 0 from register 
+02:53:20:761000 Status 0 from register 
+02:53:21:122000 Status 0 from register 
+02:53:22:160000 Status 0 from register 
+02:53:22:898000 Status 0 from register 
+02:53:23:687000 Status 0 from register 
+02:53:24:517000 Status 0 from register 
+02:53:25:294000 Status 0 from register 
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/rules/install.cmd
+Goto to label: NEXT_STEP
+02:53:25:294000 Status 0 from selectmedia 
+02:53:25:294000 Status 0 from setstr $ANSWER
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/install.cmd
+02:53:25:982000 Status 0 from setvar
+02:53:25:982000 Status 0 from getkey LanguageCode
+Goto to label: SET_LANGUAGE
+02:53:25:982000 Status 0 from goto SET_LANGUAGE
+02:53:26:263000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/en.cfg
+02:53:26:263000 Status 0 from setenv
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instlang.cmd
+02:53:26:585000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:26:894000 Status 0 from setstr $TXTPATH
+Goto to label: INSTALL_FILE
+02:53:27:323000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../en/controller/rapid/roloptext.xml
+02:53:27:335000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../en/controller/rapid/roloptext.xml
+Goto to label: INSTALL_FILE
+02:53:27:703000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../en/controller/rapid/calwrist.xml
+02:53:27:703000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../en/controller/rapid/calwrist.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:27:703000 Status 0 from include INSTALL_FILE
+02:53:27:703000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:27:703000 Status 0 from setstr $TXTPATH
+Goto to label: INSTALL_FILE
+02:53:28:87000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../cs/controller/rapid/roloptext.xml
+02:53:28:87000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../cs/controller/rapid/roloptext.xml
+Goto to label: INSTALL_FILE
+02:53:28:427000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../cs/controller/rapid/calwrist.xml
+02:53:28:427000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../cs/controller/rapid/calwrist.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:28:427000 Status 0 from include INSTALL_FILE
+02:53:28:427000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:28:427000 Status 0 from setstr $TXTPATH
+Goto to label: INSTALL_FILE
+02:53:28:926000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../da/controller/rapid/roloptext.xml
+02:53:28:926000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../da/controller/rapid/roloptext.xml
+Goto to label: INSTALL_FILE
+02:53:29:251000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../da/controller/rapid/calwrist.xml
+02:53:29:251000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../da/controller/rapid/calwrist.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:29:251000 Status 0 from include INSTALL_FILE
+02:53:29:251000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:29:251000 Status 0 from setstr $TXTPATH
+Goto to label: INSTALL_FILE
+02:53:29:667000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../de/controller/rapid/roloptext.xml
+02:53:29:667000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../de/controller/rapid/roloptext.xml
+Goto to label: INSTALL_FILE
+02:53:30:21000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../de/controller/rapid/calwrist.xml
+02:53:30:21000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../de/controller/rapid/calwrist.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:30:21000 Status 0 from include INSTALL_FILE
+02:53:30:21000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:30:21000 Status 0 from setstr $TXTPATH
+Goto to label: INSTALL_FILE
+02:53:30:441000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../es/controller/rapid/roloptext.xml
+02:53:30:441000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../es/controller/rapid/roloptext.xml
+Goto to label: INSTALL_FILE
+02:53:30:795000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../es/controller/rapid/calwrist.xml
+02:53:30:795000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../es/controller/rapid/calwrist.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:30:795000 Status 0 from include INSTALL_FILE
+02:53:30:795000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:30:795000 Status 0 from setstr $TXTPATH
+Goto to label: INSTALL_FILE
+02:53:31:204000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../fi/controller/rapid/roloptext.xml
+02:53:31:204000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../fi/controller/rapid/roloptext.xml
+Goto to label: INSTALL_FILE
+02:53:31:543000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../fi/controller/rapid/calwrist.xml
+02:53:31:543000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../fi/controller/rapid/calwrist.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:31:543000 Status 0 from include INSTALL_FILE
+02:53:31:543000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:31:543000 Status 0 from setstr $TXTPATH
+Goto to label: INSTALL_FILE
+02:53:31:952000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../fr/controller/rapid/roloptext.xml
+02:53:31:952000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../fr/controller/rapid/roloptext.xml
+Goto to label: INSTALL_FILE
+02:53:32:308000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../fr/controller/rapid/calwrist.xml
+02:53:32:308000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../fr/controller/rapid/calwrist.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:32:308000 Status 0 from include INSTALL_FILE
+02:53:32:308000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:32:308000 Status 0 from setstr $TXTPATH
+Goto to label: INSTALL_FILE
+02:53:32:709000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../hu/controller/rapid/roloptext.xml
+02:53:32:709000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../hu/controller/rapid/roloptext.xml
+Goto to label: INSTALL_FILE
+02:53:33:58000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../hu/controller/rapid/calwrist.xml
+02:53:33:58000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../hu/controller/rapid/calwrist.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:33:58000 Status 0 from include INSTALL_FILE
+02:53:33:58000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:33:58000 Status 0 from setstr $TXTPATH
+Goto to label: INSTALL_FILE
+02:53:33:484000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../it/controller/rapid/roloptext.xml
+02:53:33:484000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../it/controller/rapid/roloptext.xml
+Goto to label: INSTALL_FILE
+02:53:33:833000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../it/controller/rapid/calwrist.xml
+02:53:33:833000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../it/controller/rapid/calwrist.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:33:833000 Status 0 from include INSTALL_FILE
+02:53:33:833000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:33:833000 Status 0 from setstr $TXTPATH
+Goto to label: INSTALL_FILE
+02:53:34:228000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../ja/controller/rapid/roloptext.xml
+02:53:34:228000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../ja/controller/rapid/roloptext.xml
+Goto to label: INSTALL_FILE
+02:53:34:584000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../ja/controller/rapid/calwrist.xml
+02:53:34:584000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../ja/controller/rapid/calwrist.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:34:584000 Status 0 from include INSTALL_FILE
+02:53:34:584000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:34:584000 Status 0 from setstr $TXTPATH
+Goto to label: INSTALL_FILE
+02:53:34:998000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../ko/controller/rapid/roloptext.xml
+02:53:34:998000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../ko/controller/rapid/roloptext.xml
+Goto to label: INSTALL_FILE
+02:53:35:361000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../ko/controller/rapid/calwrist.xml
+02:53:35:361000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../ko/controller/rapid/calwrist.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:35:361000 Status 0 from include INSTALL_FILE
+02:53:35:361000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:35:361000 Status 0 from setstr $TXTPATH
+Goto to label: INSTALL_FILE
+02:53:35:761000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../nl/controller/rapid/roloptext.xml
+02:53:35:761000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../nl/controller/rapid/roloptext.xml
+Goto to label: INSTALL_FILE
+02:53:36:112000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../nl/controller/rapid/calwrist.xml
+02:53:36:112000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../nl/controller/rapid/calwrist.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:36:112000 Status 0 from include INSTALL_FILE
+02:53:36:112000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:36:112000 Status 0 from setstr $TXTPATH
+Goto to label: INSTALL_FILE
+02:53:36:524000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../pl/controller/rapid/roloptext.xml
+02:53:36:524000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../pl/controller/rapid/roloptext.xml
+Goto to label: INSTALL_FILE
+02:53:36:859000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../pl/controller/rapid/calwrist.xml
+02:53:36:859000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../pl/controller/rapid/calwrist.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:36:859000 Status 0 from include INSTALL_FILE
+02:53:36:859000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:36:859000 Status 0 from setstr $TXTPATH
+Goto to label: INSTALL_FILE
+02:53:37:256000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../pt/controller/rapid/roloptext.xml
+02:53:37:256000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../pt/controller/rapid/roloptext.xml
+Goto to label: INSTALL_FILE
+02:53:37:601000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../pt/controller/rapid/calwrist.xml
+02:53:37:601000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../pt/controller/rapid/calwrist.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:37:601000 Status 0 from include INSTALL_FILE
+02:53:37:601000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:37:601000 Status 0 from setstr $TXTPATH
+Goto to label: INSTALL_FILE
+02:53:38:18000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../ro/controller/rapid/roloptext.xml
+02:53:38:18000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../ro/controller/rapid/roloptext.xml
+Goto to label: INSTALL_FILE
+02:53:38:372000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../ro/controller/rapid/calwrist.xml
+02:53:38:372000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../ro/controller/rapid/calwrist.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:38:372000 Status 0 from include INSTALL_FILE
+02:53:38:372000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:38:372000 Status 0 from setstr $TXTPATH
+Goto to label: INSTALL_FILE
+02:53:38:635000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../ru/controller/rapid/roloptext.xml
+02:53:38:635000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../ru/controller/rapid/roloptext.xml
+Goto to label: INSTALL_FILE
+02:53:38:959000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../ru/controller/rapid/calwrist.xml
+02:53:38:959000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../ru/controller/rapid/calwrist.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:38:959000 Status 0 from include INSTALL_FILE
+02:53:38:959000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:38:959000 Status 0 from setstr $TXTPATH
+Goto to label: INSTALL_FILE
+02:53:39:378000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../sl/controller/rapid/roloptext.xml
+02:53:39:378000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../sl/controller/rapid/roloptext.xml
+Goto to label: INSTALL_FILE
+02:53:39:731000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../sl/controller/rapid/calwrist.xml
+02:53:39:731000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../sl/controller/rapid/calwrist.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:39:731000 Status 0 from include INSTALL_FILE
+02:53:39:731000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:39:731000 Status 0 from setstr $TXTPATH
+Goto to label: INSTALL_FILE
+02:53:40:159000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../sv/controller/rapid/roloptext.xml
+02:53:40:159000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../sv/controller/rapid/roloptext.xml
+Goto to label: INSTALL_FILE
+02:53:40:486000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../sv/controller/rapid/calwrist.xml
+02:53:40:486000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../sv/controller/rapid/calwrist.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:40:486000 Status 0 from include INSTALL_FILE
+02:53:40:486000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:40:486000 Status 0 from setstr $TXTPATH
+Goto to label: INSTALL_FILE
+02:53:40:766000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../tr/controller/rapid/roloptext.xml
+02:53:40:766000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../tr/controller/rapid/roloptext.xml
+Goto to label: INSTALL_FILE
+02:53:41:11000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../tr/controller/rapid/calwrist.xml
+02:53:41:11000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../tr/controller/rapid/calwrist.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:41:11000 Status 0 from include INSTALL_FILE
+02:53:41:11000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:41:11000 Status 0 from setstr $TXTPATH
+Goto to label: INSTALL_FILE
+02:53:41:335000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../zh/controller/rapid/roloptext.xml
+02:53:41:335000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../zh/controller/rapid/roloptext.xml
+Goto to label: INSTALL_FILE
+02:53:41:673000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../zh/controller/rapid/calwrist.xml
+02:53:41:673000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/../zh/controller/rapid/calwrist.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/language/install.cmd
+02:53:41:673000 Status 0 from include INSTALL_FILE
+02:53:41:673000 Status 0 from setstr $LANG
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instlang.cmd
+02:53:41:673000 Status 0 from include $LANG
+02:53:41:673000 Status 0 from register 
+02:53:42:260000 Status 0 from register 
+02:53:42:655000 Status 0 from register 
+02:53:43:339000 Status 0 from register 
+02:53:44:195000 Status 0 from register 
+02:53:45:30000 Status 0 from register 
+02:53:46:147000 Status 0 from register 
+02:53:46:861000 Status 0 from register 
+02:53:47:565000 Status 0 from register 
+02:53:48:259000 Status 0 from register 
+02:53:49:339000 Status 0 from register 
+02:53:50:408000 Status 0 from register 
+02:53:51:190000 Status 0 from register 
+02:53:52:43000 Status 0 from register 
+02:53:52:666000 Status 0 from register 
+02:53:53:84000 Status 0 from register 
+02:53:53:958000 Status 0 from register 
+02:53:54:866000 Status 0 from register 
+02:53:55:714000 Status 0 from register 
+02:53:56:850000 Status 0 from register 
+02:53:57:951000 Status 0 from register 
+02:53:59:52000 Status 0 from register 
+02:54:00:366000 Status 0 from register 
+02:54:01:409000 Status 0 from register 
+02:54:02:329000 Status 0 from register 
+02:54:03:201000 Status 0 from register 
+02:54:04:56000 Status 0 from register 
+02:54:04:917000 Status 0 from register 
+02:54:05:774000 Status 0 from register 
+02:54:06:596000 Status 0 from register 
+02:54:07:128000 Status 0 from register 
+02:54:08:260000 Status 0 from register 
+02:54:09:371000 Status 0 from register 
+02:54:10:222000 Status 0 from register 
+02:54:11:325000 Status 0 from register 
+02:54:12:418000 Status 0 from register 
+02:54:13:674000 Status 0 from register 
+02:54:14:203000 Status 0 from register 
+02:54:15:172000 Status 0 from register 
+02:54:15:971000 Status 0 from register 
+02:54:16:741000 Status 0 from register 
+02:54:17:851000 Status 0 from register 
+02:54:18:841000 Status 0 from register 
+02:54:20:228000 Status 0 from register 
+02:54:21:169000 Status 0 from register 
+02:54:22:275000 Status 0 from register 
+02:54:22:275000 Status 0 from register 
+02:54:23:391000 Status 0 from register 
+02:54:23:391000 Status 0 from register 
+02:54:24:44000 Status 0 from register 
+02:54:24:690000 Status 0 from register 
+02:54:25:271000 Status 0 from register 
+02:54:25:496000 Status 0 from register 
+02:54:25:881000 Status 0 from register 
+02:54:25:953000 Status 0 from register 
+02:54:26:369000 Status 0 from register 
+02:54:27:275000 Status 0 from register 
+02:54:27:552000 Status 0 from register 
+02:54:27:664000 Status 0 from register 
+02:54:27:977000 Status 0 from register 
+02:54:27:977000 Status 0 from getkey MT
+Goto to label: END_ST
+02:54:27:977000 Status 0 from goto END_ST
+02:54:27:977000 Status 0 from is_option_present UDPUC
+02:54:28:510000 Status 0 from register 
+Goto to label: END_IV
+02:54:28:510000 Status 0 from is_option_present IV
+02:54:29:270000 Status 0 from register 
+Goto to label: NO_ERROR
+02:54:29:270000 Status 0 from goto NO_ERROR
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/language/install/install.cmd
+Goto to label: NEXT_STEP
+02:54:29:270000 Status 0 from selectmedia 
+02:54:29:270000 Status 0 from setstr $BOOTPATH_SAVED
+02:54:29:270000 Status 0 from setstr $BOOTPATH
+Goto to label: LOAD_CMD
+02:54:29:689000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/en_base_install.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/en_base_install.cmd
+Goto to label: INSTALL_FILE
+02:54:30:105000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/en_base_cfgtypes.xml
+02:54:30:105000 Status 0 from invoke2 cfg_create_type_xml
+02:54:30:105000 Status 0 from setvar
+Goto to label: STANDARD_SCANNER
+02:54:30:105000 Status 0 from getkey CIPSCANNER
+02:54:30:105000 Status 0 from setvar
+Goto to label: NEXT_STEP
+02:54:30:105000 Status 0 from getkey ENIPSCANNER
+02:54:30:105000 Status 0 from setvar
+Goto to label: NEXT_STEP
+02:54:30:105000 Status 0 from getkey ENIPADAPTER
+Goto to label: ENMS_NOT_FOUND
+02:54:30:105000 Status 0 from getkey ENIPSCANNER
+02:54:30:375000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/en_base.cfg
+02:54:30:719000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/en_base_template.cfg
+02:54:31:590000 Status 0 from register 
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instlang.cmd
+02:54:31:590000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+Goto to label: INSTALL_FILE
+02:54:31:990000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/en/en_cfgtext.xml
+02:54:31:990000 Status 0 from register 
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from include INSTALL_FILE
+02:54:31:990000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/cs/en_cfgtext.xml
+Goto to label: END
+02:54:31:990000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from include END
+02:54:31:990000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/da/en_cfgtext.xml
+Goto to label: END
+02:54:31:990000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from include END
+02:54:31:990000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/de/en_cfgtext.xml
+Goto to label: END
+02:54:31:990000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from include END
+02:54:31:990000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/es/en_cfgtext.xml
+Goto to label: END
+02:54:31:990000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from include END
+02:54:31:990000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/fi/en_cfgtext.xml
+Goto to label: END
+02:54:31:990000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from include END
+02:54:31:990000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/fr/en_cfgtext.xml
+Goto to label: END
+02:54:31:990000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from include END
+02:54:31:990000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/hu/en_cfgtext.xml
+Goto to label: END
+02:54:31:990000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from include END
+02:54:31:990000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/it/en_cfgtext.xml
+Goto to label: END
+02:54:31:990000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from include END
+02:54:31:990000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/ja/en_cfgtext.xml
+Goto to label: END
+02:54:31:990000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from include END
+02:54:31:990000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/ko/en_cfgtext.xml
+Goto to label: END
+02:54:31:990000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from include END
+02:54:31:990000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/nl/en_cfgtext.xml
+Goto to label: END
+02:54:31:990000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from include END
+02:54:31:990000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/pl/en_cfgtext.xml
+Goto to label: END
+02:54:31:990000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from include END
+02:54:31:990000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/pt/en_cfgtext.xml
+Goto to label: END
+02:54:31:990000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from include END
+02:54:31:990000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/ro/en_cfgtext.xml
+Goto to label: END
+02:54:31:990000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from include END
+02:54:31:990000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/ru/en_cfgtext.xml
+Goto to label: END
+02:54:31:990000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from include END
+02:54:31:990000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/sl/en_cfgtext.xml
+Goto to label: END
+02:54:31:990000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from include END
+02:54:31:990000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/sv/en_cfgtext.xml
+Goto to label: END
+02:54:31:990000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from include END
+02:54:31:990000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/tr/en_cfgtext.xml
+Goto to label: END
+02:54:31:990000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from include END
+02:54:31:990000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/zh/en_cfgtext.xml
+Goto to label: END
+02:54:31:990000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/language/install.cmd
+02:54:31:990000 Status 0 from include END
+02:54:31:990000 Status 0 from setstr $LANG
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instlang.cmd
+02:54:31:990000 Status 0 from include $LANG
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/enms/en_base_install.cmd
+02:54:31:990000 Status 0 from include $LANG
+02:54:31:990000 Status 0 from setstr $BOOTPATH
+02:54:32:181000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/SEC_SYSTEM_BASE.cfg.enc
+02:54:32:338000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/INT_SYSTEM_BASE.cfg
+02:54:32:340000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/EXT_SYSTEM_BASE.cfg
+Installing integrated IO driver
+02:54:32:340000 Status 0 from echo
+02:54:32:340000 Status 0 from setstr $BOOTPATH_SAVED
+02:54:32:340000 Status 0 from setstr $BOOTPATH
+Goto to label: LOAD_CMD
+02:54:32:667000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/integratedIO/install.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/integratedIO/install.cmd
+02:54:32:667000 Status 0 from if_feature_present abb.robotics.controller.io.integrated
+Controller variant does not support integratedIO, skipping
+02:54:32:667000 Status 0 from echo
+Goto to label: END
+02:54:32:667000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/integratedIO/install.cmd
+02:54:32:667000 Status 0 from include END
+02:54:32:667000 Status 0 from setstr $BOOTPATH
+Goto to label: LOAD_CMD
+02:54:33:200000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instdrv.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instdrv.cmd
+02:54:33:200000 Status 0 from getkey Drive1
+02:54:33:200000 Status 0 from setvar
+02:54:33:200000 Status 0 from setstr $TEMP1
+02:54:33:200000 Status 0 from getkey Drive1Select
+02:54:33:200000 Status 0 from mediaexist DC48
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/drives/drv1_lib/install.cmd
+02:54:33:534000 Status 0 from setvar
+02:54:33:534000 Status 0 from getkey Drive1Module
+Goto to label: DM48
+02:54:33:534000 Status 0 from goto DM48
+Installing config for drive module
+02:54:33:534000 Status 0 from echo
+02:54:33:863000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/drives/drv1_lib/drvcfg/SEC_DRIVE_MODULE1_ADU_48.cfg.enc
+02:54:34:176000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/drives/drv1_lib/drvcfg/EXT_DRIVE_MODULE1_ADU_48.cfg
+Goto to label: DRIVE_UNIT
+02:54:34:176000 Status 0 from goto DRIVE_UNIT
+02:54:34:176000 Status 0 from setvar
+02:54:34:176000 Status 0 from getkey Drive1Unit
+Goto to label: DU48
+02:54:34:176000 Status 0 from goto DU48
+Installing config for drive unit
+02:54:34:176000 Status 0 from echo
+02:54:34:480000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/drives/drv1_lib/drvcfg/INT_DRIVE_ADU48_48_M1_DM1.cfg
+02:54:34:784000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/drives/drv1_lib/drvcfg/INT_DRIVE_ADU48_48_M2_DM1.cfg
+02:54:35:77000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/drives/drv1_lib/drvcfg/INT_DRIVE_ADU48_48_M3_DM1.cfg
+02:54:35:389000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/drives/drv1_lib/drvcfg/INT_DRIVE_ADU48_48_M4_DM1.cfg
+02:54:35:710000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/drives/drv1_lib/drvcfg/INT_DRIVE_ADU48_48_M5_DM1.cfg
+02:54:36:14000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/drives/drv1_lib/drvcfg/INT_DRIVE_ADU48_48_M6_DM1.cfg
+Goto to label: DC_LINK
+02:54:36:14000 Status 0 from goto DC_LINK
+02:54:36:14000 Status 0 from setvar
+02:54:36:14000 Status 0 from getkey Drive1Select
+Goto to label: DC48
+02:54:36:14000 Status 0 from goto DC48
+Installing config for DC link 48
+02:54:36:14000 Status 0 from echo
+02:54:36:293000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/drives/drv1_lib/drvcfg/INT_RECTIFIER_MRU48_DM1.cfg
+02:54:36:624000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/drives/drv1_lib/drvcfg/SEC_RECTIFIER_MRU48_DM1.cfg.enc
+02:54:36:920000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/drives/drv1_lib/drvcfg/INT_TRAFO9_DM1.cfg
+Goto to label: EXTAXPOS1_LABEL
+02:54:36:920000 Status 0 from goto EXTAXPOS1_LABEL
+02:54:36:920000 Status 0 from setvar
+Goto to label: EXTAXPOS1NN
+02:54:36:920000 Status 0 from getkey AddAx1Pos1Select
+No additional axis in position 1
+02:54:36:920000 Status 0 from echo
+Goto to label: END_LABEL
+02:54:36:920000 Status 0 from goto END_LABEL
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/drives/drv1_lib/install.cmd
+Goto to label: DRV2
+02:54:36:920000 Status 0 from selectmedia AddAx1Pos1Select
+Goto to label: TRY_NEXT
+02:54:36:920000 Status 0 from getkey Drive2
+Goto to label: TRY_NEXT
+02:54:36:920000 Status 0 from getkey Drive3
+Goto to label: END_LABEL
+02:54:36:920000 Status 0 from getkey Drive4
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instdrv.cmd
+02:54:36:920000 Status 0 from include END_LABEL
+Goto to label: LOAD_CMD
+02:54:37:395000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instirb.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instirb.cmd
+02:54:37:395000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/DATA/EXT_MOC.cfg
+Goto to label: IRB_INSTALL
+02:54:37:395000 Status 0 from goto IRB_INSTALL
+02:54:37:395000 Status 0 from setvar
+02:54:37:395000 Status 0 from getkey IrbOpt
+02:54:37:395000 Status 0 from setstr $ANSWER
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Robots_1.8.0/install.cmd
+02:54:37:732000 Status 0 from if INSTALL_OPTIONS
+02:54:37:732000 Status 0 from register $PRODUCTS/Robots_1.8.0
+02:54:37:732000 Status 0 from setenv
+02:54:37:732000 Status 0 from setstr $ROBOTS
+02:54:37:732000 Status 0 from if END_LABEL
+02:54:38:57000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Robots_1.8.0/system/SEC_SYSTEM.cfg.enc
+02:54:38:57000 Status 0 from setvar
+02:54:38:57000 Status 0 from getkey Irb1
+02:54:38:57000 Status 0 from setvar
+02:54:38:57000 Status 0 from setstr $TEMP1
+02:54:38:57000 Status 0 from getkey Irb1Desc
+02:54:38:57000 Status 0 from mediaexist CRB 15000-5/0.95
+02:54:38:57000 Status 0 from setvar
+02:54:38:57000 Status 0 from getkey Irb1MediaSelect
+Goto to label: LOAD_IRB
+02:54:38:436000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Robots_1.8.0/robots/crb1_15000/install.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Robots_1.8.0/robots/crb1_15000/install.cmd
+
+02:54:38:436000 Status 0 from print
+CRB 15000 family
+02:54:38:436000 Status 0 from echo
+Goto to label: CLEANSC
+02:54:38:436000 Status 0 from direxist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/OPTIONS/SC
+02:54:38:436000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/OPTIONS/SC/SC_ROB_1.xml
+Goto to label: NEXT_STEP
+02:54:38:436000 Status 0 from goto NEXT_STEP
+02:54:38:436000 Status 0 from setvar
+02:54:38:436000 Status 0 from getkey Irb1Desc
+Installing CRB 15000-5/0.95
+02:54:38:436000 Status 0 from echo
+02:54:38:436000 Status 0 from getkey Irb1Select
+Goto to label: CRB15000_0_95_5
+02:54:38:436000 Status 0 from goto CRB15000_0_95_5
+02:54:38:855000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Robots_1.8.0/robots/crb1_15000/crbcfg/SEC_15000_0.95_5_1.cfg.enc
+02:54:39:196000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Robots_1.8.0/robots/crb1_15000/crbcfg/INT_15000_0.95_5_1.cfg
+02:54:39:559000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Robots_1.8.0/robots/crb1_15000/crbcfg/EXT_15000_0.95_5_1.cfg
+02:54:39:971000 Status 0 from copy C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Robots_1.8.0/robots/crb1_15000/crbcfg/SC_15000_0.95_5_1.xml
+Goto to label: TRY_NEXT
+02:54:39:971000 Status 0 from goto TRY_NEXT
+02:54:39:971000 Status 0 from getkey FCTRQSENS
+Force control configuration for ROB_1 is foc15000_1.cfg
+02:54:39:971000 Status 0 from echo
+02:54:40:285000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Robots_1.8.0/robots/crb1_15000/crbcfg/foc15000_1.cfg
+Goto to label: TRY_NEXT
+02:54:40:285000 Status 0 from goto TRY_NEXT
+Goto to label: END_LABEL
+02:54:40:285000 Status 0 from goto END_LABEL
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Robots_1.8.0/robots/crb1_15000/install.cmd
+Goto to label: TRY_NEXT
+02:54:40:285000 Status 0 from selectmedia MOC
+02:54:40:285000 Status 0 from setvar
+Goto to label: END_LABEL
+02:54:40:285000 Status 0 from goto END_LABEL
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Robots_1.8.0/install.cmd
+02:54:40:285000 Status 0 from selectmedia MOC
+02:54:40:285000 Status 0 from setvar
+02:54:40:285000 Status 0 from getkey Irb1
+02:54:40:285000 Status 0 from setvar
+Goto to label: NO_7AX
+02:54:40:285000 Status 0 from getkey 7AX
+Goto to label: NO_DUAL_ARM_DM
+02:54:40:285000 Status 0 from getkey DUAL_ARM_DM
+Goto to label: STD
+02:54:40:285000 Status 0 from getkey MM
+02:54:40:529000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/tasksys.cfg
+02:54:40:529000 Status 0 from setvar
+Goto to label: TRY_NEXT
+02:54:40:529000 Status 0 from goto TRY_NEXT
+Goto to label: TRY_NEXT
+02:54:40:529000 Status 0 from getkey Irb2
+Goto to label: TRY_NEXT
+02:54:40:529000 Status 0 from getkey Irb3
+Goto to label: TRY_NEXT
+02:54:40:529000 Status 0 from getkey Irb4
+02:54:40:529000 Status 0 from if NO_IRB
+Goto to label: END_LABEL
+02:54:40:529000 Status 0 from goto END_LABEL
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instirb.cmd
+02:54:40:529000 Status 0 from include END_LABEL
+02:54:40:529000 Status 0 from setvar
+02:54:40:529000 Status 0 from setvar
+02:54:40:529000 Status 0 from setstr $OPTIONLEVEL
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+02:54:40:805000 Status 0 from getkey OptionL0
+02:54:40:805000 Status 0 from setvar
+02:54:40:805000 Status 0 from setstr $TEMP1
+02:54:40:805000 Status 0 from getkey ProfinetDeviceDesc
+02:54:40:805000 Status 0 from mediaexist 3020-2 PROFINET Device
+Goto to label: LOAD_OPTION
+02:54:40:805000 Status 0 from goto LOAD_OPTION
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/pnet/install.cmd
+Installing PROFINET Option(s)
+02:54:41:180000 Status 0 from verbose
+Goto to label: INSTALL_NETWORK_TYPE
+02:54:41:591000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/pnet/pn_network_cfgtypes.xml
+02:54:41:591000 Status 0 from invoke2 cfg_create_type_xml
+02:54:42:259000 Status 0 from register 
+02:54:42:259000 Status 0 from verbose
+02:54:42:399000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/pnet/pn_opt_device.cfg
+Goto to label: INSTALL_DRIVER_TYPE
+02:54:42:749000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/pnet/pn_driver_cfgtypes.xml
+02:54:42:749000 Status 0 from invoke2 cfg_create_type_xml
+02:54:43:654000 Status 0 from register 
+02:54:43:990000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/pnet/pn_driver.cfg
+Installing Option 3020-2 (PROFINET Device)
+02:54:44:403000 Status 0 from verbose
+02:54:44:403000 Status 0 from invoke2 cfg_create_type_xml
+02:54:44:952000 Status 0 from register 
+02:54:45:252000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/pnet/pn_template_opt.cfg
+... PROFINET installation done
+Goto to label: CONFIG_NEXT
+02:54:46:730000 Status 0 from selectmedia PNET_SLAVE
+02:54:46:730000 Status 0 from addvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+Goto to label: END_OF_LOOP
+02:54:46:730000 Status 0 from getkey OptionL0
+02:54:46:730000 Status 0 from setvar
+Goto to label: END_OF_FILE
+02:54:46:730000 Status 0 from goto END_OF_FILE
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+02:54:46:730000 Status 0 from loop END_OF_FILE
+02:54:46:730000 Status 0 from setvar
+02:54:46:730000 Status 0 from setvar
+02:54:46:730000 Status 0 from setstr $OPTIONLEVEL
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+Goto to label: END_OF_LOOP
+02:54:46:730000 Status 0 from getkey OptionL1
+02:54:46:730000 Status 0 from setvar
+Goto to label: END_OF_FILE
+02:54:46:730000 Status 0 from goto END_OF_FILE
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+02:54:46:730000 Status 0 from loop END_OF_FILE
+02:54:46:730000 Status 0 from setvar
+02:54:46:730000 Status 0 from setvar
+02:54:46:730000 Status 0 from setstr $OPTIONLEVEL
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+02:54:46:730000 Status 0 from getkey Option
+02:54:46:730000 Status 0 from setvar
+02:54:46:730000 Status 0 from setstr $TEMP1
+02:54:46:730000 Status 0 from getkey UDPUCDesc
+02:54:46:730000 Status 0 from mediaexist UDPUC Driver
+Goto to label: LOAD_OPTION
+02:54:46:730000 Status 0 from goto LOAD_OPTION
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/udpuc/install.cmd
+Installing UdpUc driver
+02:54:46:987000 Status 0 from echo
+02:54:46:987000 Status 0 from invoke2 udpuc_init
+02:54:47:275000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/udpuc/udpuc.cfg
+02:54:47:275000 Status 0 from append C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/udpuc/startup.cmd
+02:54:47:275000 Status 0 from append C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/udpuc/opt_udpuc.cmd
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/udpuc/install.cmd
+Goto to label: CONFIG_NEXT
+02:54:47:275000 Status 0 from selectmedia SIO
+02:54:47:275000 Status 0 from addvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+02:54:47:275000 Status 0 from getkey Option
+02:54:47:275000 Status 0 from setvar
+02:54:47:275000 Status 0 from setstr $TEMP1
+02:54:47:275000 Status 0 from getkey LeadthroughDesc
+02:54:47:275000 Status 0 from mediaexist Leadthrough
+Goto to label: LOAD_OPTION
+02:54:47:275000 Status 0 from goto LOAD_OPTION
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/lt/install.cmd
+Installing Lead Through
+02:54:47:450000 Status 0 from echo
+02:54:47:766000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/lt/leadthrough_sys.cfg
+02:54:48:54000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/lt/leadthrough_mmc.cfg
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/lt/install.cmd
+Goto to label: CONFIG_NEXT
+02:54:48:54000 Status 0 from selectmedia MMC
+02:54:48:54000 Status 0 from addvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+02:54:48:54000 Status 0 from getkey Option
+02:54:48:54000 Status 0 from setvar
+02:54:48:54000 Status 0 from setstr $TEMP1
+02:54:48:54000 Status 0 from getkey colldectDesc
+02:54:48:54000 Status 0 from mediaexist 3107-1 Collision Detection
+Goto to label: LOAD_OPTION
+02:54:48:54000 Status 0 from goto LOAD_OPTION
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/cd/install.cmd
+02:54:48:321000 Status 0 from if END_LABEL
+Installing Collision Detection
+02:54:48:321000 Status 0 from echo
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/cd/install.cmd
+Goto to label: CONFIG_NEXT
+02:54:48:321000 Status 0 from selectmedia $ANSWER
+02:54:48:321000 Status 0 from addvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+02:54:48:321000 Status 0 from getkey Option
+02:54:48:321000 Status 0 from setvar
+02:54:48:321000 Status 0 from setstr $TEMP1
+02:54:48:321000 Status 0 from getkey FTPClientDesc
+02:54:48:321000 Status 0 from mediaexist 3116-1 FTP client
+Goto to label: LOAD_OPTION
+02:54:48:321000 Status 0 from goto LOAD_OPTION
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/ftpc/install.cmd
+02:54:48:614000 Status 0 from if END_LABEL
+Installing FTP Client
+02:54:48:614000 Status 0 from echo
+02:54:48:647000 Status 0 from invoke2 ftpcl_init
+02:54:48:919000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/ftpc/com_ftpi.cfg
+02:54:48:919000 Status 0 from append C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/ftpc/opt_ftp.cmd
+02:54:49:882000 Status 0 from register 
+02:54:50:101000 Status 0 from register 
+02:54:50:101000 Status 0 from setvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/ftpc/install.cmd
+Goto to label: CONFIG_NEXT
+02:54:50:101000 Status 0 from selectmedia 
+02:54:50:101000 Status 0 from addvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+02:54:50:101000 Status 0 from getkey Option
+02:54:50:101000 Status 0 from setvar
+02:54:50:101000 Status 0 from setstr $TEMP1
+02:54:50:101000 Status 0 from getkey SFTPClientDesc
+02:54:50:101000 Status 0 from mediaexist 3116-1 SFTP client
+Goto to label: LOAD_OPTION
+02:54:50:101000 Status 0 from goto LOAD_OPTION
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sftpc/install.cmd
+02:54:50:223000 Status 0 from if END_LABEL
+Installing SFTP Client
+02:54:50:223000 Status 0 from echo
+02:54:50:234000 Status 0 from invoke2 sftpcl_init
+02:54:50:521000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sftpc/com_sftpi.cfg
+02:54:50:521000 Status 0 from append C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sftpc/opt_sftp.cmd
+02:54:50:899000 Status 0 from register 
+02:54:51:256000 Status 0 from register 
+02:54:51:256000 Status 0 from setvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sftpc/install.cmd
+Goto to label: CONFIG_NEXT
+02:54:51:256000 Status 0 from selectmedia 
+02:54:51:256000 Status 0 from addvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+02:54:51:256000 Status 0 from getkey Option
+02:54:51:256000 Status 0 from setvar
+02:54:51:256000 Status 0 from setstr $TEMP1
+02:54:51:256000 Status 0 from getkey IOTDATAGATEWAYDesc
+02:54:51:256000 Status 0 from mediaexist 3154-1 IoT Data Gateway
+Goto to label: LOAD_OPTION
+02:54:51:256000 Status 0 from goto LOAD_OPTION
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/opcua/install.cmd
+ Installing OPC UA Server types 
+02:54:51:556000 Status 0 from echo
+02:54:51:854000 Status 0 from invoke2 cfg_create_type_xml
+02:54:52:217000 Status 0 from register 
+02:54:52:549000 Status 0 from register 
+02:54:52:840000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/opcua/sio_opcua.cfg
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/opcua/install.cmd
+Goto to label: CONFIG_NEXT
+02:54:52:840000 Status 0 from selectmedia SIO
+02:54:52:840000 Status 0 from addvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+02:54:52:840000 Status 0 from getkey Option
+02:54:52:840000 Status 0 from setvar
+02:54:52:840000 Status 0 from setstr $TEMP1
+02:54:52:840000 Status 0 from getkey multaskDesc
+02:54:52:840000 Status 0 from mediaexist 3114-1 Multitasking
+Goto to label: LOAD_OPTION
+02:54:52:840000 Status 0 from goto LOAD_OPTION
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/mt/install.cmd
+02:54:53:165000 Status 0 from if END_LABEL
+Installing The Multitask option
+02:54:53:165000 Status 0 from echo
+02:54:53:706000 Status 0 from register 
+02:54:54:381000 Status 0 from register 
+02:54:54:381000 Status 0 from setvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/mt/install.cmd
+Goto to label: CONFIG_NEXT
+02:54:54:381000 Status 0 from selectmedia 
+02:54:54:381000 Status 0 from addvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+02:54:54:381000 Status 0 from getkey Option
+02:54:54:381000 Status 0 from setvar
+02:54:54:381000 Status 0 from setstr $TEMP1
+02:54:54:381000 Status 0 from getkey pathrecoverDesc
+02:54:54:381000 Status 0 from mediaexist 3113-1 Path Recovery
+Goto to label: LOAD_OPTION
+02:54:54:381000 Status 0 from goto LOAD_OPTION
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/pr/install.cmd
+02:54:54:655000 Status 0 from if END_LABEL
+Installing Path Recovery
+02:54:54:655000 Status 0 from echo
+02:54:54:655000 Status 0 from setvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/pr/install.cmd
+Goto to label: CONFIG_NEXT
+02:54:54:655000 Status 0 from selectmedia $ANSWER
+02:54:54:655000 Status 0 from addvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+02:54:54:655000 Status 0 from getkey Option
+02:54:54:655000 Status 0 from setvar
+02:54:54:655000 Status 0 from setstr $TEMP1
+02:54:54:655000 Status 0 from getkey ProfinetDeviceDesc
+Goto to label: CONFIG_NEXT
+02:54:54:655000 Status 0 from mediaexist 3020-2 PROFINET Device
+02:54:54:655000 Status 0 from addvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+02:54:54:655000 Status 0 from getkey Option
+02:54:54:655000 Status 0 from setvar
+02:54:54:655000 Status 0 from setstr $TEMP1
+02:54:54:655000 Status 0 from getkey SAFEMOVEPRODesc
+02:54:54:655000 Status 0 from mediaexist 3043-3 SafeMove Collaborative
+Goto to label: LOAD_OPTION
+02:54:54:655000 Status 0 from goto LOAD_OPTION
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/safemove/install.cmd
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/safemove/install.cmd
+Goto to label: CONFIG_NEXT
+02:54:54:907000 Status 0 from selectmedia $ANSWER
+02:54:54:907000 Status 0 from addvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+02:54:54:907000 Status 0 from getkey Option
+02:54:54:907000 Status 0 from setvar
+02:54:54:907000 Status 0 from setstr $TEMP1
+02:54:54:907000 Status 0 from getkey worldzonesDesc
+02:54:54:907000 Status 0 from mediaexist 3106-1 World Zones
+Goto to label: LOAD_OPTION
+02:54:54:907000 Status 0 from goto LOAD_OPTION
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/wz/install.cmd
+02:54:55:187000 Status 0 from if END_LABEL
+Installing World Zones
+02:54:55:187000 Status 0 from echo
+02:54:55:187000 Status 0 from setvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/wz/install.cmd
+Goto to label: CONFIG_NEXT
+02:54:55:187000 Status 0 from selectmedia $ANSWER
+02:54:55:187000 Status 0 from addvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+02:54:55:187000 Status 0 from getkey Option
+02:54:55:187000 Status 0 from setvar
+02:54:55:187000 Status 0 from setstr $TEMP1
+02:54:55:187000 Status 0 from getkey RemoteServiceDesc
+02:54:55:187000 Status 0 from mediaexist Remote Service
+Goto to label: LOAD_OPTION
+02:54:55:187000 Status 0 from goto LOAD_OPTION
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/cse/install.cmd
+Installing Connected Services Embedded
+02:54:55:520000 Status 0 from echo
+02:54:55:520000 Status 0 from add_eventlog_domain
+02:54:55:871000 Status 0 from register 
+02:54:56:513000 Status 0 from register 
+02:54:57:71000 Status 0 from register 
+02:54:57:565000 Status 0 from invoke2 cfg_create_type_xml
+02:54:58:18000 Status 0 from register 
+02:54:58:391000 Status 0 from register 
+02:54:58:699000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/cse/sio_cse_nondeletable.cfg
+Goto to label: VC_SKIP_RSE
+02:54:58:699000 Status 0 from ifvc VC_SKIP_RSE
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/cse/install.cmd
+Goto to label: CONFIG_NEXT
+02:54:58:699000 Status 0 from selectmedia SIO
+02:54:58:699000 Status 0 from addvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+02:54:58:699000 Status 0 from getkey Option
+02:54:58:699000 Status 0 from setvar
+02:54:58:699000 Status 0 from setstr $TEMP1
+02:54:58:699000 Status 0 from getkey CSGatewayDesc
+02:54:58:699000 Status 0 from mediaexist Connected Services Gateway
+Goto to label: LOAD_OPTION
+02:54:58:699000 Status 0 from goto LOAD_OPTION
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/csgw/install.cmd
+02:54:59:406000 Status 0 from invoke2 cfg_create_type_xml
+02:54:59:780000 Status 0 from register 
+02:55:00:271000 Status 0 from register 
+02:55:00:416000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/csgw/sio_csgw_nondeletable.cfg
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/csgw/install.cmd
+Goto to label: CONFIG_NEXT
+02:55:00:416000 Status 0 from selectmedia SIO
+02:55:00:416000 Status 0 from addvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+02:55:00:416000 Status 0 from getkey Option
+02:55:00:416000 Status 0 from setvar
+02:55:00:416000 Status 0 from setstr $TEMP1
+02:55:00:416000 Status 0 from getkey SAFETYMODULEDesc
+02:55:00:416000 Status 0 from mediaexist Safety Module
+Goto to label: LOAD_OPTION
+02:55:00:416000 Status 0 from goto LOAD_OPTION
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/install.cmd
+Installing Safety Controller
+02:55:00:799000 Status 0 from echo
+02:55:00:799000 Status 0 from setenv
+02:55:00:799000 Status 0 from mkdir C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/OPTIONS/SC/SCDMP
+Goto to label: ADD_VC_DIR
+02:55:00:799000 Status 0 from ifvc ADD_VC_DIR
+02:55:00:799000 Status 0 from mkdir C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/SC_DISK
+02:55:00:847000 Status 0 from copy C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/scimageversion
+Goto to label: NEXT_STEP
+02:55:00:847000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/OPTIONS/sc/SC_ROB_1.XML
+02:55:00:847000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/OPTIONS/sc/SC_ROB_2.XML
+02:55:00:847000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/SC_ROB_2.XML
+Goto to label: NEXT_STEP
+02:55:00:847000 Status 0 from goto NEXT_STEP
+02:55:00:847000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/OPTIONS/sc/SC_ROB_3.XML
+02:55:00:847000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/SC_ROB_3.XML
+Goto to label: NEXT_STEP
+02:55:00:847000 Status 0 from goto NEXT_STEP
+02:55:00:847000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/OPTIONS/sc/SC_ROB_4.XML
+02:55:00:847000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/SC_ROB_4.XML
+Goto to label: NEXT_STEP
+02:55:00:847000 Status 0 from goto NEXT_STEP
+02:55:01:102000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/BAR_SYS_1.cfg
+Goto to label: INSTALL_SCINC_FILE
+02:55:01:454000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/install_scinc.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/install_scinc.cmd
+Installing Safety Controller Feedback INC Driver
+02:55:01:454000 Status 0 from echo
+02:55:01:843000 Status 0 from invoke2 cfg_create_type_xml
+02:55:01:843000 Status 0 from if_feature_present abb.robotics.controller.safemove.essential
+02:55:02:132000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/ScInc_opt_standard.cfg
+Goto to label: END_CFG
+02:55:02:132000 Status 0 from goto END_CFG
+02:55:02:132000 Status 0 from append C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/ScInc_opt.cmd
+...done
+02:55:02:132000 Status 0 from echo
+Goto to label: END
+02:55:02:132000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/install_scinc.cmd
+02:55:02:132000 Status 0 from include END
+Goto to label: INSTALL_INTBUS_FILE
+02:55:02:655000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/install_int_bus.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/install_int_bus.cmd
+Installing IntBus
+02:55:02:655000 Status 0 from echo
+02:55:03:44000 Status 0 from invoke2 cfg_create_type_xml
+02:55:03:333000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/int_bus_network.cfg
+...done
+02:55:03:333000 Status 0 from echo
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/install_int_bus.cmd
+02:55:03:333000 Status 0 from include ...done
+02:55:03:333000 Status 0 from append C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/scopt.cmd
+02:55:03:333000 Status 0 from invoke2 scorch_config_reset_cfg
+02:55:03:333000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/OPTIONS/sc/sc_cfg.xml
+02:55:17:605000 Status 0 from invoke2 scorch_config_create_cfg_file
+02:55:17:943000 Status 0 from invoke2 scorch_eio_generate_configuration
+02:55:17:943000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/OPTIONS/sc/sc_cfg_list.xml
+Goto to label: NEXT_STEP
+02:55:17:943000 Status 0 from goto NEXT_STEP
+Goto to label: NEXT_STEP
+02:55:18:178000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/OPTIONS/sc/sc_eio.cfg
+02:55:18:178000 Status 0 from config C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/OPTIONS/sc/sc_eio.cfg
+Goto to label: INSTALL_MODULAR_SAFETY_LOCALIO_CFG
+02:55:18:504000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/sc_local_io.cfg
+02:55:18:504000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/sc_local_io.cfg
+Goto to label: INSTALL_MODULAR_SAFETY_EIO_CFG
+02:55:18:823000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/saf_eio.cfg
+02:55:18:823000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/saf_eio.cfg
+Goto to label: INSTALL_DRIVE_EIO_CFG
+02:55:19:139000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/drv_eio.cfg
+02:55:19:139000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/drv_eio.cfg
+Goto to label: NO_SOFTSAFE
+02:55:19:139000 Status 0 from is_option_present SOSAF
+02:55:19:710000 Status 0 from register 
+02:55:19:997000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/runchn.cfg
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instlang.cmd
+02:55:19:997000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:20:840000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/en/runchn_cfgtext.xml
+02:55:20:840000 Status 0 from register 
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from include INSTALL_FILE
+02:55:20:840000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/cs/runchn_cfgtext.xml
+Goto to label: END
+02:55:20:840000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from include END
+02:55:20:840000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/da/runchn_cfgtext.xml
+Goto to label: END
+02:55:20:840000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from include END
+02:55:20:840000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/de/runchn_cfgtext.xml
+Goto to label: END
+02:55:20:840000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from include END
+02:55:20:840000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/es/runchn_cfgtext.xml
+Goto to label: END
+02:55:20:840000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from include END
+02:55:20:840000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/fi/runchn_cfgtext.xml
+Goto to label: END
+02:55:20:840000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from include END
+02:55:20:840000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/fr/runchn_cfgtext.xml
+Goto to label: END
+02:55:20:840000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from include END
+02:55:20:840000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/hu/runchn_cfgtext.xml
+Goto to label: END
+02:55:20:840000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from include END
+02:55:20:840000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/it/runchn_cfgtext.xml
+Goto to label: END
+02:55:20:840000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from include END
+02:55:20:840000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/ja/runchn_cfgtext.xml
+Goto to label: END
+02:55:20:840000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from include END
+02:55:20:840000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/ko/runchn_cfgtext.xml
+Goto to label: END
+02:55:20:840000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from include END
+02:55:20:840000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/nl/runchn_cfgtext.xml
+Goto to label: END
+02:55:20:840000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from include END
+02:55:20:840000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/pl/runchn_cfgtext.xml
+Goto to label: END
+02:55:20:840000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from include END
+02:55:20:840000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/pt/runchn_cfgtext.xml
+Goto to label: END
+02:55:20:840000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from include END
+02:55:20:840000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/ro/runchn_cfgtext.xml
+Goto to label: END
+02:55:20:840000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from include END
+02:55:20:840000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/ru/runchn_cfgtext.xml
+Goto to label: END
+02:55:20:840000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from include END
+02:55:20:840000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/sl/runchn_cfgtext.xml
+Goto to label: END
+02:55:20:840000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from include END
+02:55:20:840000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/sv/runchn_cfgtext.xml
+Goto to label: END
+02:55:20:840000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from include END
+02:55:20:840000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/tr/runchn_cfgtext.xml
+Goto to label: END
+02:55:20:840000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from include END
+02:55:20:840000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/zh/runchn_cfgtext.xml
+Goto to label: END
+02:55:20:840000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/language/install.cmd
+02:55:20:840000 Status 0 from include END
+02:55:20:840000 Status 0 from setstr $LANG
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instlang.cmd
+02:55:20:840000 Status 0 from include $LANG
+Goto to label: END
+02:55:20:840000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sc/install.cmd
+Goto to label: CONFIG_NEXT
+02:55:20:840000 Status 0 from selectmedia 
+02:55:20:840000 Status 0 from addvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+02:55:20:840000 Status 0 from getkey Option
+02:55:20:840000 Status 0 from setvar
+02:55:20:840000 Status 0 from setstr $TEMP1
+02:55:20:840000 Status 0 from getkey EGMDesc
+02:55:20:840000 Status 0 from mediaexist 3124-1 Externally Guided Motion (EGM)
+Goto to label: LOAD_OPTION
+02:55:20:840000 Status 0 from goto LOAD_OPTION
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/egm/install.cmd
+Installing Externally Guided Motion...
+02:55:20:863000 Status 0 from echo
+02:55:21:195000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/egm/rlegm.cfg
+02:55:21:506000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/egm/rlegm_sys.cfg
+02:55:21:823000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/egm/rlegm_picklist.cfg
+02:55:22:115000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/egm/MOC_EGM.cfg
+02:55:22:398000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/egm/SIO_EGM.cfg
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/egm/install.cmd
+Goto to label: CONFIG_NEXT
+02:55:22:398000 Status 0 from selectmedia SIO
+02:55:22:398000 Status 0 from addvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+02:55:22:398000 Status 0 from getkey Option
+02:55:22:398000 Status 0 from setvar
+02:55:22:398000 Status 0 from setstr $TEMP1
+02:55:22:398000 Status 0 from getkey MOTCOMDesc
+02:55:22:398000 Status 0 from mediaexist Motor Commutation
+Goto to label: LOAD_OPTION
+02:55:22:398000 Status 0 from goto LOAD_OPTION
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/install.cmd
+02:55:22:722000 Status 0 from if END_LABEL
+Installing Motor Commutation Service Routine...
+02:55:22:722000 Status 0 from echo
+02:55:23:9000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/motcom_sys.cfg
+02:55:23:296000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/motcom_mmc.cfg
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instlang.cmd
+02:55:23:296000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:23:968000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/en/motcomop.xml
+02:55:23:968000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/en/motcomop.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from include INSTALL_FILE
+02:55:23:968000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/cs/motcomop.xml
+Goto to label: END
+02:55:23:968000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from include END
+02:55:23:968000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/da/motcomop.xml
+Goto to label: END
+02:55:23:968000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from include END
+02:55:23:968000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/de/motcomop.xml
+Goto to label: END
+02:55:23:968000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from include END
+02:55:23:968000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/es/motcomop.xml
+Goto to label: END
+02:55:23:968000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from include END
+02:55:23:968000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/fi/motcomop.xml
+Goto to label: END
+02:55:23:968000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from include END
+02:55:23:968000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/fr/motcomop.xml
+Goto to label: END
+02:55:23:968000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from include END
+02:55:23:968000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/hu/motcomop.xml
+Goto to label: END
+02:55:23:968000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from include END
+02:55:23:968000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/it/motcomop.xml
+Goto to label: END
+02:55:23:968000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from include END
+02:55:23:968000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/ja/motcomop.xml
+Goto to label: END
+02:55:23:968000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from include END
+02:55:23:968000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/ko/motcomop.xml
+Goto to label: END
+02:55:23:968000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from include END
+02:55:23:968000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/nl/motcomop.xml
+Goto to label: END
+02:55:23:968000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from include END
+02:55:23:968000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/pl/motcomop.xml
+Goto to label: END
+02:55:23:968000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from include END
+02:55:23:968000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/pt/motcomop.xml
+Goto to label: END
+02:55:23:968000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from include END
+02:55:23:968000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/ro/motcomop.xml
+Goto to label: END
+02:55:23:968000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from include END
+02:55:23:968000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/ru/motcomop.xml
+Goto to label: END
+02:55:23:968000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from include END
+02:55:23:968000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/sl/motcomop.xml
+Goto to label: END
+02:55:23:968000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from include END
+02:55:23:968000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/sv/motcomop.xml
+Goto to label: END
+02:55:23:968000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from include END
+02:55:23:968000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/tr/motcomop.xml
+Goto to label: END
+02:55:23:968000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from include END
+02:55:23:968000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/zh/motcomop.xml
+Goto to label: END
+02:55:23:968000 Status 0 from goto END
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/language/install.cmd
+02:55:23:968000 Status 0 from include END
+02:55:23:968000 Status 0 from setstr $LANG
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instlang.cmd
+02:55:23:968000 Status 0 from include $LANG
+...Motor Commutation installation finished
+02:55:23:968000 Status 0 from echo
+02:55:23:968000 Status 0 from setvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/motcom/install.cmd
+Goto to label: CONFIG_NEXT
+02:55:23:968000 Status 0 from selectmedia MMC
+02:55:23:968000 Status 0 from addvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+02:55:23:968000 Status 0 from getkey Option
+02:55:23:968000 Status 0 from setvar
+02:55:23:968000 Status 0 from setstr $TEMP1
+02:55:23:968000 Status 0 from getkey SISDesc
+02:55:23:968000 Status 0 from mediaexist Service Info System
+Goto to label: LOAD_OPTION
+02:55:23:968000 Status 0 from goto LOAD_OPTION
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/install.cmd
+02:55:24:115000 Status 0 from if END_LABEL
+Installing Service Information System
+02:55:24:115000 Status 0 from echo
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instlang.cmd
+02:55:24:115000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:24:850000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/en/sis_txt.xml
+02:55:24:850000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/en/sis_txt.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+02:55:24:850000 Status 0 from include INSTALL_FILE
+02:55:24:850000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:25:239000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/cs/sis_txt.xml
+02:55:25:239000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/cs/sis_txt.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+02:55:25:239000 Status 0 from include INSTALL_FILE
+02:55:25:239000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:25:603000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/da/sis_txt.xml
+02:55:25:603000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/da/sis_txt.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+02:55:25:603000 Status 0 from include INSTALL_FILE
+02:55:25:603000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:25:960000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/de/sis_txt.xml
+02:55:25:960000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/de/sis_txt.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+02:55:25:960000 Status 0 from include INSTALL_FILE
+02:55:25:960000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:26:325000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/es/sis_txt.xml
+02:55:26:325000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/es/sis_txt.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+02:55:26:325000 Status 0 from include INSTALL_FILE
+02:55:26:325000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:26:683000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/fi/sis_txt.xml
+02:55:26:683000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/fi/sis_txt.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+02:55:26:683000 Status 0 from include INSTALL_FILE
+02:55:26:683000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:27:48000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/fr/sis_txt.xml
+02:55:27:48000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/fr/sis_txt.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+02:55:27:48000 Status 0 from include INSTALL_FILE
+02:55:27:48000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:27:403000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/hu/sis_txt.xml
+02:55:27:403000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/hu/sis_txt.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+02:55:27:403000 Status 0 from include INSTALL_FILE
+02:55:27:403000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:27:754000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/it/sis_txt.xml
+02:55:27:754000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/it/sis_txt.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+02:55:27:754000 Status 0 from include INSTALL_FILE
+02:55:27:754000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:27:800000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/ja/sis_txt.xml
+02:55:27:800000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/ja/sis_txt.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+02:55:27:800000 Status 0 from include INSTALL_FILE
+02:55:27:800000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:27:854000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/ko/sis_txt.xml
+02:55:27:854000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/ko/sis_txt.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+02:55:27:854000 Status 0 from include INSTALL_FILE
+02:55:27:854000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:28:73000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/nl/sis_txt.xml
+02:55:28:73000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/nl/sis_txt.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+02:55:28:73000 Status 0 from include INSTALL_FILE
+02:55:28:73000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:28:207000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/pl/sis_txt.xml
+02:55:28:207000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/pl/sis_txt.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+02:55:28:207000 Status 0 from include INSTALL_FILE
+02:55:28:207000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:28:567000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/pt/sis_txt.xml
+02:55:28:567000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/pt/sis_txt.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+02:55:28:567000 Status 0 from include INSTALL_FILE
+02:55:28:567000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:28:930000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/ro/sis_txt.xml
+02:55:28:930000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/ro/sis_txt.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+02:55:28:930000 Status 0 from include INSTALL_FILE
+02:55:28:930000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:28:984000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/ru/sis_txt.xml
+02:55:28:984000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/ru/sis_txt.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+02:55:28:984000 Status 0 from include INSTALL_FILE
+02:55:28:984000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:29:318000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/sl/sis_txt.xml
+02:55:29:318000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/sl/sis_txt.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+02:55:29:318000 Status 0 from include INSTALL_FILE
+02:55:29:318000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:29:677000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/sv/sis_txt.xml
+02:55:29:677000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/sv/sis_txt.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+02:55:29:677000 Status 0 from include INSTALL_FILE
+02:55:29:677000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:30:47000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/tr/sis_txt.xml
+02:55:30:47000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/tr/sis_txt.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+02:55:30:47000 Status 0 from include INSTALL_FILE
+02:55:30:47000 Status 0 from setstr $LANG
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+Goto to label: INSTALL_FILE
+02:55:30:373000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/zh/sis_txt.xml
+02:55:30:373000 Status 0 from text C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/zh/sis_txt.xml
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/language/install.cmd
+02:55:30:373000 Status 0 from include INSTALL_FILE
+02:55:30:373000 Status 0 from setstr $LANG
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instlang.cmd
+02:55:30:373000 Status 0 from include $LANG
+02:55:30:473000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/sissys.cfg
+02:55:30:648000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/sismmc.cfg
+02:55:30:648000 Status 0 from setvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/options/sis/install.cmd
+Goto to label: CONFIG_NEXT
+02:55:30:648000 Status 0 from selectmedia MMC
+02:55:30:648000 Status 0 from addvar
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+Goto to label: END_OF_LOOP
+02:55:30:648000 Status 0 from getkey Option
+02:55:30:648000 Status 0 from setvar
+Goto to label: END_OF_FILE
+02:55:30:648000 Status 0 from goto END_OF_FILE
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instopt.cmd
+02:55:30:648000 Status 0 from loop END_OF_FILE
+02:55:30:648000 Status 0 from setstr $ANSWER
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Robots_1.8.0/install.cmd
+Goto to label: INSTALL_OPTIONS
+02:55:30:648000 Status 0 from if INSTALL_OPTIONS
+Goto to label: LOAD_CMD
+02:55:30:867000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Robots_1.8.0/options/install.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Robots_1.8.0/options/install.cmd
+Installing robot options
+02:55:30:867000 Status 0 from echo
+02:55:30:867000 Status 0 from getkey OPTCRB
+Goto to label: LOAD_CMD
+02:55:31:136000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Robots_1.8.0/options/crb/install.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Robots_1.8.0/options/crb/install.cmd
+Installing CRB option
+02:55:31:136000 Status 0 from echo
+02:55:31:136000 Status 0 from setvar
+02:55:31:136000 Status 0 from getkey Irb1Desc
+Installing CRB 15000-5/0.95
+02:55:31:136000 Status 0 from echo
+02:55:31:136000 Status 0 from getkey Irb1Select
+Goto to label: CRB15000_0_95_5
+02:55:31:136000 Status 0 from goto CRB15000_0_95_5
+Installing standard IO for GOFA
+02:55:31:136000 Status 0 from echo
+02:55:31:136000 Status 0 from if_feature_present abb.robotics.controller.axiscomputer.none
+Goto to label: NO_ASI
+02:55:31:136000 Status 0 from goto NO_ASI
+02:55:31:425000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Robots_1.8.0/options/crb/config/EIO/GOFA_EIO_Internal.cfg
+Goto to label: END_LABEL
+02:55:31:425000 Status 0 from goto END_LABEL
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Robots_1.8.0/options/crb/install.cmd
+02:55:31:425000 Status 0 from include END_LABEL
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Robots_1.8.0/options/install.cmd
+02:55:31:425000 Status 0 from include END_LABEL
+Goto to label: END_LABEL
+02:55:31:425000 Status 0 from goto END_LABEL
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Robots_1.8.0/install.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Wizard_1.4.1/install.cmd
+Installing WIZARD Add-In
+02:55:31:757000 Status 0 from echo
+02:55:31:757000 Status 0 from getkey WIZARD
+02:55:31:757000 Status 0 from getkey Irb1Media
+02:55:31:757000 Status 0 from ifstr 14050_ROB1
+02:55:31:757000 Status 0 from ifstr KnownRobotType
+02:55:31:757000 Status 0 from ifstr KnownRobotType
+Goto to label: KnownRobotType
+02:55:31:757000 Status 0 from ifstr KnownRobotType
+02:55:31:757000 Status 0 from setenv
+02:55:31:757000 Status 0 from register $PRODUCTS/Wizard_1.4.1
+02:55:31:757000 Status 0 from direxist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/HOME/Wizard
+02:55:31:757000 Status 0 from mkdir C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/HOME/Wizard
+02:55:32:11000 Status 0 from copy C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Wizard_1.4.1/Wizard/Wizard.pgf
+02:55:32:321000 Status 0 from copy C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Wizard_1.4.1/Wizard/Wizard.mod
+02:55:32:402000 Status 0 from copy C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Wizard_1.4.1/Wizard/Wizard_Params/15000_ROB1/Wizard_Params.sys
+02:55:32:689000 Status 0 from copy C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Wizard_1.4.1/Wizard/Wizard_LoadData.modx
+02:55:32:988000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Wizard_1.4.1/Config/Wizard_SYS_EXT.cfg
+02:55:33:327000 Status 0 from config C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Wizard_1.4.1/Config/Gripper_Common/Wizard_SYS.cfg
+Goto to label: END_LABEL
+02:55:33:327000 Status 0 from getkey OPTFCTRL
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Wizard_1.4.1/install.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/ASI_1.0.4/install.cmd
+Installing ASI HMI Add-In
+02:55:33:631000 Status 0 from echo
+02:55:33:631000 Status 0 from getkey ASI
+02:55:33:631000 Status 0 from getkey Irb1Media
+Goto to label: 15000_ROB1
+02:55:33:631000 Status 0 from ifstr 15000_ROB1
+02:55:33:631000 Status 0 from setenv
+02:55:33:631000 Status 0 from register $PRODUCTS/ASI_1.0.4
+Goto to label: END_LABEL
+02:55:33:631000 Status 0 from goto END_LABEL
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/ASI_1.0.4/install.cmd
+02:55:33:631000 Status 0 from selectmedia 
+Goto to label: LOAD_CMD
+02:55:33:893000 Status 0 from fileexist C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instirbopt.cmd
+
+Script begin: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instirbopt.cmd
+02:55:33:893000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/DATA/EXT_MOC.cfg
+Goto to label: END_LABEL
+02:55:33:893000 Status 0 from goto END_LABEL
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/system/instirbopt.cmd
+02:55:33:893000 Status 0 from include END_LABEL
+02:55:33:893000 Status 0 from fileexist C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/OPTIONS/SC/sc_cfg_list.xml
+Goto to label: SKIP_SC_CFG_LIST
+02:55:33:893000 Status 0 from goto SKIP_SC_CFG_LIST
+Simulated moc_io.
+02:55:34:183000 Status 0 from new motion
+moc_startup_done is false 0
+moc_startup_done is false 500
+02:55:35:183000 Status 0 from new rapid
+02:55:35:183000 Status 0 from new cab
+02:55:35:183000 Status 0 from invoke2 eio_system_set_cfg_output_format
+02:55:35:183000 Status 0 from setEioValidationLevel
+02:55:41:183000 Status 0 from delay
+System installation finished
+02:55:41:183000 Status 0 from echo
+restarting the controller ...
+
+22-12-16  15:02:31 MC0: type = STATE_CHANGE id = Operational code = 56 (10056)
+
+02:55:41:183000 Status 0 from restart
+Goto to label: NO_ERROR
+02:55:41:183000 Status 0 from goto NO_ERROR
+Script execution is stopped because of power-fail!
+Script end: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0/install.cmd

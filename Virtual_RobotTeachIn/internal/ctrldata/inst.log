@@ -1,0 +1,80 @@
+#######  Log open at 22-12-16  15:02:21 Mitteleuropäische Zeit +0100 #######
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerRWI.cpp,627,[INFO]:	Current RWI versionName: '1.8.1'
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerRWI.cpp,638,[INFO]:	Current RWI version detail '1.8.1+31'
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\Startup\Startup.cpp,775,[INFO]:	Current RWI: 1.8.1+31, 1.8.1
+22-12-16  15:02:21	D:\Agents\1\_work\536\s\ControllerProperties\ControllerProperties.cpp,172,[WARN]:	Previous controller properties file is not present or cannot be loaded.
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\Startup\Startup.cpp,792,[INFO]:	Controller Id: 
+22-12-16  15:02:21	D:\Agents\1\_work\536\s\ControllerProperties\ControllerProperties.cpp,875,[WARN]:	ControllerProperties::GetProperty could not find: controller_name
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\Startup\Startup.cpp,794,[INFO]:	Controller Name: 
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSysInstall.cpp,858,[INFO]:	Starting SystemInstallImp::InitInstallation()...
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,1295,[INFO]:	Package version check for HW Platform completed. No problem found. current HWPlatform: vc, required pkg ver = 1 
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSysInstall.cpp,710,[INFO]:	Installation type 3, m_ctrl = '', rootPath = C:\Users\Laptop DF 2\AppData\Local\Temp\tmp8B45.tmp\Virtual_RobotTeachIn, systemPath = 'C:\Users\Laptop DF 2\AppData\Local\Temp\tmp8B45.tmp\Virtual_RobotTeachIn/Systems/Virtual_RobotTeachIn'.
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\LicenseManager\LicenseManager.cpp,687,[INFO]:	Validate file '15000-500126.rlf'
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,991,[INFO]:	Reading content in file path 'C:\Users\Laptop DF 2\AppData\Local\Temp\tmp8B45.tmp\Virtual_RobotTeachIn/Systems/Virtual_RobotTeachIn/controller.rsf'.
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSysInstall.cpp,1855,[INFO]:	Path = 'C:\Users\Laptop DF 2\AppData\Local\Temp\tmp8B45.tmp\Virtual_RobotTeachIn/Products/abb.robotics.robotcontrol', manifestfile = 'abb.robotics.robotcontrol.rmf'.
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSysInstall.cpp,1855,[INFO]:	Path = 'C:\Users\Laptop DF 2\AppData\Local\Temp\tmp8B45.tmp\Virtual_RobotTeachIn/Products/abb.robotics.robotos', manifestfile = 'abb.robotics.robotos.rmf'.
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSysInstall.cpp,1855,[INFO]:	Path = 'C:\Users\Laptop DF 2\AppData\Local\Temp\tmp8B45.tmp\Virtual_RobotTeachIn/Products/abb.robotics.robots', manifestfile = 'abb.robotics.robots.rmf'.
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSysInstall.cpp,1855,[INFO]:	Path = 'C:\Users\Laptop DF 2\AppData\Local\Temp\tmp8B45.tmp\Virtual_RobotTeachIn/Products/abb.cn.robotics.wizard', manifestfile = 'abb.cn.robotics.wizard_1.4.1.rmf'.
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSysInstall.cpp,1855,[INFO]:	Path = 'C:\Users\Laptop DF 2\AppData\Local\Temp\tmp8B45.tmp\Virtual_RobotTeachIn/Products/abb.robotics.asi', manifestfile = 'abb.robotics.asi_1.0.4.rmf'.
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,746,[INFO]:	versionMin Major value: 7
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,769,[INFO]:	New dependency: RobotOS, min:7.0.1, max:7.99999999.99999999.
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,746,[INFO]:	versionMin Major value: 1
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,769,[INFO]:	New dependency: RobotWareInstallationUtilities, min:1.8.1, max:1.99999999.99999999.
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,746,[INFO]:	versionMin Major value: 1
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,769,[INFO]:	New dependency: RobotWareInstallationUtilities, min:1.8.1, max:1.99999999.99999999.
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,700,[INFO]:	Using default hwplatform for AddIns: '*'.
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,746,[INFO]:	versionMin Major value: 7
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,769,[INFO]:	New dependency: RobotControl, min:7.1.0-225.Internal, max:7.99999999.99999999.
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,700,[INFO]:	Using default hwplatform for AddIns: '*'.
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,715,[INFO]:	No <Dependecy> found in product 'Wizard' in file 'abb.cn.robotics.wizard_1.4.1.rmf'.
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,700,[INFO]:	Using default hwplatform for AddIns: '*'.
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,746,[INFO]:	versionMin Major value: 1
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,769,[INFO]:	New dependency: Robots, min:1.2.0-88.RC+0, max:3.2.0-88.RC+0.
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,746,[INFO]:	versionMin Major value: 7
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,769,[INFO]:	New dependency: RobotControl, min:7.1.0+302, max:9.1.0+302.
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerUtility.cpp,700,[INFO]:	Validate manifest 'C:\Users\Laptop DF 2\AppData\Local\Temp\tmp8B45.tmp\Virtual_RobotTeachIn/Products/abb.robotics.robotcontrol/abb.robotics.robotcontrol.rmf'
+22-12-16  15:02:21	D:\Agents\1\_work\662\s\DpManager\DpManagerUtility.cpp,763,[INFO]:	Validate all .rpk files.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerUtility.cpp,700,[INFO]:	Validate manifest 'C:\Users\Laptop DF 2\AppData\Local\Temp\tmp8B45.tmp\Virtual_RobotTeachIn/Products/abb.robotics.robotos/abb.robotics.robotos.rmf'
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerUtility.cpp,763,[INFO]:	Validate all .rpk files.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerUtility.cpp,700,[INFO]:	Validate manifest 'C:\Users\Laptop DF 2\AppData\Local\Temp\tmp8B45.tmp\Virtual_RobotTeachIn/Products/abb.robotics.robots/abb.robotics.robots.rmf'
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerUtility.cpp,763,[INFO]:	Validate all .rpk files.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerUtility.cpp,700,[INFO]:	Validate manifest 'C:\Users\Laptop DF 2\AppData\Local\Temp\tmp8B45.tmp\Virtual_RobotTeachIn/Products/abb.cn.robotics.wizard/abb.cn.robotics.wizard_1.4.1.rmf'
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerUtility.cpp,741,[WARN]:	Untrusted root certificate C:\Users\Laptop DF 2\AppData\Local\Temp\tmp8B45.tmp\Virtual_RobotTeachIn/Products/abb.cn.robotics.wizard/abb.cn.robotics.wizard_1.4.1.rmf
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerUtility.cpp,763,[INFO]:	Validate all .rpk files.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerUtility.cpp,700,[INFO]:	Validate manifest 'C:\Users\Laptop DF 2\AppData\Local\Temp\tmp8B45.tmp\Virtual_RobotTeachIn/Products/abb.robotics.asi/abb.robotics.asi_1.0.4.rmf'
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerUtility.cpp,741,[WARN]:	Untrusted root certificate C:\Users\Laptop DF 2\AppData\Local\Temp\tmp8B45.tmp\Virtual_RobotTeachIn/Products/abb.robotics.asi/abb.robotics.asi_1.0.4.rmf
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerUtility.cpp,763,[INFO]:	Validate all .rpk files.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerRWI.cpp,627,[INFO]:	Current RWI versionName: '1.8.1'
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerRWI.cpp,638,[INFO]:	Current RWI version detail '1.8.1+31'
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerRWI.cpp,627,[INFO]:	Current RWI versionName: '1.8.1'
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerRWI.cpp,638,[INFO]:	Current RWI version detail '1.8.1+31'
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,1226,[INFO]:	Product HW platform compatibility check done.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,161,[INFO]:	Starting resolve dependencies. Current platform is 'vc', nr of products is 5.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,209,[INFO]:	Added RobotOS, version '7.0.1+0'. Number of products left is 4.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,249,[INFO]:	Dependency check to RobotOS.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,324,[INFO]:	Add product RobotControl. Nr of products left is 3.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,335,[INFO]:	Add all products that have only one dependency and it is RobotControl.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,352,[INFO]:	Only dependency on RobotControl. Add product 'Robots' to the sorted List.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,370,[INFO]:	Check dependency loop 0 starts, nr of products to solve dependency is 2.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,425,[INFO]:	Add product 'ASI' to the sorted List.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,425,[INFO]:	Add product 'Wizard' to the sorted List.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,365,[INFO]:	No more products left to check dependency.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,472,[INFO]:	Done resolving dependencies, status = 0.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSysInstall.cpp,1092,[INFO]:	Product root dir path 'C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare'.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSysInstall.cpp,1113,[INFO]:	Install product 'RobotOS' to 'C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotOS_7.0.1'.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSysInstall.cpp,1129,[INFO]:	Product 'RobotOS' is already installed.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSysInstall.cpp,1113,[INFO]:	Install product 'RobotControl' to 'C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotControl_7.8.0'.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSysInstall.cpp,1129,[INFO]:	Product 'RobotControl' is already installed.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSysInstall.cpp,1113,[INFO]:	Install product 'Robots' to 'C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Robots_1.8.0'.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSysInstall.cpp,1129,[INFO]:	Product 'Robots' is already installed.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSysInstall.cpp,1113,[INFO]:	Install product 'ASI' to 'C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/ASI_1.0.4'.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSysInstall.cpp,1129,[INFO]:	Product 'ASI' is already installed.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSysInstall.cpp,1113,[INFO]:	Install product 'Wizard' to 'C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/Wizard_1.4.1'.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSysInstall.cpp,1129,[INFO]:	Product 'Wizard' is already installed.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSysInstall.cpp,1892,[INFO]:	Write return message to file 'C:/Users/Laptop DF 2/Documents/GitHub/robot_teach_in/Virtual_RobotTeachIn/internal/inbox/message'.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerUtility.cpp,1461,[INFO]:	Get boot info for 'VC' platform...
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerUtility.cpp,1415,[INFO]:	Got '/VCImage' from the common section: S27.01/bin/s27.01.dll.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSystemCommon.cpp,1696,[INFO]:	S27 OS image path from boot info: C:/Users/Laptop DF 2/AppData/Local/ABB/RobotWare/RobotOS_7.0.1/S27.01/bin/s27.01.dll.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSysInstall.cpp,1345,[INFO]:	Installation has been finished, status = 0.
+22-12-16  15:02:22	D:\Agents\1\_work\662\s\DpManager\DpManagerSysInstall.cpp,1346,[INFO]:	Clean up the temporary files.
+22-12-16  15:02:23	D:\Agents\1\_work\662\s\VCInstaller\VCInstaller.cpp,575,[INFO]:	No HW settings file used.

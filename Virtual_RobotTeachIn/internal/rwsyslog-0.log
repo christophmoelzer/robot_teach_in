@@ -1,0 +1,35 @@
+<9>Dec 16 15:02:32 Virtual_RobotTeachIn ABB-UAL:01:Security log file deleted by user|-|syslog.log not found|3420|00001|-|robot|syslog	1
+<13>Dec 16 15:02:34 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=65537|1110|00002|-|robot|NativeUser	2
+<13>Dec 16 15:02:35 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=131074|1110|00003|-|robot|NativeUser	3
+<13>Dec 16 15:02:36 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=196611|1110|00004|-|robot|NativeUser	4
+<13>Dec 16 15:02:40 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=262148|1110|00005|-|robot|NativeUser	5
+<13>Dec 16 15:02:40 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=327685|1110|00006|-|robot|NativeUser	6
+<13>Dec 16 15:02:40 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=393222|1110|00007|-|robot|NativeUser	7
+<13>Dec 16 15:02:47 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=458759|1110|00008|-|robot|Default User	8
+<13>Dec 16 15:02:48 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=524296|1110|00009|-|robot|Default User	9
+<13>Dec 16 15:02:48 Virtual_RobotTeachIn ABB-UAL:01:Configuration upload|-|Start restore|1331|00010|-|robot|458759	10
+<13>Dec 16 15:02:54 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=65537|1110|00011|-|robot|NativeUser	11
+<13>Dec 16 15:02:55 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=131074|1110|00012|-|robot|NativeUser	12
+<13>Dec 16 15:02:56 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=196611|1110|00013|-|robot|NativeUser	13
+<13>Dec 16 15:03:00 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=262148|1110|00014|-|robot|NativeUser	14
+<13>Dec 16 15:03:00 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=327685|1110|00015|-|robot|NativeUser	15
+<13>Dec 16 15:03:00 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=393222|1110|00016|-|robot|NativeUser	16
+<13>Dec 16 15:03:09 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=458759|1110|00017|-|robot|Default User	17
+<13>Dec 16 15:03:09 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=524296|1110|00018|-|robot|Default User	18
+<13>Dec 16 15:03:16 Virtual_RobotTeachIn ABB-UAL:01:Log-out (user logged out)|-|UAS_UID=524296|1210|00019|-|robot|	19
+<13>Dec 16 15:03:16 Virtual_RobotTeachIn ABB-UAL:01:Log-out (user logged out)|-|UAS_UID=458759|1210|00020|-|robot|	20
+<13>Dec 16 15:03:16 Virtual_RobotTeachIn ABB-UAL:01:Log-out (user logged out)|-|Socket=8344|1210|00021|-|robot|	21
+<13>Dec 16 15:03:22 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=65537|1110|00022|-|robot|NativeUser	22
+<13>Dec 16 15:03:23 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=131074|1110|00023|-|robot|NativeUser	23
+<13>Dec 16 15:03:24 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=196611|1110|00024|-|robot|NativeUser	24
+<13>Dec 16 15:03:24 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=262148|1110|00025|-|robot|NativeUser	25
+<13>Dec 16 15:03:24 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=327685|1110|00026|-|robot|NativeUser	26
+<13>Dec 16 15:03:24 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=393222|1110|00027|-|robot|NativeUser	27
+<13>Dec 16 15:03:33 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=458759|1110|00028|-|robot|Admin	28
+<13>Dec 16 15:03:33 Virtual_RobotTeachIn ABB-UAL:01:Log-in successful|-|UAS_UID=524296|1110|00029|-|robot|Admin	29
+<13>Dec 16 15:07:11 Virtual_RobotTeachIn ABB-UAL:01:Log-out (user logged out)|-|UAS_UID=524296|1210|00030|-|robot|	30
+<13>Dec 16 15:07:11 Virtual_RobotTeachIn ABB-UAL:01:Log-out (user logged out)|-|UAS_UID=458759|1210|00031|-|robot|	31
+<13>Dec 16 15:07:11 Virtual_RobotTeachIn ABB-UAL:01:Log-out (user logged out)|-|Socket=8388|1210|00032|-|robot|	32
+-----BEGIN DIGEST-----
+0k6Voqcl8aTT3DZBMQpJGTt2t2R2hv2c3/tYoLjJRhM8wCWozv4sJXEXy1ZJC7JUYFdd9g==
+-----END DIGEST-----
