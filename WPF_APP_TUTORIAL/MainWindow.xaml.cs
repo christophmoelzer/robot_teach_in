@@ -19,6 +19,7 @@ using System.Diagnostics;
 using ABB.Robotics.Controllers.Discovery;
 using ABB.Robotics.Controllers;
 using ABB.Robotics.Controllers.RapidDomain;
+using ABB.Robotics.Controllers.Messaging;
 
 namespace WPF_APP_TUTORIAL
 {
@@ -146,12 +147,18 @@ namespace WPF_APP_TUTORIAL
         // Robot communication
         // #############################################################
         private NetworkScanner scanner = null;
-        private static Controller controller = null;
+        private Controller controller = null;
         private ABB.Robotics.Controllers.RapidDomain.Task[] tasks = null;
         private NetworkWatcher networkWatcher = null;
         private static Mastership mastership;
         private List<string> ip_list = new List<string>();
         private static SdkCommands sdk_commands = new SdkCommands();
+
+        // IPC
+        private IpcQueue tRob1Queue;
+        private IpcQueue myQueue;
+        private IpcMessage sendMessage;
+        private IpcMessage recvMessage;
 
         // #############################################################
         // DEBUG
@@ -167,13 +174,24 @@ namespace WPF_APP_TUTORIAL
         public MainWindow()
         {
             InitializeComponent();
-            open_com_port("COM4");
+            open_com_port(tb_comport.Text);
             connect_robot_controller();
-            
+            //RMQReceiveRecord();
+            ipc_function();
         }
+
+        
 
         private void open_com_port(string com_port)
         {
+            if (port != null) 
+            {
+                if (port.IsOpen)
+                {
+                    port.Close();
+                    port = null;
+                }
+            }
             if (port == null)
             {
                 port = new SerialPort(com_port, 115200);
@@ -181,12 +199,18 @@ namespace WPF_APP_TUTORIAL
                 {
                     port.Open();
                     port.DataReceived += new SerialDataReceivedEventHandler(DataReceived);
+                    label5.Content= com_port + " connect";
+                    tb_value_comport_state.Background = Brushes.DarkGreen;
+
                 }
                 catch
                 {
-                    MessageBox.Show(com_port + " not available.");
+                    label5.Content  = com_port + " not available";
+                    tb_value_comport_state.Background = Brushes.DarkRed;
+                    port = null;
                 }
             }
+            
         }
 
         private void connect_robot_controller()
@@ -197,6 +221,7 @@ namespace WPF_APP_TUTORIAL
             ControllerInfo? controllerInfo1 = null;
             foreach(ControllerInfo controllerInfo in controllers)
             {
+                //MessageBox.Show(controllerInfo.IPAddress.ToString());
                 ip_list.Add(controllerInfo.IPAddress.ToString());
                 controllerInfo1 = controllerInfo;
             }
@@ -213,15 +238,122 @@ namespace WPF_APP_TUTORIAL
                     controller = Controller.Connect(controllerInfo1, ConnectionType.Standalone, false);
                     UserInfo userInfo = new UserInfo("admin", "robotics");
                     controller.Logon(userInfo);
-                    
+                    label3.Content = "connected";
+                    tb_value_robot_state.Background = Brushes.DarkGreen;
+                    label9.Content = controller.Rapid.ExecutionStatus.ToString();
+                    if(controller.Rapid.ExecutionStatus == ExecutionStatus.Running)
+                    {
+                        tb_value_rapid_state.Background = Brushes.DarkGreen;
+                    }
+                    else
+                    {
+                        tb_value_rapid_state.Background = Brushes.DarkRed;
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Selected controller not available.");
+                    label3.Content="selected controller not available.";
+                    tb_value_robot_state.Background = Brushes.DarkRed;
                 }
             }
+            else
+            {
+                label3.Content = "no controller available";
+                tb_value_robot_state.Background = Brushes.DarkRed;
 
+            }
 
+        }
+
+        private void ipc_function()
+        {
+            tRob1Queue = controller.Ipc.GetQueue("RMQ_T_ROB1");
+
+            if (!controller.Ipc.Exists("RAB_Q"))
+            {
+                //MessageBox.Show(controller.Ipc.GetQueueId("PC_SDK_Q").ToString());
+                if (controller.Ipc.GetQueueId("PC_SDK_Q") >= 0)
+                {
+                    controller.Ipc.DeleteQueue(controller.Ipc.GetQueueId("PC_SDK_Q"));
+                }
+                myQueue = controller.Ipc.CreateQueue("PC_SDK_Q", 5, Ipc.MaxMessageSize);
+                //MessageBox.Show(Ipc.MaxMessageSize.ToString());
+                myQueue = controller.Ipc.GetQueue("PC_SDK_Q");
+
+            }
+            
+            
+
+            //SendMessage(true);
+            //CheckReturnMsg();
+
+        }
+
+        public void SendMessage(bool boolMsg)
+        {
+            sendMessage = new IpcMessage();
+            System.Byte[] data = null;
+            
+            if (boolMsg)
+            {
+                data = new UTF8Encoding().GetBytes("bool;True");
+            }
+            else
+            {
+                data = new UTF8Encoding().GetBytes("bool;False");
+            }
+            //MessageBox.Show(data.GetLength(0).ToString());
+            sendMessage.SetData(data);
+            sendMessage.Sender = myQueue.QueueId;
+            tRob1Queue.Send(sendMessage);
+            
+        }
+
+        private void CheckReturnMsg()
+        {
+            recvMessage = new IpcMessage();
+            
+            MessageBox.Show(recvMessage.Capacity.ToString());
+            IpcReturnType ret = IpcReturnType.Timeout;
+            string answer = "Bck";
+            int timeout = 5000;
+            
+            ret = myQueue.Receive(timeout, recvMessage);
+            MessageBox.Show("wait for answer...");
+            if (ret == IpcReturnType.OK)
+            {
+                answer = new UTF8Encoding().GetString(recvMessage.Data);
+                MessageBox.Show(answer);
+            }
+            else
+            {
+                MessageBox.Show("Timeout!");
+            }
+            MessageBox.Show("end...");
+        }
+
+        public void RMQReceiveRecord()
+        {
+            const string destination_slot = "RMQ_OtherTask";
+            IpcQueue queue = controller.Ipc.CreateQueue(destination_slot, 16, Ipc.MaxMessageSize);
+            while (true)
+            {
+                IpcMessage message = new IpcMessage();
+                IpcReturnType retValue = IpcReturnType.Timeout;
+
+                retValue = queue.Receive(1000, message);
+                if(IpcReturnType.OK == retValue)
+                {
+                    Int32 x = (message.Data[0] << 16) | (message.Data[1] << 8) | (message.Data[2]);
+                    Int32 y = (message.Data[3] << 16) | (message.Data[4] << 8) | (message.Data[5]);
+                    MessageBox.Show(x.ToString());
+                    MessageBox.Show(y.ToString());
+                }
+            }
+            if (controller.Ipc.Exists(destination_slot))
+            {
+                controller.Ipc.DeleteQueue(controller.Ipc.GetQueueId(destination_slot));
+            }
         }
 
         private void stop_motion()
@@ -246,6 +378,8 @@ namespace WPF_APP_TUTORIAL
                 }
                 btn_watchdog.Background = Brushes.WhiteSmoke;
                 btn_watchdog.Content = btn_text = "DISABLED";
+                label7.Content = "disabled";
+                tb_value_sdk_state.Background = Brushes.DarkRed;
                 run_dispatcher = false;
             }
             else
@@ -260,6 +394,8 @@ namespace WPF_APP_TUTORIAL
                 }
                 btn_watchdog.Background = Brushes.LightGreen;
                 btn_watchdog.Content = btn_text = "ENABLED";
+                label7.Content = "enabled";
+                tb_value_sdk_state.Background = Brushes.DarkGreen;
 
                 run_dispatcher = true;
                 btn_watchdog.Dispatcher.BeginInvoke(
@@ -585,15 +721,27 @@ namespace WPF_APP_TUTORIAL
             DragMove();
         }
 
-        private void btn_watchdog_MouseEnter(object sender, MouseEventArgs e)
+
+        private void btn_comport_Click(object sender, RoutedEventArgs e)
         {
-            btn_text = btn_watchdog.Content.ToString();
-            btn_watchdog.Content = "CLICK TO ENABLE";
+
         }
 
-        private void btn_watchdog_MouseLeave(object sender, MouseEventArgs e)
+        private void btn_connect_comport_Click(object sender, RoutedEventArgs e)
         {
-            btn_watchdog.Content = btn_text;
+            open_com_port(tb_comport.Text);
+        }
+
+        private void btn_3_Click(object sender, RoutedEventArgs e)
+        {
+            //SendMessage(true);
+            CheckReturnMsg();
+        }
+
+        private void btn_4_Click(object sender, RoutedEventArgs e)
+        {
+            //SendMessage(false);
+            CheckReturnMsg();
         }
     }
 }

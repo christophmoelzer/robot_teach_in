@@ -1,0 +1,235 @@
+MODULE module_mr19m010
+    
+    VAR bool flag := FALSE;
+    VAR intnum connectnum;
+    VAR string dummy;
+    
+    CONST robtarget p10:=[[385.31,291.92,569.22],[1.12667E-9,-0.314299,-0.949324,1.63728E-9],[0,-1,0,0],[9E+9,9E+9,9E+9,9E+9,9E+9,9E+9]];
+    CONST robtarget p20:=[[-91.70,474.62,716.56],[4.68724E-8,0.234722,-0.972063,-1.45607E-6],[1,0,0,0],[9E+9,9E+9,9E+9,9E+9,9E+9,9E+9]];
+    VAR robtarget p_store:=[[100,200,300],[1,0,0,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+    VAR robtarget p_temp:=[[0,0,0],[1,0,0,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+    VAR robtarget p_curr:=[[0,0,0],[1,0,0,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+    
+    PERS bool wd_stop := TRUE;
+    
+    VAR bool sdk_x_n;
+    VAR bool sdk_x_p;
+    VAR bool sdk_y_n;
+    VAR bool sdk_y_p;
+    VAR bool sdk_z_n;
+    VAR bool sdk_z_p;
+    VAR bool sdk_rx_n;
+    VAR bool sdk_rx_p;
+    VAR bool sdk_ry_n;
+    VAR bool sdk_ry_p;
+    VAR bool sdk_rz_n;
+    VAR bool sdk_rz_p;
+    VAR bool sdk_lin_mode;
+    VAR bool sdk_rot_mode;
+    VAR bool sdk_leadthrough_on;
+    VAR bool sdk_leadthrough_off;
+    VAR bool sdk_in_position;
+    VAR bool sdk_is_moving;
+    VAR bool sdk_is_leadthrough;
+    
+    VAR num sdk_num;
+    
+    VAR num button_state;
+    VAR num previous_button_state;
+    VAR bool update;
+    VAR num offs_value_lin := 100;
+    VAR num offs_value_rot := 10;
+    
+    CONST speeddata v_default := [5, 3, 5, 3];
+    CONST speeddata v_rz := [5, 10, 5, 10];
+    VAR speeddata v_norm := v_default;
+    VAR bool aux_leadthrough := FALSE;
+    VAR triggdata trigg1;
+    
+    VAR intnum intno1;
+    
+    TRAP myTRAP
+        sdk_in_position := TRUE;
+    ENDTRAP
+    
+    PROC main_mr19m010()
+        
+        VAR robtarget p_offs:=[[0,0,0],[1,0,0,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]]; 
+        VAR num rx:=0;
+        VAR num ry:=0;
+        VAR num rz:=0;
+            
+    
+        CONNECT intno1 WITH myTrap;
+        TriggInt trigg1, 0,intno1;
+        
+        CONNECT connectnum WITH RABMsgs;
+        IRMQMessage flag, connectnum;
+        !IRMQMessage dummy, connectnum;
+        WHILE true DO
+            WaitTime 3;
+        ENDWHILE
+        TPWrite "Message from PC SDK, will now...";
+        IDelete connectnum;
+        EXIT;
+        
+            
+        WHILE false DO
+            button_state := 0;
+            update := FALSE;
+            p_offs:=[[0,0,0],[1,0,0,0],[0,0,0,0],[9E9,9E9,9E9,9E9,9E9,9E9]];
+            rx:=0;
+            ry:=0;
+            rz:=0;
+            
+            
+            
+            
+            IF sdk_leadthrough_on and IsLeadThrough()=FALSE THEN
+                WaitTime 0.5;
+                SetLeadThrough \On;
+                aux_leadthrough:=TRUE;
+                sdk_is_leadthrough:=TRUE;
+                
+            ELSEIF sdk_leadthrough_on=FALSE AND IsLeadThrough() = TRUE THEN
+                SetLeadThrough \Off;
+                aux_leadthrough:=FALSE;
+                sdk_is_leadthrough:=FALSE;
+            ENDIF
+            
+            
+            IF sdk_x_n THEN
+                button_state := button_state + 1;
+                p_offs.trans.x := -offs_value_lin;
+                v_norm := v_default;
+            ENDIF
+            IF sdk_x_p THEN
+                button_state := button_state + 2;
+                p_offs.trans.x := offs_value_lin;
+                v_norm := v_default;
+            ENDIF
+            IF sdk_y_n THEN
+                button_state := button_state + 4;
+                p_offs.trans.y := -offs_value_lin;
+                v_norm := v_default;
+            ENDIF
+            IF sdk_y_p THEN
+                button_state := button_state + 8;
+                p_offs.trans.y := offs_value_lin;
+                v_norm := v_default;
+            ENDIF
+            IF sdk_z_n THEN
+                button_state := button_state + 16;
+                p_offs.trans.z := -offs_value_lin;
+                v_norm := v_default;
+            ENDIF
+            IF sdk_z_p THEN
+                button_state := button_state + 32;
+                p_offs.trans.z := offs_value_lin;
+                v_norm := v_default;
+            ENDIF
+            IF sdk_rx_n THEN
+                button_state := button_state + 64;
+                rx := -offs_value_rot;
+                v_norm := v_rz;
+            ENDIF
+            IF sdk_rx_p THEN
+                button_state := button_state + 128;
+                rx := offs_value_rot;
+                v_norm := v_rz;
+            ENDIF
+            IF sdk_ry_n THEN
+                button_state := button_state + 256;
+                ry := -offs_value_rot;
+                v_norm := v_rz;
+            ENDIF
+            IF sdk_ry_p THEN
+                button_state := button_state + 512;
+                ry := offs_value_rot;
+                v_norm := v_rz;
+            ENDIF
+            IF sdk_rz_n THEN
+                button_state := button_state + 1024;
+                rz := -offs_value_rot;
+                v_norm := v_rz;
+            ENDIF
+            IF sdk_rz_p THEN
+                button_state := button_state + 2048;
+                rz := offs_value_rot;
+                v_norm := v_rz;
+            ENDIF
+            
+            IF button_state <> previous_button_state THEN
+                update:=TRUE;
+            ENDIF
+            previous_button_state:=button_state;
+            
+            
+            IF IsLeadThrough() = FALSE THEN
+                
+                IF (update or sdk_in_position) and button_state>0 and wd_stop = false THEN
+                    StopMove;
+                    ClearPath;
+                    StartMove;
+                    !TPWrite "state: "\Num:=button_state;
+                    p_curr := CRobT(\Tool:=tool0 \WObj:=wobj0);
+                    !p_temp := CRobT(\Tool:=tool0 \WObj:=wobj0);
+                    !p_temp.trans := p_temp.trans+p_offs.trans; 
+                    !MoveL \Conc, RelTool(p_curr, p_offs.trans.x, p_offs.trans.y, p_offs.trans.z,\Rx:=rx,\Ry:=ry,\Rz:=rz), v_norm, fine, tool0\WObj:=wobj0;
+                    sdk_in_position:=FALSE;
+                    sdk_is_moving := TRUE;
+                    TriggL \conc, RelTool(p_curr, p_offs.trans.x, p_offs.trans.y, p_offs.trans.z,\Rx:=rx,\Ry:=ry,\Rz:=rz),v_norm,trigg1,z50,tool0\WObj:=wobj0;
+                    !TPWrite "move";
+                ELSEIF button_state=0 or wd_stop = true THEN
+                    StopMove;
+                    ClearPath;
+                    sdk_is_moving := FALSE;
+                    !TPWrite "stop";
+                ENDIF
+            endif
+        ENDWHILE 
+        
+
+    ENDPROC
+    
+
+TRAP RABMsgs
+    
+    VAR rmqmessage msg;
+    VAR rmqheader header;
+    var rmqslot rabclient;
+    VAR num userdef;
+    VAR string ack := "Ack";
+    VAR bool ans := TRUE;
+    RMQGetMessage msg;
+    RMQGetMsgHeader msg \Header:=header \SenderId:=rabclient \UserDef:=userdef;
+    TPWrite "Datatype: " + header.datatype;
+    IF header.datatype = "bool" THEN
+        RMQGetMsgData msg, flag;
+        !RMQGetMsgData msg, dummy;
+        TPWrite "message:"\Bool:=flag;
+        
+        RMQSendMessage rabclient, ack \UserDef:=userdef;
+    ELSE
+        TPWrite "Unkown data received in RABMsgs...";
+    ENDIF
+    
+    ERROR
+    IF ERRNO = ERR_RMQ_MSGSIZE THEN
+        WaitTime 1;
+        TPWrite "foo";
+    
+    elseIF ERRNO = ERR_RMQ_INVALID THEN
+        WaitTime 1;
+        TPWrite "invalid";
+    ELSE
+        WaitTime 1;
+        TPWrite "else";
+        TPShow TP_LATEST;
+    endif
+    
+    
+ENDTRAP
+    
+ENDMODULE
+    
