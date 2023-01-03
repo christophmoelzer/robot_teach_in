@@ -53,6 +53,7 @@ namespace WPF_APP_TUTORIAL
             motion_commands[12] = "sdk_lin_mode";
             motion_commands[13] = "sdk_rot_mode";
             motion_commands[14] = "sdk_leadthrough_on";
+            //motion_commands[14] = "sdk_better_communictation";
             motion_commands[15] = "";
             motion_commands[16] = "";
             motion_commands[17] = "";
@@ -174,10 +175,11 @@ namespace WPF_APP_TUTORIAL
         public MainWindow()
         {
             InitializeComponent();
+            tb_value_sdk_state.Background = Brushes.DarkRed;
             open_com_port(tb_comport.Text);
             connect_robot_controller();
             //RMQReceiveRecord();
-            ipc_function();
+            //ipc_function();
         }
 
         
@@ -435,13 +437,17 @@ namespace WPF_APP_TUTORIAL
             if (get_rapid_data("sdk_is_moving"))
             {
                 robot_state[0] = 1;
+                tb_moving.Text = "MOVING";
             }
             else
             {
                 robot_state[0] = 2;
+                tb_moving.Text = "STOPPED";
             }
+
+            get_rapid_pose_data("sdk_pose");
             
-            
+
 
             /*if (motion_button_pressed == false && get_rapid_data("sdk_is_moving"))
             {
@@ -566,6 +572,74 @@ namespace WPF_APP_TUTORIAL
             return false;
         }
 
+        private void get_rapid_pose_data(string key_name)
+        {
+            if (key_name != "")
+            {
+                try
+                {
+                    Pose rapidPose;
+                    RapidData rdPose = controller.Rapid.GetRapidData("T_ROB1", "module_mr19m010", key_name);
+                    if (rdPose.Value is Pose)
+                    {
+                        rapidPose = (Pose)rdPose.Value;
+                        tb_x.Text = "X: ";
+                        tb_x.Text += Math.Round(rapidPose.Trans.X, 1).ToString();
+                        tb_x.Text += " Y: ";
+                        tb_x.Text += Math.Round(rapidPose.Trans.Y, 1).ToString();
+                        tb_x.Text += " Z: ";
+                        tb_x.Text += Math.Round(rapidPose.Trans.Z, 1).ToString();
+                        if (rapidPose.Trans.X < 0)
+                        {
+                            pgb_x_r.Value = 0;
+                            pgb_x_l.Value = -100* rapidPose.Trans.X / 10;
+                            
+                        }
+                        else
+                        {
+                            pgb_x_l.Value = 0;
+                            pgb_x_r.Value = 100 * rapidPose.Trans.X / 10;
+
+                        }
+
+
+                        if (rapidPose.Trans.Y < 0)
+                        {
+                            pgb_y_r.Value = 0;
+                            pgb_y_l.Value = -100 * rapidPose.Trans.Y / 10;
+
+                        }
+                        else
+                        {
+                            pgb_y_l.Value = 0;
+                            pgb_y_r.Value = 100 * rapidPose.Trans.Y / 10;
+
+                        }
+
+                        if (rapidPose.Trans.Z < 0)
+                        {
+                            //pgb_z_r.Value = 0;
+                            pgb_z_l.Value = -100-100 * rapidPose.Trans.Z / 10;
+
+                        }
+                        else
+                        {
+                            //pgb_z_l.Value = 0;
+                            pgb_z_r.Value = 100-(100 * rapidPose.Trans.Z / 10);
+
+                        }
+
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(key_name + " --> " + ex.Message);
+
+                }
+            }
+        }
+
         private void set_rapid_byte(string key_name, byte number=0)
         {
            
@@ -601,15 +675,31 @@ namespace WPF_APP_TUTORIAL
                 try
                 {
                     Bool rapidBool;
-                    RapidData rdBool = controller.Rapid.GetRapidData("T_ROB1", "module_mr19m010", key_name);
-                    if (rdBool.Value is Bool)
+                    if (key_name=="sdk_better_communictation")
                     {
-                        rapidBool = (Bool)rdBool.Value;
-                        bool boolValue = rapidBool.Value;
-                        rapidBool.Value = true;
-                        rdBool.Value = rapidBool;
-                        
+                        RapidData rdBool = controller.Rapid.GetRapidData("T_COMM", "CommModule", key_name);
+                        if (rdBool.Value is Bool)
+                        {
+                            rapidBool = (Bool)rdBool.Value;
+                            bool boolValue = rapidBool.Value;
+                            rapidBool.Value = true;
+                            rdBool.Value = rapidBool;
+
+                        }
                     }
+                    else
+                    {
+                        RapidData rdBool = controller.Rapid.GetRapidData("T_ROB1", "module_mr19m010", key_name);
+                        if (rdBool.Value is Bool)
+                        {
+                            rapidBool = (Bool)rdBool.Value;
+                            bool boolValue = rapidBool.Value;
+                            rapidBool.Value = true;
+                            rdBool.Value = rapidBool;
+
+                        }
+                    }
+                    
                 }
                 catch (Exception ex)
                 {
@@ -626,14 +716,29 @@ namespace WPF_APP_TUTORIAL
                 try
                 {
                     Bool rapidBool;
-                    RapidData rdBool = controller.Rapid.GetRapidData("T_ROB1", "module_mr19m010", key_name);
-                    if (rdBool.Value is Bool)
+                    if (key_name == "sdk_better_communictation")
                     {
-                        rapidBool = (Bool)rdBool.Value;
-                        bool boolValue = rapidBool.Value;
-                        rapidBool.Value = false;
-                        rdBool.Value = rapidBool;
-                        
+                        RapidData rdBool = controller.Rapid.GetRapidData("T_COMM", "CommModule", key_name);
+                        if (rdBool.Value is Bool)
+                        {
+                            rapidBool = (Bool)rdBool.Value;
+                            bool boolValue = rapidBool.Value;
+                            rapidBool.Value = false;
+                            rdBool.Value = rapidBool;
+
+                        }
+                    }
+                    else
+                    {
+                        RapidData rdBool = controller.Rapid.GetRapidData("T_ROB1", "module_mr19m010", key_name);
+                        if (rdBool.Value is Bool)
+                        {
+                            rapidBool = (Bool)rdBool.Value;
+                            bool boolValue = rapidBool.Value;
+                            rapidBool.Value = false;
+                            rdBool.Value = rapidBool;
+
+                        }
                     }
 
                 }
