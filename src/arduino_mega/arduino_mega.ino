@@ -694,7 +694,7 @@ public:
   uint8_t angle_radians_serial[4];
   int line_height = 16;
 
-  DisplayContent content[10];
+  DisplayContent content[20];
 
   GUI() {
 
@@ -736,6 +736,7 @@ public:
 
   void convert_angle_to_bytes(float rad) {
     uint32_t no_comma_angle = (uint32_t)(rad * 1000);
+    content[14].set((String)no_comma_angle,50,20,1);
     uint32_t mask[4];
     mask[0] = 0x000F;
     mask[1] = 0x00F0;
@@ -746,6 +747,11 @@ public:
       angle_radians_serial[i] = 0;
       angle_radians_serial[i] = mask[i] & no_comma_angle;
     }
+
+    content[15].set("S"+(String)angle_radians_serial[0], 60, 30, 1);
+    content[16].set("S"+(String)angle_radians_serial[1], 60, 38, 1);
+    content[17].set("S"+(String)angle_radians_serial[2], 60, 46, 1);
+    content[18].set("S"+(String)angle_radians_serial[3], 60, 54, 1);
   }
 
   void upt_encoder() {
@@ -900,7 +906,7 @@ public:
 
   void update_display() {
     display.clearDisplay();
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 20; i++) {
       if(content[i].text()!=""){
         display.setCursor(content[i].x(), content[i].y());
         display.setTextSize(content[i].size());
@@ -956,7 +962,7 @@ bool aux_changed = false;
 bool aux_last = false;
 bool aux_stop = false;
 int line_height = 16;
-byte received_data[4];
+byte received_data[8];
 byte watchdog = 0;
 byte robot_state = 0;
 
@@ -983,10 +989,19 @@ void loop() {
     received_data[1] = Serial.read();
     received_data[2] = Serial.read();
     received_data[3] = Serial.read();
+    received_data[4] = Serial.read();
+    received_data[5] = Serial.read();
+    received_data[6] = Serial.read();
+    received_data[7] = Serial.read();
     gui.content[5].set("R"+(String)received_data[0], 0, 30, 1);
     gui.content[6].set("R"+(String)received_data[1], 0, 38, 1);
     gui.content[7].set("R"+(String)received_data[2], 0, 46, 1);
     gui.content[8].set("R"+(String)received_data[3], 0, 54, 1);
+    gui.content[10].set("R"+(String)received_data[4], 30, 30, 1);
+    gui.content[11].set("R"+(String)received_data[5], 30, 38, 1);
+    gui.content[12].set("R"+(String)received_data[6], 30, 46, 1);
+    gui.content[13].set("R"+(String)received_data[7], 30, 54, 1);
+
     if(robot_state == 1){
       gui.content[9].set("moving", 0, 20, 1);
     }
@@ -1015,6 +1030,10 @@ void loop() {
   Serial.write(motion.coded_buttons[1]);  // 1
   Serial.write(motion.coded_buttons[2]);  // 1
   Serial.write(motion.coded_buttons[3]);  // 1
+  Serial.write(gui.angle_radians_serial[0]);  // 1
+  Serial.write(gui.angle_radians_serial[1]);  // 1
+  Serial.write(gui.angle_radians_serial[2]);  // 1
+  Serial.write(gui.angle_radians_serial[3]);  // 1
   Serial.write(255);
 
   gui.content[0].set("WD = "+(String)watchdog, 80, 0, 1);

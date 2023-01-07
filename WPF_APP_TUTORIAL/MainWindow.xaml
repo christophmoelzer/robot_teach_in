@@ -10,7 +10,7 @@
         WindowStartupLocation="CenterScreen"
         
         Background="White"
-        Closing="MainWindow_Closing" SizeToContent="WidthAndHeight" MinWidth="800" MinHeight="365" WindowStyle="None">
+        Closing="MainWindow_Closing" SizeToContent="WidthAndHeight" MinWidth="800" MinHeight="400" WindowStyle="None">
 
 
     <Window.CommandBindings>
@@ -154,37 +154,7 @@
             </Grid>
 
             <TabControl Grid.Row="0" Grid.Column="1">
-                <TabItem Header="SETUP">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBox x:Name="tb_comport" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="COM4" TextAlignment="Center" VerticalAlignment="Center" Width="120"/>
-                        <Button x:Name="btn_connect_comport" Grid.Row="0" Grid.Column="1" Content="Connect" Margin="10" Click="btn_connect_comport_Click">
-                            <Button.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="5"/>
-                                </Style>
-                            </Button.Resources>
-                        </Button>
 
-                    </Grid>
-                </TabItem>
-
-                <TabItem Header="INFO">
-                </TabItem>
-                <TabItem Header="Data transfer">
-                </TabItem>
-                
                 <TabItem Header="Debug">
                     <Grid  x:Name="grid3" Background="AliceBlue">
                         <Grid.RowDefinitions>
@@ -229,48 +199,79 @@
                         <TextBlock Grid.Row="0" Grid.Column="3" Name="tb_moving" Margin="10" Text="Values"></TextBlock>
                         <TextBlock Grid.Row="1" Grid.Column="2" Name="tb_names_c2_1" Margin="10" Text="X"></TextBlock>
                         <TextBlock Grid.Row="1" Grid.Column="3" Name="tb_x" Margin="10" Text="Values"></TextBlock>
+                        <TextBlock Grid.Row="2" Grid.Column="2" Name="tb_names_c2_2" Margin="10" Text="Y"></TextBlock>
+                        <TextBlock Grid.Row="2" Grid.Column="3" Name="tb_y" Margin="10" Text="Values"></TextBlock>
+                        <TextBlock Grid.Row="3" Grid.Column="2" Name="tb_names_c2_3" Margin="10" Text="Z"></TextBlock>
+                        <TextBlock Grid.Row="3" Grid.Column="3" Name="tb_z" Margin="10" Text="Values"></TextBlock>
 
-                        <Grid Grid.Row="2" Grid.Column="3" >
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
-                            
-                            <ProgressBar Grid.Row="0" Grid.Column="0" FlowDirection="LeftToRight" Name="pgb_x_l" Margin="10,10,0,10"></ProgressBar>
-                            <ProgressBar Grid.Row="0" Grid.Column="1" FlowDirection="RightToLeft" Name="pgb_x_r" Margin="0,10,10,10"></ProgressBar>
+                        <Slider Grid.Row="4" Grid.Column="3" Name="slider_x" VerticalAlignment="Center" Maximum="1" Minimum="-1" />
+                        <Slider Grid.Row="5" Grid.Column="3" Name="slider_y" VerticalAlignment="Center" Maximum="1" Minimum="-1" />
+                        <Slider Grid.Row="6" Grid.Column="3" Name="slider_z" VerticalAlignment="Center" Maximum="1" Minimum="-1" />
+
+                        <TextBlock Grid.Row="7" Grid.Column="2" Name="tb_rx" Margin="10" Text="RX"></TextBlock>
+                        <TextBlock Grid.Row="8" Grid.Column="2" Name="tb_ry" Margin="10" Text="RY"></TextBlock>
+                        <TextBlock Grid.Row="9" Grid.Column="2" Name="tb_rz" Margin="10" Text="RZ"></TextBlock>
                         
-                        </Grid>
-                        <Grid Grid.Row="3" Grid.Column="3" >
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
+                        <Slider Grid.Row="7" Grid.Column="3" Name="slider_rx" VerticalAlignment="Center" Maximum="1" Minimum="-1" />
+                        <Slider Grid.Row="8" Grid.Column="3" Name="slider_ry" VerticalAlignment="Center" Maximum="1" Minimum="-1" />
+                        <Slider Grid.Row="9" Grid.Column="3" Name="slider_rz" VerticalAlignment="Center" Maximum="1" Minimum="-1" />
 
-                            <ProgressBar Grid.Row="0" Grid.Column="0" FlowDirection="LeftToRight" Name="pgb_y_l" Margin="10,10,0,10"></ProgressBar>
-                            <ProgressBar Grid.Row="0" Grid.Column="1" FlowDirection="RightToLeft" Name="pgb_y_r" Margin="0,10,10,10"></ProgressBar>
-
-                        </Grid>
-                        <Grid Grid.Row="4" Grid.Column="3" >
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <ProgressBar Grid.Row="0" Grid.Column="0" FlowDirection="LeftToRight" Name="pgb_z_l" Margin="10,10,0,10"></ProgressBar>
-                            <ProgressBar Grid.Row="0" Grid.Column="1" FlowDirection="RightToLeft" Name="pgb_z_r" Margin="0,10,10,10"></ProgressBar>
-
-                        </Grid>
 
                     </Grid>
+                </TabItem>
+
+                <TabItem Header="SETUP">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="tb_comport" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="COM4" TextAlignment="Center" VerticalAlignment="Center" Width="120"/>
+                        <Button x:Name="btn_connect_comport" Grid.Row="0" Grid.Column="1" Content="Connect" Margin="10" Click="btn_connect_comport_Click">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Control">
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="4*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Row="0" Grid.Column="1" Content="xp" x:Name="btn_move_xp" MouseDown="btn_move_xp_MouseDown"  MouseUp="btn_move_xp_MouseUp"/>
+                        <Button Grid.Row="2" Grid.Column="1" Content="xn" x:Name="btn_move_xn" MouseDown="btn_move_xn_MouseDown" MouseUp="btn_move_xn_MouseUp"/>
+                        <Button Grid.Row="1" Grid.Column="2" Content="yp" x:Name="btn_move_yp" MouseDown="btn_move_yp_MouseDown" MouseUp="btn_move_yp_MouseUp"/>
+                        <Button Grid.Row="1" Grid.Column="0" Content="yn" x:Name="btn_move_yn" MouseDown="btn_move_yn_MouseDown" MouseUp="btn_move_yn_MouseUp"/>
+                        <Button Grid.Row="0" Grid.Column="3" Content="zp" x:Name="btn_move_zp" MouseDown="btn_move_zp_MouseDown"  MouseUp="btn_move_zp_MouseUp"/>
+                        <Button Grid.Row="2" Grid.Column="3" Content="zn" x:Name="btn_move_zn" MouseDown="btn_move_zn_MouseDown" MouseUp="btn_move_zn_MouseUp" />
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Data transfer">
                 </TabItem>
                 
             </TabControl>

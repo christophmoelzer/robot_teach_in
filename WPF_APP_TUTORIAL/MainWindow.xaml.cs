@@ -175,6 +175,7 @@ namespace WPF_APP_TUTORIAL
         public MainWindow()
         {
             InitializeComponent();
+            
             tb_value_sdk_state.Background = Brushes.DarkRed;
             open_com_port(tb_comport.Text);
             connect_robot_controller();
@@ -448,6 +449,20 @@ namespace WPF_APP_TUTORIAL
             get_rapid_pose_data("sdk_pose");
             
 
+            tb_rx.Text = "RX: ";
+            tb_rx.Text += get_rapid_rotation_data("sdk_rx").ToString();
+
+            tb_ry.Text = "RY: ";
+            tb_ry.Text += get_rapid_rotation_data("sdk_ry").ToString();
+
+            tb_rz.Text = "RZ: ";
+            tb_rz.Text += get_rapid_rotation_data("sdk_rz").ToString();
+
+            slider_rx.Value = get_rapid_rotation_data("sdk_rx");
+            slider_ry.Value = get_rapid_rotation_data("sdk_ry");
+            slider_rz.Value = get_rapid_rotation_data("sdk_rz");
+
+
 
             /*if (motion_button_pressed == false && get_rapid_data("sdk_is_moving"))
             {
@@ -521,17 +536,19 @@ namespace WPF_APP_TUTORIAL
 
             // Send commands
             tb_commands.Text = "";
-            for(int i=0; i<sdk_commands.motion_commands_bool.Length; i++)
-            {
-                if (sdk_commands.motion_commands_bool[i] & EStop_motion==false) { 
-                    set_rapid_variable(sdk_commands.motion_commands[i]);
-                    tb_commands.Text += "1 ";
-                }
-                    else
+            if (true) {
+                for (int i = 0; i < sdk_commands.motion_commands_bool.Length; i++)
                 {
-                    reset_rapid_variable(sdk_commands.motion_commands[i]);
-                    tb_commands.Text += "0 ";
+                    if (sdk_commands.motion_commands_bool[i] & EStop_motion == false) {
+                        set_rapid_variable(sdk_commands.motion_commands[i]);
+                        tb_commands.Text += "1 ";
+                    }
+                    else
+                    {
+                        reset_rapid_variable(sdk_commands.motion_commands[i]);
+                        tb_commands.Text += "0 ";
 
+                    }
                 }
             }
             
@@ -584,50 +601,19 @@ namespace WPF_APP_TUTORIAL
                     {
                         rapidPose = (Pose)rdPose.Value;
                         tb_x.Text = "X: ";
-                        tb_x.Text += Math.Round(rapidPose.Trans.X, 1).ToString();
-                        tb_x.Text += " Y: ";
-                        tb_x.Text += Math.Round(rapidPose.Trans.Y, 1).ToString();
-                        tb_x.Text += " Z: ";
-                        tb_x.Text += Math.Round(rapidPose.Trans.Z, 1).ToString();
-                        if (rapidPose.Trans.X < 0)
-                        {
-                            pgb_x_r.Value = 0;
-                            pgb_x_l.Value = -100* rapidPose.Trans.X / 10;
-                            
-                        }
-                        else
-                        {
-                            pgb_x_l.Value = 0;
-                            pgb_x_r.Value = 100 * rapidPose.Trans.X / 10;
+                        tb_x.Text += Math.Round(rapidPose.Trans.X, 2).ToString();
 
-                        }
+                        tb_y.Text = "Y: ";
+                        tb_y.Text += Math.Round(rapidPose.Trans.Y, 2).ToString();
 
+                        tb_z.Text = "Z: ";
+                        tb_z.Text += Math.Round(rapidPose.Trans.Z, 2).ToString();
 
-                        if (rapidPose.Trans.Y < 0)
-                        {
-                            pgb_y_r.Value = 0;
-                            pgb_y_l.Value = -100 * rapidPose.Trans.Y / 10;
+                        slider_x.Value = rapidPose.Trans.X;
+                        slider_y.Value = rapidPose.Trans.Y;
+                        slider_z.Value = rapidPose.Trans.Z;
+                        
 
-                        }
-                        else
-                        {
-                            pgb_y_l.Value = 0;
-                            pgb_y_r.Value = 100 * rapidPose.Trans.Y / 10;
-
-                        }
-
-                        if (rapidPose.Trans.Z < 0)
-                        {
-                            //pgb_z_r.Value = 0;
-                            pgb_z_l.Value = -100-100 * rapidPose.Trans.Z / 10;
-
-                        }
-                        else
-                        {
-                            //pgb_z_l.Value = 0;
-                            pgb_z_r.Value = 100-(100 * rapidPose.Trans.Z / 10);
-
-                        }
 
 
                     }
@@ -638,6 +624,30 @@ namespace WPF_APP_TUTORIAL
 
                 }
             }
+        }
+
+        private double get_rapid_rotation_data(string key_name)
+        {
+            if (key_name != "")
+            {
+                try
+                {
+                    Num rapidEuler;
+                    RapidData rdEuler = controller.Rapid.GetRapidData("T_ROB1", "module_mr19m010", key_name);
+                    if (rdEuler.Value is Num)
+                    {
+                        rapidEuler = (Num)rdEuler.Value;
+                        return Math.Round(rapidEuler.Value, 2);
+                        
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(key_name + " --> " + ex.Message);
+
+                }
+            }
+            return 0;
         }
 
         private void set_rapid_byte(string key_name, byte number=0)
@@ -783,13 +793,13 @@ namespace WPF_APP_TUTORIAL
         {
             SerialPort serialPort = (SerialPort)sender;
             serialPort.ReadTimeout = 50;
-            byte[] data = new byte[4];
+            byte[] data = new byte[8];
             byte stop_byte = new byte();
 
             try
             {
                 received_wd_counter = (byte)serialPort.ReadByte();
-                for(int i=0; i<4; i++)
+                for(int i=0; i<8; i++)
                 {
                     data[i] = (byte)serialPort.ReadByte();
                 }
@@ -804,9 +814,9 @@ namespace WPF_APP_TUTORIAL
 
             // Send data to Arduino
             serialPort.Write(robot_state,0,1);
-            serialPort.Write(data, 0, 4);
+            serialPort.Write(data, 0, 8);
 
-            for(int data_index=0; data_index<data.Length; data_index++)
+            for(int data_index=0; data_index<data.Length-4; data_index++)
             {
                 for(int bit_index=0; bit_index<8; bit_index++)
                 {
@@ -848,5 +858,69 @@ namespace WPF_APP_TUTORIAL
             //SendMessage(false);
             CheckReturnMsg();
         }
+
+        private void btn_move_xp_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            set_rapid_variable("sdk_x_p");
+        }
+
+        private void btn_move_xp_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            reset_rapid_variable("sdk_x_p");
+        }
+
+        private void btn_move_xn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            set_rapid_variable("sdk_x_n");
+        }
+
+        private void btn_move_xn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            reset_rapid_variable("sdk_x_n");
+        }
+
+        private void btn_move_yp_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            set_rapid_variable("sdk_y_p");
+        }
+
+        private void btn_move_yp_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            reset_rapid_variable("sdk_y_p");
+        }
+
+        private void btn_move_yn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            set_rapid_variable("sdk_y_n");
+        }
+
+        private void btn_move_yn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            reset_rapid_variable("sdk_y_n");
+        }
+
+        private void btn_move_zp_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            set_rapid_variable("sdk_z_p");
+        }
+
+        private void btn_move_zp_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            reset_rapid_variable("sdk_z_p");
+        }
+
+        private void btn_move_zn_MouseDown(object sender, MouseEventArgs e)
+        {
+            set_rapid_variable("sdk_z_n");
+            MessageBox.Show("ZN pressed");
+        }
+
+
+        private void btn_move_zn_MouseUp(object sender, MouseEventArgs e)
+        {
+            reset_rapid_variable("sdk_z_n");
+        }
+
+     
     }
 }
